@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 
 class BookDetailView: UIView{
@@ -33,10 +34,13 @@ class BookDetailView: UIView{
         var viewArray = [coverImageView, bookTitleLabel, authorLabel, divider, bookDescriptionLabel, bookDescriptionTextView, bookOwnedByLabel, profileImageView, profileLabel, middleDivider, bottomDivider, messageOwnerBtn]
         viewArray.forEach { (view) in
             self.addSubview(view)
-            view.backgroundColor = UIColor.random
+            //view.backgroundColor = UIColor.random
         }
+        self.bookDescriptionLabel.text = "Book Description"
+        self.bookOwnedByLabel.text = "This Book is Owned By"
         
-        self.coverImageView.backgroundColor = UIColor.random
+        
+        //self.coverImageView.backgroundColor = UIColor.random
         
         
         createConstraints()
@@ -98,16 +102,16 @@ class BookDetailView: UIView{
         }
         
         self.bookDescriptionTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.bookDescriptionLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.bookDescriptionLabel.snp.bottom)
             make.left.equalTo(self).offset(20)
             make.width.equalTo(self).offset(-20)
-            make.height.equalTo(110)
+            make.height.equalTo(200)
             
         }
         self.bookOwnedByLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.bookDescriptionTextView.snp.bottom).offset(20)
             make.left.equalTo(self).offset(20)
-            make.width.equalTo(150)
+            make.width.equalTo(200)
             make.height.equalTo(20)
         }
         
@@ -162,21 +166,75 @@ class BookDetailView: UIView{
 }
 
 
+class SavedBookDetailViewController: BookDetailViewController{
+    
+    var bookItem: BookItem!
+    
+    override func loadBook(){
+        self.bookDetailView.bookTitleLabel.text = self.bookItem.title
+        self.bookDetailView.authorLabel.text = self.bookItem.author
+        self.bookDetailView.bookDescriptionTextView.text = self.bookItem.descriptionText
+        
+        
+        //Hiding fields for current user
+        self.bookDetailView.messageOwnerBtn.isHidden = true
+        self.bookDetailView.bookOwnedByLabel.isHidden = true
+        self.bookDetailView.profileImageView.isHidden = true
+        self.bookDetailView.profileLabel.isHidden = true
+        
+        if let img = self.bookItem.imgUrl{
+            Alamofire.request(img).responseData { (response) in
+                if let data = response.data{
+                    let image = UIImage(data: data)
+                    
+                    OperationQueue.main.addOperation {
+                        self.bookDetailView.coverImageView.image = image
+                    }
+                }
+                
+            }
+        }
+        
+
+    }
+}
+
 
 class BookDetailViewController: UIViewController {
     
     var book: Book!
     
+    
     lazy var bookDetailView = BookDetailView()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        loadBook()
         
     }
     
     override func loadView(){
         super.loadView()
         self.view = bookDetailView
+        
+    }
+    
+    
+    func loadBook(){
+        self.bookDetailView.bookTitleLabel.text = self.book.title
+        self.bookDetailView.authorLabel.text = self.book.author
+        self.bookDetailView.bookDescriptionTextView.text = self.book.description
+        Alamofire.request(self.book.coverImgUrl).responseData { (response) in
+            if let data = response.data{
+                let image = UIImage(data: data)
+                
+                OperationQueue.main.addOperation {
+                    self.bookDetailView.coverImageView.image = image
+                }
+            }
+            
+        }
+        
         
     }
     

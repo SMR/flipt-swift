@@ -8,21 +8,28 @@
 
 import UIKit
 import SnapKit
+import BarcodeScanner
 
 class ExploreViewController: UIViewController {
     
     let store = BookDataStore.sharedInstance
     var collectionView: UICollectionView!
+    
     var searchBar: UISearchBar!
+    
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        print("running")
+        
         
 
         
     }
+    
+       
     func setupViews(){
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)

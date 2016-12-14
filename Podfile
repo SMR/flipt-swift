@@ -12,6 +12,9 @@ target 'Flipt' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'BarcodeScanner'
+  pod 'PopupDialog'
+  pod 'JSQMessagesViewController'
+  pod 'Mapbox-iOS-SDK', '~> 3.3.7'
 
   # Pods for Flipt
 

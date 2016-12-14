@@ -9,11 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-struct BookSubject{
-    var url:String
-    var name:String
-}
-
 
 struct Book{
     
@@ -29,19 +24,53 @@ struct Book{
     var author: String
     var description: String
     var publishYear: String
+    var isbn: String
     
     
     init(){
-        self.publisher = ""
+        self.publisher = "Flipt"
         self.title = "Book"
-        self.fullTitle = ""
+        self.fullTitle = "Book"
         self.coverImgUrl = ""
         self.author = "Author"
-        self.description = ""
-        self.publishYear = ""
+        self.description = "Lorem Ipsum"
+        self.publishYear = "Dec 13"
+        self.isbn = "12345678"
         
     }
-    init(dict:JSON){
+    
+    init(google dict:JSON){
+        self.publisher = dict["publisher"].string ?? ""
+        self.title = dict["title"].string ?? ""
+        self.fullTitle = dict["title"].string ?? ""
+        
+        
+        let coverId = dict["imageLinks"]["thumbnail"].string ?? ""
+        self.coverImgUrl = coverId.replacingOccurrences(of: "&zoom=1", with: "").replacingOccurrences(of: "http", with: "https")
+        
+        
+        let subjectArray = dict["categories"].array ?? []
+        for bookSbj in subjectArray{
+            let subject = bookSbj.string ?? ""
+            self.subjects.append(subject)
+        }
+        
+        self.chapters = []
+//        for chapter in dict["table_of_contents"].arrayValue{
+//            let chapter = chapter["title"].string ?? ""
+//            self.chapters.append(chapter)
+//        }
+        
+        self.description = dict["description"].string ?? ""
+        self.author = dict["authors"][0].string ?? ""
+        
+        self.publishYear = dict["publishedDate"].string ?? ""
+        
+        self.isbn = dict["industryIdentifiers"][0]["identifier"].string ?? ""
+      
+        
+    }
+    init(dict:JSON, isbn:String){
         self.publisher = dict["publishers"][0].string ?? ""
         self.title = dict["title"].string ?? ""
         self.fullTitle = dict["full_title"].string ?? ""
@@ -66,17 +95,25 @@ struct Book{
         self.author = dict["authors"][0]["name"].string ?? ""
         
         self.publishYear = dict["publish_date"].string ?? ""
-        
+        self.isbn = isbn
     }
-
     
-    func toJSON()->[String:String]{
-        var data = [String:String]()
-        data["title"] = self.title
-        data["img"] = self.coverImgUrl
+
+
+    func serialize()->[String:Any]{
+        //var data = [String:String]()
+        //data["title"] = self.title
+        //data["img"] = self.coverImgUrl
+        return [
+            "title":self.title,
+            "imgUrl":self.coverImgUrl,
+            "isbn": self.isbn,
+            "publisher":self.publisher,
+            "author":self.author,
+            "description":self.author,
+            "publishYear":self.publishYear
+        ]
         
-        
-        return data
     }
 }
 /*

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 class BookTitleView: UIView{
     lazy var bookTitleLabel = UILabel()
@@ -23,13 +23,15 @@ class BookTitleView: UIView{
     override init(frame: CGRect){
         super.init(frame: frame)
         self.addSubview(bookTitleLabel)
+        bookTitleLabel.font = UIFont.boldSystemFont(ofSize: 5)
+        
         bookTitleLabel.snp.makeConstraints { (make) in
             make.center.equalTo(self)
         }
         
     }
     
-
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -37,7 +39,7 @@ class BookTitleView: UIView{
 }
 
 class BookCollectionViewCell: UICollectionViewCell {
-
+    
     lazy var bookCoverImageView = UIImageView()
     lazy var bookTitleView = BookTitleView()
     var book = Book()
@@ -65,6 +67,47 @@ class BookCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(self.contentView).offset(10)
         }
     }
+    
+    
+    func configureCell(book: Book){
+        
+        Alamofire.request(book.coverImgUrl).responseData { (response) in
+            guard let data = response.data else { return }
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.bookCoverImageView.image = image
+                
+            }
+        }
+        self.bookTitleView.bookTitleLabel.text = book.title
+        
+        
+    }
+    
+    func configureCell(storedBook: BookItem){
+        
+        if let img = storedBook.imgUrl{
+            Alamofire.request(img).responseData { (response) in
+                guard let data = response.data else { return }
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    self.bookCoverImageView.image = image
+                    self.bookTitleView.isHidden = true
+                }
+            }
+            
+            
+        }else{
+            self.bookTitleView.isHidden = false
+        }
+        if let title = storedBook.title{
+            self.bookTitleView.bookTitleLabel.text = title
+            
+        }
+    }
+    
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -9,20 +9,35 @@
 import Foundation
 import CoreData
 
-class BookDataStore{
+class BookDataStore {
     static let sharedInstance = BookDataStore()
-    private init () {
-        generateData()
-    }
+    private init () {}
     
     var savedBooks = [BookItem]()
     var books = [Book]()
     
-    func generateData(){
-        for _ in 0...20{
-            let book = Book()
-            self.books.append(book)
+   
+    
+    func getBook(isbn:String, completion:@escaping (Book)->()){
+        GoogleBooksApi.getBook(isbn: isbn) { (book,success) in
+            if success {
+                guard let bookItem = book else { return }
+                //self.save(book: bookItem)
+                completion(bookItem)
+            }else{
+                OpenLibraryApi.getBook(isbn: isbn, completion: { (book, success) in
+                    if success {
+                        guard let bookItem = book else { return }
+                        //self.save(book: bookItem)
+                        completion(bookItem)
+                    }else{
+                        print("No book")
+                    }
+                })
+            }
+            
         }
+        
         
     }
     
@@ -32,6 +47,7 @@ class BookDataStore{
         let fetchRequest: NSFetchRequest<BookItem> = BookItem.fetchRequest()
         do {
             self.savedBooks = try context.fetch(fetchRequest)
+            print(self.savedBooks.count)
         }catch{
             
         }
@@ -46,8 +62,10 @@ class BookDataStore{
         bookItem.imgUrl = book.coverImgUrl
         bookItem.author = book.author
         bookItem.descriptionText = book.description
-    
-
+        bookItem.publisher = book.publisher
+        bookItem.publishYear = book.publishYear
+        saveContext()
+        
     }
     
     
@@ -94,9 +112,9 @@ class BookDataStore{
             }
         }
     }
-
     
     
-
+    
+    
     
 }

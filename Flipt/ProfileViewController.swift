@@ -8,66 +8,9 @@
 
 import UIKit
 import SnapKit
-
-class ProfileHeaderView: UIView{
-    lazy var imageView: UIImageView = UIImageView()
-    lazy var profileLabel: UILabel = UILabel()
-    lazy var locationLabel: UILabel = UILabel()
-    
-    init(){
-        super.init(frame: CGRect.zero)
-        setupViews()
-        createConstraints()
-    }
-    
-    override init(frame:CGRect){
-        super.init(frame:frame)
-        setupViews()
-        createConstraints()
-    }
-    
-    func setupViews(){
-        let views :[UIView] = [imageView, profileLabel, locationLabel]
-        views.forEach { (view) in
-            self.addSubview(view)
-            view.backgroundColor = UIColor.random
-        }
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func updateConstraints() {
-        super.updateConstraints()
-        createConstraints()
-    }
-    
-    func createConstraints(){
-        imageView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.height.width.equalTo(75)
-            make.top.equalTo(self).offset(75)
-        }
-        profileLabel.snp.makeConstraints{(make) in
-            make.top.equalTo(imageView.snp.bottom)
-            make.centerX.equalTo(self)
-            make.width.equalTo(153)
-            make.height.equalTo(20)
-            
-        }
-        locationLabel.snp.makeConstraints{(make) in
-            make.top.equalTo(profileLabel.snp.bottom)
-            make.centerX.equalTo(self)
-            make.width.equalTo(150)
-            make.height.equalTo(20)
-        }
-        
-    }
-    
-    
-}
+import BarcodeScanner
+import PopupDialog
+import Alamofire
 
 class ProfileViewController: UIViewController {
     
@@ -75,19 +18,42 @@ class ProfileViewController: UIViewController {
     var collectionView: UICollectionView!
     lazy var profileHeaderView: ProfileHeaderView = ProfileHeaderView()
     let store = BookDataStore.sharedInstance
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("running")
         setupViews()
         
+        let rightBar = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openBarCode))
+        self.navigationItem.rightBarButtonItem = rightBar
         
-        
-        OpenLibraryApi.getBook(isbn: "978-0451191144") { (book) in
-            dump(book)
-        }
+        store.getSavedBooks()
+        self.collectionView.reloadData()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
+        print("running view did appear")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("hey")
+        store.getSavedBooks()
+        self.collectionView.reloadData()
+        
+    }
+    func openBarCode(){
+        let controller = BarcodeScannerController()
+        controller.codeDelegate = self
+        controller.errorDelegate = self
+        controller.dismissalDelegate = self
+        
+        present(controller, animated: true, completion: nil)
+        
+    }
+    
+    
     
     func setupViews(){
         let layout = UICollectionViewFlowLayout()
@@ -108,26 +74,65 @@ class ProfileViewController: UIViewController {
         self.profileHeaderView.backgroundColor = UIColor.red
         self.collectionView.backgroundColor = UIColor.gray
         self.view.addSubview(self.collectionView)
-        self.view.addSubview(self.profileHeaderView)
-
+        //self.view.addSubview(self.profileHeaderView)
+        setupBarcode()
         setupConstraints()
     }
     
     func setupConstraints(){
-        self.profileHeaderView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view).offset(55)
-            make.left.equalTo(self.view)
-            make.width.equalTo(self.view)
-            make.height.equalTo(self.view).dividedBy(3)
-        }
+//        self.profileHeaderView.snp.makeConstraints { (make) in
+//            make.top.equalTo(self.view).offset(55)
+//            make.left.equalTo(self.view)
+//            make.width.equalTo(self.view)
+//            make.height.equalTo(self.view).dividedBy(3)
+//        }
         self.collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.profileHeaderView.snp.bottom).offset(-45)
+            make.top.equalTo(self.view).offset(5)
             make.left.equalTo(self.view)
             make.width.equalTo(self.view)
             make.bottom.equalTo(self.view)
-        
+            
         }
     }
+    
+    func show(book:Book){
+        let title = book.title
+        let message = book.description
+        let popup = PopupDialog(title: title, message: message)
+        
+        
+        
+        
+        // Create buttons
+        let cancel = CancelButton(title: "Cancel") {
+            popup.dismiss(animated: true, completion: nil)
+            self.openBarCode()
+        }
+        
+        let add = DefaultButton(title: "Add to BookShelf") {
+            self.store.save(book: book)
+            popup.dismiss(animated: true, completion: nil)
+            self.openBarCode()
+            
+        }
+        
+        popup.addButtons([add, cancel])
+        
+        
+        self.present(popup, animated: true, completion: nil)
+        
+        
+        
+        //        let image = UIImage(named: "pexels-photo-103290")
+        //
+        //        // Create the dialog
+        
+        
+        
+    }
+
+    
+    
     
 }
 
@@ -136,32 +141,115 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return store.books.count
+        return self.store.savedBooks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicCell", for: indexPath) as! BookCollectionViewCell
         
         
-        
-        let book = Book()
-        cell.book = book
-        cell.backgroundColor = UIColor.random
+        let book = self.store.savedBooks[indexPath.row]
+        cell.configureCell(storedBook: book)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let bookDetailVC = BookDetailViewController()
-        let book = Book()
-        bookDetailVC.book = book
+        let bookDetailVC = SavedBookDetailViewController()
+        bookDetailVC.bookItem = store.savedBooks[indexPath.row]
         self.navigationController?.pushViewController(bookDetailVC, animated: true)
+        
+        //        OpenLibraryApi.getBook(isbn: "9781626340466") { (book) in
+        //            bookDetailVC.book = book
+        //            self.navigationController?.pushViewController(bookDetailVC, animated: true)
+        //        }
+        //let book = Book()
+        
         //self.present(bookDetailVC, animated: true, completion: nil)
         
     }
     
+    
+    
+    
+    
+    
 }
+
+extension ProfileViewController: BarcodeScannerCodeDelegate {
+    
+    func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
+        print(code)
+        
+        store.getBook(isbn: code) { (book) in
+            
+            //            controller.dismiss(animated: true, completion: nil)
+            controller.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                //controller.reset(animated: true)
+                self.show(book: book)
+            }
+            print(book)
+            
+        }
+        print(type)
+        
+        //        let delayTime = DispatchTime.now() + Double(Int64(6 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        //        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+        //            controller.resetWithError()
+        //        }
+    }
+}
+
+extension ProfileViewController: BarcodeScannerErrorDelegate {
+    
+    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
+        print(error)
+    }
+}
+
+extension ProfileViewController: BarcodeScannerDismissalDelegate {
+    
+    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+extension ProfileViewController{
+    func setupBarcode(){
+        BarcodeScanner.Title.text = NSLocalizedString("Scan barcode", comment: "")
+        BarcodeScanner.CloseButton.text = NSLocalizedString("Close", comment: "")
+        BarcodeScanner.SettingsButton.text = NSLocalizedString("", comment: "")
+        BarcodeScanner.Info.text = NSLocalizedString(
+            "Place the barcode within the window to scan. The search will start automatically.", comment: "")
+        BarcodeScanner.Info.loadingText = NSLocalizedString("Looking for your book...", comment: "")
+        BarcodeScanner.Info.notFoundText = NSLocalizedString("No Book found.", comment: "")
+        BarcodeScanner.Info.settingsText = NSLocalizedString(
+            "In order to scan barcodes you have to allow camera under your settings.", comment: "")
+        
+        // Fonts
+        BarcodeScanner.Title.font = UIFont.boldSystemFont(ofSize: 17)
+        BarcodeScanner.CloseButton.font = UIFont.boldSystemFont(ofSize: 17)
+        BarcodeScanner.SettingsButton.font = UIFont.boldSystemFont(ofSize: 17)
+        BarcodeScanner.Info.font = UIFont.boldSystemFont(ofSize: 14)
+        BarcodeScanner.Info.loadingFont = UIFont.boldSystemFont(ofSize: 16)
+        
+        // Colors
+        BarcodeScanner.Title.color = UIColor.black
+        BarcodeScanner.CloseButton.color = UIColor.black
+        BarcodeScanner.SettingsButton.color = UIColor.white
+        BarcodeScanner.Info.textColor = UIColor.black
+        BarcodeScanner.Info.tint = UIColor.black
+        BarcodeScanner.Info.loadingTint = UIColor.black
+        BarcodeScanner.Info.notFoundTint = UIColor.red
+        
+    }
+    
+}
+
+
 
 
 extension UIColor{

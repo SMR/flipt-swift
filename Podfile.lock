@@ -34,7 +34,12 @@ PODS:
   - GoogleSymbolUtilities (1.1.2)
   - GoogleUtilities (1.3.2):
     - GoogleSymbolUtilities (~> 1.1)
+  - JSQMessagesViewController (7.3.4):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
   - Kingfisher (3.1.4)
+  - Mapbox-iOS-SDK (3.3.7)
+  - PopupDialog (0.5.0)
   - SnapKit (3.0.2)
   - SwiftyJSON (3.1.1)
 
@@ -44,7 +49,10 @@ DEPENDENCIES:
   - Firebase
   - Firebase/Auth
   - Firebase/Database
+  - JSQMessagesViewController
   - Kingfisher (from `https://github.com/onevcat/Kingfisher.git`)
+  - Mapbox-iOS-SDK (~> 3.3.7)
+  - PopupDialog
   - SnapKit (~> 3.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -75,10 +83,14 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: 3edd3a8161347494f2da60ea0deddc8a472d94cb
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
+  Mapbox-iOS-SDK: 142301fa63a6719cbd2eacc0f9e8bf36c65930d9
+  PopupDialog: 9890441b81105b9076757af2afe2b037be682f3e
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: 6b0db615cca0ee0f77862a59514b5ce5521c6b2d
+PODFILE CHECKSUM: dc03588ed5ca707537382eaf9dd381171805617e
 
 COCOAPODS: 1.0.1

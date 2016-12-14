@@ -4,9 +4,11 @@
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptionText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imgUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publisher" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publishYear" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookItem" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="BookItem" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>
