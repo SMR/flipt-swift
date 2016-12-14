@@ -111,4 +111,4 @@ xcuserdata
 *.moved-aside
 
 # CocoaPods
-/Pods
+Pods/
