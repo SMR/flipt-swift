@@ -15,7 +15,7 @@ import CoreLocation
 class ScanViewController: UIViewController {
 
     let store = BookDataStore.sharedInstance
-    let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
@@ -101,7 +101,14 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
         
         let add = DefaultButton(title: "Add to BookShelf") {
             self.store.save(book: book)
-            FliptAPIClient.save(book, at: UserStore.current.location)
+            //FliptAPIClient.save(book, at: UserStore.current.location)
+            if let currentUser = User.current {
+                FliptAPIClient.save(book, at: currentUser.location)
+            } else {
+                print("not signed in show book")
+                
+            }
+            //FliptAPIClient.save(book, at: (User.current?.location)!)
             popup.dismiss(animated: true, completion: nil)
             //self.openBarCode()
             
@@ -174,13 +181,22 @@ extension ScanViewController{
 
 extension ScanViewController: CLLocationManagerDelegate{
     func setupLocationManager(){
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+        DispatchQueue.main.async {
+            self.locationManager = CLLocationManager()
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.requestWhenInUseAuthorization()
+            
+            self.locationManager.requestLocation()
+            if let currentUser = User.current {
+                currentUser.latitude = (self.locationManager.location?.coordinate.latitude)!
+                currentUser.longitude = (self.locationManager.location?.coordinate.longitude)!
+            }
+        }
         
-        locationManager.requestLocation()
-        UserStore.current.latitude =  (locationManager.location?.coordinate.latitude)!
-        UserStore.current.longitude = (locationManager.location?.coordinate.longitude)!
+      
+        //User.current?.latitude =
+      //  User.current?.longitude =
         
         
         

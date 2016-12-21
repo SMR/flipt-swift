@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Fabric
+import Crashlytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,8 +17,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        Fabric.with([Crashlytics.self])
+        FIRApp.configure()
         
-        //FIRApp.configure()
+        
+ 
+    
+    //TODO: - Add back user login
+        
+        // check for user login in
+        if let user = User.current {
+            let profileVC = ProfileViewController()
+            let scanVC = ScanViewController()
+            let exploreVC = ExploreViewController()
+            let navVC = UINavigationController()
+            
+            
+            let tabBarController = UITabBarController()
+            
+            tabBarController.viewControllers = [profileVC,scanVC,exploreVC]
+            tabBarController.tabBar.items?[0].image = UIImage(named: "profile")
+            tabBarController.tabBar.items?[0].title = "Profile"
+            tabBarController.tabBar.items?[1].image = UIImage(named: "scan")
+            tabBarController.tabBar.items?[1].title = "Scan"
+            tabBarController.tabBar.items?[2].image = UIImage(named: "profile")
+            tabBarController.tabBar.items?[2].title = "Explore"
+            navVC.viewControllers = [tabBarController]
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = navVC
+            self.window?.makeKeyAndVisible()
+
+        } else {
+            
+            let loginVC = LoginViewController()
+            let navVC = UINavigationController(rootViewController: loginVC)
+            navVC.isNavigationBarHidden = true
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = navVC
+            self.window?.makeKeyAndVisible()
+            
+        }
+ 
+ 
+
+//TODO: - Remove Redundant check for sign in
+//        if UserStore.current.signedIn {
+//            print("signed in")
+//            print(UserStore.current.apiKey)
+//            print(UserStore.current.apiSecret)
+//            
+//            
+//        }else{
+//            
+//            
+//            
+//            print("not signed in")
+//        }
         // Override point for customization after application launch.
         return true
     }

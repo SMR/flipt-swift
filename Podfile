@@ -11,10 +11,16 @@ target 'Flipt' do
   pod 'Firebase'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'BarcodeScanner'
+  pod 'ImagePicker'
+  pod 'Lightbox', git: 'https://github.com/hyperoslo/Lightbox.git', branch: 'swift-3'
   pod 'PopupDialog'
   pod 'JSQMessagesViewController'
   pod 'Mapbox-iOS-SDK', '~> 3.3.7'
+  pod 'Fabric'
+  pod 'Crashlytics'
+  pod 'SVProgressHUD'
 
   # Pods for Flipt
 

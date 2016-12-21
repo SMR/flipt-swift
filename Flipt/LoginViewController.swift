@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -23,20 +24,73 @@ class LoginViewController: UIViewController {
     }
     
     func login(){
-        print("logion")
-        let username = loginView.userNameTextField.text!.lowercased()
+        SVProgressHUD.show()
+        loginView.loginBtn.isEnabled = false
+        
+        let username = loginView.usernameTextField.text!.lowercased()
         
         let password = loginView.passwordTextField.text!.lowercased()
+
         
-        print(username)
-        print(password)
-        FliptAPIClient.login(userName: username, password: password)
+        FliptAPIClient.login(userName: username, password: password) {success in
+            
+            
+            if success {
+                
+                OperationQueue.main.addOperation {
+                    SVProgressHUD.dismiss()
+                   
+                    let profileVC = ProfileViewController()
+            
+                    let scanVC = ScanViewController()
+                    let tabBarController = UITabBarController()
+                    tabBarController.view.backgroundColor = UIColor.white
+                    tabBarController.viewControllers = [profileVC,scanVC]
+                    tabBarController.tabBar.items?[0].image = UIImage(named: "profile")
+                    tabBarController.tabBar.items?[0].title = "Profile"
+                    tabBarController.tabBar.items?[1].image = UIImage(named: "scan")
+                    tabBarController.tabBar.items?[1].title = "Scan"
+                    //tabBarController.tabBar.isTranslucent = false
+                    
+                    let navVC = UINavigationController()
+                    navVC.viewControllers = [tabBarController]
+                    self.present(navVC, animated: true, completion: nil)
+                }
+            }
+            //let tabBar = FliptTabBarController()
+            
+            
+            
+//            let lmTabBarController = LMTabBarController()
+//            let navBarController = VerticalOnlyNavigationController()
+//            navBarController.viewControllers = [lmTabBarController]
+//            navBarController.navigationBar.barTintColor = Constants.appColor
+//            lmTabBarController.layerClient = layerClient
+//            lmTabBarController.currentUser = self.currentUser
+//            print("Successfully connected via Layer in Login View Controller")
+//            self.presentViewController(navBarController, animated: true, completion: nil)
+
+            
+            
+        
+
+            
+                //self.navigationController?.pushViewController(navVC, animated: true)
+                //self.present(profileVC, animated: false, completion: nil)
+        
+            
+        
+            
+        }
     }
     
     override func loadView(){
         self.view = loginView
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
 }
 

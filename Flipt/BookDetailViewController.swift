@@ -31,7 +31,7 @@ class BookDetailView: UIView{
     
     
     func createViews(){
-        var viewArray = [coverImageView, bookTitleLabel, authorLabel, divider, bookDescriptionLabel, bookDescriptionTextView, bookOwnedByLabel, profileImageView, profileLabel, middleDivider, bottomDivider, messageOwnerBtn]
+        let viewArray = [coverImageView, bookTitleLabel, authorLabel, divider, bookDescriptionLabel, bookDescriptionTextView, bookOwnedByLabel, profileImageView, profileLabel, middleDivider, bottomDivider, messageOwnerBtn]
         viewArray.forEach { (view) in
             self.addSubview(view)
             //view.backgroundColor = UIColor.random
@@ -208,6 +208,7 @@ class BookDetailViewController: UIViewController {
     lazy var bookDetailView = BookDetailView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
         self.view.backgroundColor = UIColor.white
         loadBook()
         

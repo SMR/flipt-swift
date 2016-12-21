@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import BarcodeScanner
+import SVProgressHUD
 
 class ExploreViewController: UIViewController {
     
@@ -23,9 +24,11 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         print("running")
-        
-        
-
+        SVProgressHUD.show()
+        store.getNearByBooks {
+            self.collectionView.reloadData()
+            SVProgressHUD.dismiss()
+        }
         
     }
     

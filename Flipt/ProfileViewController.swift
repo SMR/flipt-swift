@@ -11,6 +11,8 @@ import SnapKit
 import BarcodeScanner
 import PopupDialog
 import Alamofire
+import ImagePicker
+import Lightbox
 
 class ProfileViewController: UIViewController {
     
@@ -24,8 +26,8 @@ class ProfileViewController: UIViewController {
         print("running")
         setupViews()
         
-        let rightBar = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openBarCode))
-        self.navigationItem.rightBarButtonItem = rightBar
+
+        
         
         store.getSavedBooks()
         self.collectionView.reloadData()
@@ -33,14 +35,21 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        print("running view did appear")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("hey")
-        store.getSavedBooks()
-        self.collectionView.reloadData()
+        self.setupUser()
+        
+        
+        let rightBar = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openBarCode))
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.navigationItem.rightBarButtonItem = rightBar
+        self.navigationItem.rightBarButtonItem = rightBar
+        store.getUserBooks {
+            self.collectionView.reloadData()
+        }
+        
         
     }
     func openBarCode(){
@@ -57,8 +66,10 @@ class ProfileViewController: UIViewController {
     
     func setupViews(){
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5)
         
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5)
+        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 1
         let cellsPerRow: CGFloat = 3
         let pLength = self.view.bounds.width
         let perimeterLength = floor(pLength / cellsPerRow)
@@ -72,22 +83,43 @@ class ProfileViewController: UIViewController {
         self.collectionView.register(BookCollectionViewCell.self, forCellWithReuseIdentifier: "basicCell")
         
         self.profileHeaderView.backgroundColor = UIColor.red
-        self.collectionView.backgroundColor = UIColor.gray
+        self.collectionView.backgroundColor = UIColor.lightGray
+        
         self.view.addSubview(self.collectionView)
-        //self.view.addSubview(self.profileHeaderView)
+        self.view.addSubview(self.profileHeaderView)
+        
+        //add tap gesture recognizer to profile
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addProfilePic))
+        self.profileHeaderView.imageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        
+        
+        
+        
         setupBarcode()
         setupConstraints()
     }
     
+
+    
+    func setupUser(){
+        OperationQueue.main.addOperation {
+            if let currentUser = User.current {
+                self.profileHeaderView.profileLabel.text = currentUser.username
+            }
+        }
+    }
+    
     func setupConstraints(){
-//        self.profileHeaderView.snp.makeConstraints { (make) in
-//            make.top.equalTo(self.view).offset(55)
-//            make.left.equalTo(self.view)
-//            make.width.equalTo(self.view)
-//            make.height.equalTo(self.view).dividedBy(3)
-//        }
+        self.profileHeaderView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view)
+            make.left.equalTo(self.view)
+            make.width.equalTo(self.view)
+            make.height.equalTo(self.view).dividedBy(3)
+        }
         self.collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view).offset(5)
+            make.top.equalTo(self.profileHeaderView.snp.bottom)
             make.left.equalTo(self.view)
             make.width.equalTo(self.view)
             make.bottom.equalTo(self.view)
@@ -143,6 +175,9 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.store.savedBooks.count
     }
+    
+   
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicCell", for: indexPath) as! BookCollectionViewCell
@@ -200,6 +235,51 @@ extension ProfileViewController: BarcodeScannerCodeDelegate {
         //            controller.resetWithError()
         //        }
     }
+}
+
+
+extension ProfileViewController: ImagePickerDelegate {
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        guard images.count > 0 else { return }
+        
+        let lightboxImages = images.map {
+            return LightboxImage(image: $0)
+        }
+   
+        let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
+        imagePicker.present(lightbox, animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
+        guard let image = images.first else { return }
+        self.profileHeaderView.imageView.image = image
+        let data = UIImagePNGRepresentation(image)
+        
+        guard let currentUser = User.current else { return }
+        if let data = data {
+            currentUser.uploadPicture(data: data)
+        }
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func addProfilePic() {
+        print("getting tapped")
+        let imagePicker = ImagePickerController()
+        imagePicker.imageLimit = 1
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true, completion: nil)
+     
+    }
+    
+    
 }
 
 extension ProfileViewController: BarcodeScannerErrorDelegate {

@@ -16,6 +16,10 @@ class BookDataStore {
     var savedBooks = [BookItem]()
     var books = [Book]()
     
+    var nearByBooks = [Book]()
+    
+    
+
    
     
     func getBook(isbn:String, completion:@escaping (Book)->()){
@@ -42,19 +46,74 @@ class BookDataStore {
     }
     
     
+    func getNearByBooks(completion: @escaping ()->()) {
+        FliptAPIClient.getNearBooks { (books) in
+            self.nearByBooks = books
+            completion()
+        }
+    }
+    
+    func getUserBooks(completion: @escaping ()->()) {
+        getSavedBooks()
+        FliptAPIClient.getUser {bookCount in
+            if let currentUser = User.current {
+                if bookCount != self.savedBooks.count {
+                    if bookCount > self.savedBooks.count {
+                        print("Core Data > Server")
+                    }else {
+                        print("Server < Core Data")
+                    }
+                    FliptAPIClient.getAllBooks(completion: { (books) in
+                        self.save(books: books)
+                        self.getSavedBooks()
+                        
+                    })
+                } else {
+                    print("Server = Core Data")
+                    // do nothing
+                }
+            }
+        }
+    }
+    
+    
     func getSavedBooks(){
+        
+        // check for differences in count 
+        
+        
         let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<BookItem> = BookItem.fetchRequest()
         do {
             self.savedBooks = try context.fetch(fetchRequest)
-            print(self.savedBooks.count)
         }catch{
             
         }
         
     }
     
-    func save(book: Book){
+    func save(books: [Book]) {
+        let context = persistentContainer.viewContext
+        
+
+        for book in books {
+            let bookItem = BookItem(context: context)
+            bookItem.title = book.title
+            bookItem.imgUrl = book.coverImgUrl
+            bookItem.author = book.author
+            bookItem.descriptionText = book.description
+            bookItem.publisher = book.publisher
+            bookItem.publishYear = book.publishYear
+            
+        }
+        saveContext()
+    }
+    
+    func fetchBooks() {
+        
+    }
+    
+    func save(book: Book) {
         
         let context = persistentContainer.viewContext
         let bookItem = BookItem(context: context)

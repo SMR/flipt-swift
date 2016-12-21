@@ -38,8 +38,19 @@ struct Book{
         self.isbn = "12345678"
         
     }
+    init(flipt dict:JSON) {
+        self.publisher = dict["publisher"].string ?? ""
+        self.title = dict["title"].string ?? ""
+        self.fullTitle = dict["title"].string ?? ""
+        self.coverImgUrl = dict["imgUrl"].string ?? ""
+        self.author = dict["author"].string ?? ""
+        self.description = dict["description"].string ?? ""
+        self.publishYear = dict["publishYear"].string ?? ""
+        self.isbn = dict["isbn"].string ?? ""
+        
+    }
     
-    init(google dict:JSON){
+    init(google dict:JSON) {
         self.publisher = dict["publisher"].string ?? ""
         self.title = dict["title"].string ?? ""
         self.fullTitle = dict["title"].string ?? ""
@@ -70,7 +81,7 @@ struct Book{
       
         
     }
-    init(dict:JSON, isbn:String){
+    init(dict:JSON, isbn:String) {
         self.publisher = dict["publishers"][0].string ?? ""
         self.title = dict["title"].string ?? ""
         self.fullTitle = dict["full_title"].string ?? ""
@@ -100,7 +111,7 @@ struct Book{
     
 
 
-    func serialize()->[String:Any]{
+    func serialize()->[String:Any] {
         //var data = [String:String]()
         //data["title"] = self.title
         //data["img"] = self.coverImgUrl

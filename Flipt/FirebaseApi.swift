@@ -12,4 +12,8 @@ import Firebase
 
 final class FirebaseApi {
     
+    class func observeMessages() {
+        
+    }
+    
 }

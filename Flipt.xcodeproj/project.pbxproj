@@ -10,6 +10,7 @@
 		1BE5BB4E3466251131892DF1 /* Pods_Flipt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289E912E12AD26367D00E285 /* Pods_Flipt.framework */; };
 		8F0C4DEB1DFE574D0014E22C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */; };
 		8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C8C081E011628005A8E3C /* FirebaseApi.swift */; };
+		8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C8C141E0243CC005A8E3C /* UIConstants.swift */; };
 		8F30E6081DE78448008F5ED0 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */; };
 		8F41564C1DE8C82E00463E6D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */; };
 		8F41564E1DE8C92000463E6D /* BookDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41564D1DE8C92000463E6D /* BookDataStore.swift */; };
@@ -19,6 +20,9 @@
 		8F500EB21DF89B27006DA5EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EB11DF89B27006DA5EB /* LoginView.swift */; };
 		8F7D97621DE40F120053182D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D97611DE40F120053182D /* ProfileViewController.swift */; };
 		8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D97661DE416240053182D /* BookCollectionViewCell.swift */; };
+		8F8673851E033DC300A0CF08 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8673841E033DC300A0CF08 /* RegisterView.swift */; };
+		8F8673871E085EF700A0CF08 /* FliptTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8673861E085EF700A0CF08 /* FliptTabBarController.swift */; };
+		8F8673891E087AA200A0CF08 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8673881E087AA200A0CF08 /* User.swift */; };
 		8F86FD741DEE869C00C1D3FE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F86FD731DEE869C00C1D3FE /* ProfileHeaderView.swift */; };
 		8F86FD761DEE8B2A00C1D3FE /* GoogleBooksApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F86FD751DEE8B2A00C1D3FE /* GoogleBooksApi.swift */; };
 		8F86FD781DEEA63000C1D3FE /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F86FD771DEEA63000C1D3FE /* ScanViewController.swift */; };
@@ -37,8 +41,9 @@
 		124827AE2AA8658186F92F89 /* Pods-Flipt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flipt.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flipt/Pods-Flipt.release.xcconfig"; sourceTree = "<group>"; };
 		289E912E12AD26367D00E285 /* Pods_Flipt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flipt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF872087DFB1D785703AED9 /* Pods-Flipt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flipt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flipt/Pods-Flipt.debug.xcconfig"; sourceTree = "<group>"; };
-		8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F0C8C081E011628005A8E3C /* FirebaseApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseApi.swift; sourceTree = "<group>"; };
+		8F0C8C141E0243CC005A8E3C /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		8F41564D1DE8C92000463E6D /* BookDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDataStore.swift; sourceTree = "<group>"; };
@@ -48,6 +53,9 @@
 		8F500EB11DF89B27006DA5EB /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8F7D97611DE40F120053182D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8F7D97661DE416240053182D /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		8F8673841E033DC300A0CF08 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		8F8673861E085EF700A0CF08 /* FliptTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FliptTabBarController.swift; sourceTree = "<group>"; };
+		8F8673881E087AA200A0CF08 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8F86FD731DEE869C00C1D3FE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		8F86FD751DEE8B2A00C1D3FE /* GoogleBooksApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksApi.swift; sourceTree = "<group>"; };
 		8F86FD771DEEA63000C1D3FE /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
@@ -117,11 +125,26 @@
 			name = ProfileViewController;
 			sourceTree = "<group>";
 		};
+		8F0C8C0B1E02406A005A8E3C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */,
+				8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */,
+				8F8BBC341DC00850006789E9 /* Flipt.entitlements */,
+				8F8BBC1A1DC00321006789E9 /* Main.storyboard */,
+				8F8BBC1F1DC00321006789E9 /* LaunchScreen.storyboard */,
+				8F8BBC321DC007B5006789E9 /* GoogleService-Info.plist */,
+				8F8BBC221DC00321006789E9 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		8F500EB01DF89B1B006DA5EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8F86FD731DEE869C00C1D3FE /* ProfileHeaderView.swift */,
 				8F500EB11DF89B27006DA5EB /* LoginView.swift */,
+				8F8673841E033DC300A0CF08 /* RegisterView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -143,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				8F8BBC2E1DC00662006789E9 /* Book.swift */,
+				8F8673881E087AA200A0CF08 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -163,8 +187,6 @@
 		8F8BBC0A1DC00321006789E9 = {
 			isa = PBXGroup;
 			children = (
-				8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */,
-				8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */,
 				8F8BBC151DC00321006789E9 /* Flipt */,
 				8F8BBC141DC00321006789E9 /* Products */,
 				C37CFDFB20DE422FD0DA22D1 /* Pods */,
@@ -183,18 +205,16 @@
 		8F8BBC151DC00321006789E9 /* Flipt */ = {
 			isa = PBXGroup;
 			children = (
-				8F500EB01DF89B1B006DA5EB /* Views */,
-				8F8BBC341DC00850006789E9 /* Flipt.entitlements */,
 				8F8BBC2A1DC0060E006789E9 /* Constants.swift */,
+				8F8BBC161DC00321006789E9 /* AppDelegate.swift */,
+				8F8673861E085EF700A0CF08 /* FliptTabBarController.swift */,
+				8F500EB01DF89B1B006DA5EB /* Views */,
 				8F7D97651DE414E40053182D /* ApiClient */,
 				8F7D97641DE414DD0053182D /* Models */,
 				8F7D97631DE414D50053182D /* Controllers */,
-				8F8BBC161DC00321006789E9 /* AppDelegate.swift */,
-				8F8BBC1A1DC00321006789E9 /* Main.storyboard */,
+				8F0C8C0B1E02406A005A8E3C /* Resources */,
 				8F8BBC1D1DC00321006789E9 /* Assets.xcassets */,
-				8F8BBC1F1DC00321006789E9 /* LaunchScreen.storyboard */,
-				8F8BBC321DC007B5006789E9 /* GoogleService-Info.plist */,
-				8F8BBC221DC00321006789E9 /* Info.plist */,
+				8F0C8C141E0243CC005A8E3C /* UIConstants.swift */,
 			);
 			path = Flipt;
 			sourceTree = "<group>";
@@ -221,6 +241,7 @@
 				8F8BBC111DC00321006789E9 /* Resources */,
 				A30AA2A18995828451F2E22E /* [CP] Embed Pods Frameworks */,
 				65390F386DE1ED767CF84A62 /* [CP] Copy Pods Resources */,
+				8F0C8C0A1E023D06005A8E3C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -238,7 +259,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Johann Kerr";
 				TargetAttributes = {
 					8F8BBC121DC00321006789E9 = {
@@ -302,6 +323,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flipt/Pods-Flipt-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8F0C8C0A1E023D06005A8E3C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2f9f339131b9905b1efd68260056a6fe6e8e88b8 9130b191a9d1b624608e27f27803ab3c7520c92ba3cbb0c1d055fab414d386cb\n";
+		};
 		A30AA2A18995828451F2E22E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -340,16 +374,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8BBC2D1DC0062B006789E9 /* OpenLibraryApi.swift in Sources */,
+				8F8673851E033DC300A0CF08 /* RegisterView.swift in Sources */,
 				8F500EAB1DF872CB006DA5EB /* FliptAPIClient.swift in Sources */,
 				8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */,
 				8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */,
 				8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */,
 				8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */,
 				8F41564C1DE8C82E00463E6D /* ExploreViewController.swift in Sources */,
+				8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */,
 				8F86FD781DEEA63000C1D3FE /* ScanViewController.swift in Sources */,
+				8F8673891E087AA200A0CF08 /* User.swift in Sources */,
 				8F86FD761DEE8B2A00C1D3FE /* GoogleBooksApi.swift in Sources */,
 				8F86FD741DEE869C00C1D3FE /* ProfileHeaderView.swift in Sources */,
 				8F8BBC171DC00321006789E9 /* AppDelegate.swift in Sources */,
+				8F8673871E085EF700A0CF08 /* FliptTabBarController.swift in Sources */,
 				8F500EB21DF89B27006DA5EB /* LoginView.swift in Sources */,
 				8F7D97621DE40F120053182D /* ProfileViewController.swift in Sources */,
 				8F30E6081DE78448008F5ED0 /* BookDetailViewController.swift in Sources */,
@@ -400,6 +438,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -450,6 +489,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -479,6 +519,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8BF872087DFB1D785703AED9 /* Pods-Flipt.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Flipt/Flipt.entitlements;
 				DEVELOPMENT_TEAM = WNAGBXF4G9;
@@ -487,6 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.Flipt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -494,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 124827AE2AA8658186F92F89 /* Pods-Flipt.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Flipt/Flipt.entitlements;
 				DEVELOPMENT_TEAM = WNAGBXF4G9;
@@ -502,6 +545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.Flipt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -536,7 +580,7 @@
 			);
 			currentVersion = 8FD1B0B41DED3439006BC634 /* Flipt.xcdatamodel */;
 			path = Flipt.xcdatamodeld;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */

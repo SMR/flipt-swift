@@ -20,20 +20,32 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+    <key>NSCameraUsageDescription</key>
+    <string>This app uses the camera for testing purposes</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app uses the library for testing purposes</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>2f9f339131b9905b1efd68260056a6fe6e8e88b8</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>Woo</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Hey There</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Woo hoo</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Wooo</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

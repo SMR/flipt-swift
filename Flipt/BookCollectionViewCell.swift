@@ -87,6 +87,7 @@ class BookCollectionViewCell: UICollectionViewCell {
     func configureCell(storedBook: BookItem){
         
         if let img = storedBook.imgUrl{
+            self.bookCoverImageView.backgroundColor = UIColor.gray
             Alamofire.request(img).responseData { (response) in
                 guard let data = response.data else { return }
                 let image = UIImage(data: data)

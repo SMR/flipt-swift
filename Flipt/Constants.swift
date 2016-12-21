@@ -12,7 +12,7 @@ import BarcodeScanner
 struct Constants{
     static let booksApiURL = "https://openlibrary.org/api/books?bibkeys=ISBN:"
     static let bookApiParams = "&jscmd=details&format=json"
-    
+    static let appColor = UIColor.blue
     
     static let googleBooksApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
     static let googleApiKey = "&bookclub-1009"

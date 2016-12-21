@@ -1,15 +1,15 @@
 //
-//  LoginView.swift
+//  RegisterView.swift
 //  Flipt
 //
-//  Created by Johann Kerr on 12/7/16.
+//  Created by Johann Kerr on 12/15/16.
 //  Copyright © 2016 Johann Kerr. All rights reserved.
 //
 
 import SnapKit
 import Foundation
 
-class LoginView: UIView{
+class RegisterView: UIView{
     
     lazy var logoImageView = UIImageView()
     
@@ -22,6 +22,8 @@ class LoginView: UIView{
     lazy var loginBtn = UIButton()
     lazy var signupBtn = UIButton()
     lazy var backgroundImage = UIImageView()
+    
+ 
     
     
     init(){
@@ -44,7 +46,7 @@ class LoginView: UIView{
     
     func configureViews(){
         
-
+        
         userNameLabel.text = "Username"
         userNameLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
         userNameLabel.textColor = UIColor.white
@@ -70,11 +72,11 @@ class LoginView: UIView{
         passwordTextField.isSecureTextEntry = true
         
         passwordDivider.backgroundColor = UIColor.white
-
         
         
         
-
+        
+        
         
         logoImageView.image = UIImage(named: "logo")
         
@@ -94,8 +96,6 @@ class LoginView: UIView{
             self.addSubview(view)
         }
         
-        
-       
         backgroundImage.backgroundColor = UIColor.purple
         
         createConstraints()
@@ -116,7 +116,7 @@ class LoginView: UIView{
             make.top.equalTo(self.logoImageView.snp.bottom).offset(125)
             
         }
-       
+        
         self.usernameTextField.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
             make.right.equalTo(self).offset(-20)
@@ -157,17 +157,18 @@ class LoginView: UIView{
             make.right.equalTo(self).offset(-20)
             make.top.equalTo(self.passwordDivider.snp.bottom).offset(30)
         }
-         /*
-
-        
-        self.loginBtn.snp.makeConstraints { (make) in
-            make.width.equalTo(100)
-            make.height.equalTo(Constants.UI.textFieldHeight)
-            make.top.equalTo(self.passwordTextField.snp.bottom).offset(20)
-            make.centerX.equalTo(self)
-        }
-        */
+        /*
+         
+         
+         self.loginBtn.snp.makeConstraints { (make) in
+         make.width.equalTo(100)
+         make.height.equalTo(Constants.UI.textFieldHeight)
+         make.top.equalTo(self.passwordTextField.snp.bottom).offset(20)
+         make.centerX.equalTo(self)
+         }
+         */
     }
     
     
 }
+
