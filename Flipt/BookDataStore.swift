@@ -46,15 +46,17 @@ class BookDataStore {
     }
     
     
-    func getNearByBooks(completion: @escaping ()->()) {
-        FliptAPIClient.getNearBooks { (books) in
+    func getNearByBooks(at location:Location, completion: @escaping ()->()) {
+        FliptAPIClient.getNearBooks(at: location) { (books) in
             self.nearByBooks = books
             completion()
         }
+       
     }
     
     func getUserBooks(completion: @escaping ()->()) {
         getSavedBooks()
+        
         FliptAPIClient.getUser {bookCount in
             if let currentUser = User.current {
                 if bookCount != self.savedBooks.count {

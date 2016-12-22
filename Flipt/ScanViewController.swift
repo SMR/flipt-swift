@@ -102,12 +102,18 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
         let add = DefaultButton(title: "Add to BookShelf") {
             self.store.save(book: book)
             //FliptAPIClient.save(book, at: UserStore.current.location)
-            if let currentUser = User.current {
-                FliptAPIClient.save(book, at: currentUser.location)
-            } else {
-                print("not signed in show book")
+            
+            if let latitude = self.locationManager.location?.coordinate.latitude, let longitude = self.locationManager.location?.coordinate.longitude {
+               
+                
+                let location = (latitude,longitude)
+                FliptAPIClient.save(book, at: location)
                 
             }
+        
+            
+            
+           
             //FliptAPIClient.save(book, at: (User.current?.location)!)
             popup.dismiss(animated: true, completion: nil)
             //self.openBarCode()
@@ -187,11 +193,11 @@ extension ScanViewController: CLLocationManagerDelegate{
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.requestWhenInUseAuthorization()
             
+
+            
             self.locationManager.requestLocation()
-            if let currentUser = User.current {
-                currentUser.latitude = (self.locationManager.location?.coordinate.latitude)!
-                currentUser.longitude = (self.locationManager.location?.coordinate.longitude)!
-            }
+
+            
         }
         
       

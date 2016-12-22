@@ -42,7 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tabBarController.tabBar.items?[1].title = "Scan"
             tabBarController.tabBar.items?[2].image = UIImage(named: "profile")
             tabBarController.tabBar.items?[2].title = "Explore"
-            navVC.viewControllers = [tabBarController]
+            
+            let ftabBarController = FliptTabBarController()
+            navVC.viewControllers = [ftabBarController]
             self.window = UIWindow(frame: UIScreen.main.bounds)
             self.window?.rootViewController = navVC
             self.window?.makeKeyAndVisible()

@@ -20,8 +20,22 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         loginView.loginBtn.addTarget(self, action: #selector(login), for: .touchUpInside)
-        
+         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+    
+        loginView.addGestureRecognizer(tap)
     }
+    
+    func dismissKeyboard() {
+
+        view.endEditing(true)
+    }
+    
+   
+    
+    //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+    //tap.cancelsTouchesInView = false
+    
+    
     
     func login(){
         SVProgressHUD.show()
@@ -53,7 +67,10 @@ class LoginViewController: UIViewController {
                     //tabBarController.tabBar.isTranslucent = false
                     
                     let navVC = UINavigationController()
-                    navVC.viewControllers = [tabBarController]
+                    
+                    
+                    let fliptTabBarController = FliptTabBarController()
+                    navVC.viewControllers = [fliptTabBarController]
                     self.present(navVC, animated: true, completion: nil)
                 }
             }

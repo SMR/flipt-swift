@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+typealias Location = (Double,Double)
+
 final class FliptAPIClient {
     
     static let loginData = "\(User.current?.apiKey):\(User.current?.apiSecret)".data(using: String.Encoding.utf8)!
@@ -36,12 +38,44 @@ final class FliptAPIClient {
     }
     
     
-    class func getNearBooks(completion: @escaping([Book]) ->()){
-        getNearBooks { (books) in
-            print(books)
+    class func getNearBooks(at location: Location,completion: @escaping([Book]) ->()){
+        getBooks(by: location) { (books) in
             completion(books)
         }
     }
+    
+    
+    class func getUserProfile(completion: @escaping([String:Any])->()) {
+        let urlString = "\(Constants.Flipt.baseUrl)/me"
+        guard let url = URL(string: urlString) else { return }
+        let session = URLSession.shared
+        if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
+            
+            let loginData = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
+            let base64LoginString = loginData.base64EncodedString()
+            
+            var urlRequest = URLRequest(url: url)
+            
+            urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+            
+            
+            let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
+                guard let jsonData = data else { return }
+                do {
+                    let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String:Any]
+                    completion(responseJSON)
+                } catch {
+                    
+                }
+                
+            }
+            
+            dataTask.resume()
+            
+        }
+
+    }
+    
     class func getUser(completion:@escaping (Int)->()) {
         let urlString = "\(Constants.Flipt.baseUrl)/me"
         guard let url = URL(string: urlString) else { return }
@@ -131,12 +165,7 @@ final class FliptAPIClient {
             
             
         }
-        print(User.current?.apiKey)
-        print(User.current?.apiSecret)
-        
-        
-        
-        
+              
         
         
         
@@ -154,8 +183,29 @@ final class FliptAPIClient {
         }
     }
     
-    class func save(_ book: Book, at location:(Double,Double)){
+    class func save(_ book: Book, at location:Location) {
         saveBook(book, at: location)
+    }
+    
+    class func downloadProfPicture(completion:@escaping (Data)->()) {
+       
+        getUserProfile { (dictionary) in
+            let userDict = dictionary["user"] as! [String:Any]
+            
+           let profilePic = userDict["profilepic"] as? String ?? ""
+            guard let url = URL(string: profilePic) else { return }
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
+                
+                guard let unwrappedData = data else { return }
+                print(unwrappedData)
+                completion(unwrappedData)
+                
+            })
+            dataTask.resume()
+            
+            
+        }
     }
     
     
@@ -169,8 +219,9 @@ extension FliptAPIClient {
     //MARK:- Get User Books
     
     
-    class fileprivate func getNearbyBooks(completion: @escaping ([Book])->()) {
-        let urlString = "\(Constants.Flipt.baseUrl)/myBooks"
+    class fileprivate func getBooks(by location: Location, completion: @escaping ([Book])->()) {
+        let urlString = "\(Constants.Flipt.baseUrl)/near?lat=\(location.0)&long=\(location.1)"
+        print(urlString)
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         
@@ -185,6 +236,7 @@ extension FliptAPIClient {
             let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
                 guard let jsonData = data else { return }
                 let jsonArray = JSON(data: jsonData).array ?? []
+                print(jsonArray)
                 var books = [Book]()
                 for json in jsonArray {
                     let book = Book(flipt: json)
@@ -236,21 +288,24 @@ extension FliptAPIClient {
     }
     
     //MARK:- Save Book to DB
-    class fileprivate func saveBook(_ book:Book, at location:(Double,Double)){
+    class fileprivate func saveBook(_ book:Book, at location:Location){
         let urlString = "\(Constants.Flipt.baseUrl)/book"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
+        
+        if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
+            
+            let loginData = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
+            let base64LoginString = loginData.base64EncodedString()
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         var bookData = book.serialize()
-        bookData["latitude"] = location.0
-        bookData["longitude"] = location.1
+        bookData["latitude"] = location.0.ToRadians
+        bookData["longitude"] = location.1.ToRadians
         
-        print(UserStore.current.apiSecret)
-        print(UserStore.current.apiKey)
-        print(FliptAPIClient.base64LoginString)
-        urlRequest.setValue("Basic \(FliptAPIClient.base64LoginString)", forHTTPHeaderField: "Authorization")
+   
+        urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
         do{
             let jsonData = try JSONSerialization.data(withJSONObject: bookData, options: [])
@@ -274,6 +329,7 @@ extension FliptAPIClient {
         }
         
         dataTask.resume()
+        }
         
     }
     
@@ -348,4 +404,10 @@ extension FliptAPIClient{
         
         
     }
+}
+
+extension Double {
+    
+    var ToRadians: Double { return Double(self) * .pi / 180 }
+    
 }

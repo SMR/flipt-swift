@@ -33,7 +33,6 @@
 		8F8BBC2B1DC0060E006789E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BBC2A1DC0060E006789E9 /* Constants.swift */; };
 		8F8BBC2D1DC0062B006789E9 /* OpenLibraryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BBC2C1DC0062B006789E9 /* OpenLibraryApi.swift */; };
 		8F8BBC2F1DC00662006789E9 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BBC2E1DC00662006789E9 /* Book.swift */; };
-		8F8BBC331DC007B5006789E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F8BBC321DC007B5006789E9 /* GoogleService-Info.plist */; };
 		8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +67,6 @@
 		8F8BBC2A1DC0060E006789E9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8F8BBC2C1DC0062B006789E9 /* OpenLibraryApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenLibraryApi.swift; sourceTree = "<group>"; };
 		8F8BBC2E1DC00662006789E9 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		8F8BBC321DC007B5006789E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F8BBC341DC00850006789E9 /* Flipt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flipt.entitlements; sourceTree = "<group>"; };
 		8FD1B0B41DED3439006BC634 /* Flipt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flipt.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,7 +131,6 @@
 				8F8BBC341DC00850006789E9 /* Flipt.entitlements */,
 				8F8BBC1A1DC00321006789E9 /* Main.storyboard */,
 				8F8BBC1F1DC00321006789E9 /* LaunchScreen.storyboard */,
-				8F8BBC321DC007B5006789E9 /* GoogleService-Info.plist */,
 				8F8BBC221DC00321006789E9 /* Info.plist */,
 			);
 			name = Resources;
@@ -298,7 +295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8BBC211DC00321006789E9 /* LaunchScreen.storyboard in Resources */,
-				8F8BBC331DC007B5006789E9 /* GoogleService-Info.plist in Resources */,
 				8F0C4DEB1DFE574D0014E22C /* GoogleService-Info.plist in Resources */,
 				8F8BBC1E1DC00321006789E9 /* Assets.xcassets in Resources */,
 				8F8BBC1C1DC00321006789E9 /* Main.storyboard in Resources */,
@@ -528,7 +524,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.Flipt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -545,7 +541,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.Flipt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

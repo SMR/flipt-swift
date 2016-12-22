@@ -101,6 +101,7 @@ class LoginView: UIView{
         createConstraints()
     }
     
+    
     func createConstraints(){
         self.backgroundImage.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
@@ -113,7 +114,7 @@ class LoginView: UIView{
         
         self.userNameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
-            make.top.equalTo(self.logoImageView.snp.bottom).offset(125)
+            make.top.equalTo(self.logoImageView.snp.bottom).offset(85)
             
         }
        

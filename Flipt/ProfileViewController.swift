@@ -27,19 +27,24 @@ class ProfileViewController: UIViewController {
         setupViews()
         
 
-        
-        
-        store.getSavedBooks()
         self.collectionView.reloadData()
+        
+        store.getUserBooks {
+            print("From view did load \(self.store.savedBooks.count)")
+            self.collectionView.reloadData()
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
     }
-    
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("appearing")
         self.setupUser()
+        
+        self.collectionView.reloadData()
         
         
         let rightBar = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openBarCode))
@@ -47,8 +52,14 @@ class ProfileViewController: UIViewController {
         self.navigationController?.navigationItem.rightBarButtonItem = rightBar
         self.navigationItem.rightBarButtonItem = rightBar
         store.getUserBooks {
-            self.collectionView.reloadData()
+            print("From view will appear \(self.store.savedBooks.count)")
+            OperationQueue.main.addOperation {
+                self.collectionView.reloadData()
+            }
+            
         }
+        
+       
         
         
     }
@@ -104,10 +115,21 @@ class ProfileViewController: UIViewController {
 
     
     func setupUser(){
+        
+        
         OperationQueue.main.addOperation {
             if let currentUser = User.current {
                 self.profileHeaderView.profileLabel.text = currentUser.username
             }
+        }
+        
+        FliptAPIClient.downloadProfPicture { (data) in
+            OperationQueue.main.addOperation {
+                let image = UIImage(data: data)
+                self.profileHeaderView.imageView.image = image
+                self.profileHeaderView.imageView.layer.cornerRadius = 34
+            }
+            
         }
     }
     

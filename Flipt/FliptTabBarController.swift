@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
 
 class FliptTabBarController: UITabBarController {
     
     
     lazy var profileVC: ProfileViewController = ProfileViewController()
     lazy var scanVC:ScanViewController = ScanViewController()
+    lazy var exploreVC: ExploreViewController = ExploreViewController()
+    var locationManager: CLLocationManager!
+    let store = BookDataStore.sharedInstance
     
     /*
     let profileVC = ProfileViewController()
@@ -32,11 +36,15 @@ class FliptTabBarController: UITabBarController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         print("how")
-        viewControllers = [profileVC, scanVC]
+        viewControllers = [profileVC, scanVC,exploreVC]
         viewControllers?[0].tabBarItem.title = "Profile"
         viewControllers?[0].tabBarItem.image = UIImage(named: "profile")
         viewControllers?[1].tabBarItem.title = "Scan"
         viewControllers?[1].tabBarItem.image = UIImage(named:"scan")
+        viewControllers?[2].tabBarItem.image = UIImage(named: "profile")
+        viewControllers?[2].tabBarItem.title = "Explore"
+        
+        setupLocationManager()
     }
     
     
@@ -70,3 +78,47 @@ class FliptTabBarController: UITabBarController {
      */
     
 }
+
+
+
+extension FliptTabBarController: CLLocationManagerDelegate{
+    func setupLocationManager(){
+        DispatchQueue.main.async {
+            self.locationManager = CLLocationManager()
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.requestWhenInUseAuthorization()
+            
+            
+            
+            self.locationManager.requestLocation()
+            
+            
+        }
+        
+        
+        //User.current?.latitude =
+        //  User.current?.longitude =
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+        
+    }
+}
+
+
+
+
+
