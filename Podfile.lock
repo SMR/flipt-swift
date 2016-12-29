@@ -54,6 +54,8 @@ PODS:
     - Sugar
   - Mapbox-iOS-SDK (3.3.7)
   - PopupDialog (0.5.0)
+  - SendBirdSDK (3.0.21)
+  - SinchRTC (3.9.8)
   - SnapKit (3.0.2)
   - Sugar (3.0.0)
   - SVProgressHUD (2.1.2)
@@ -74,6 +76,8 @@ DEPENDENCIES:
   - Lightbox (from `https://github.com/hyperoslo/Lightbox.git`, branch `swift-3`)
   - Mapbox-iOS-SDK (~> 3.3.7)
   - PopupDialog
+  - SendBirdSDK
+  - SinchRTC
   - SnapKit (~> 3.0)
   - SVProgressHUD
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
@@ -122,11 +126,13 @@ SPEC CHECKSUMS:
   Lightbox: e4523e8cf3261cbc833d0e76ae4dae774731d115
   Mapbox-iOS-SDK: 142301fa63a6719cbd2eacc0f9e8bf36c65930d9
   PopupDialog: 9890441b81105b9076757af2afe2b037be682f3e
+  SendBirdSDK: e73f1a944b490b32105ecd1cab5d513124d8eb09
+  SinchRTC: 9dacfd09c2ccbb591ebf9bb22619b8308a6c038c
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   Sugar: 079e1375b76c8f0693474417836ef098f507ac50
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: 063f7e984298c346fb95b0a3e620b050c79fdd72
+PODFILE CHECKSUM: cf2b12533c6c8bbf23971cafe726c782303f484d
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

@@ -208,6 +208,28 @@ final class FliptAPIClient {
         }
     }
     
+    class func getUserFrom(_ id: String, completion:@escaping (User)->()) {
+        
+        guard let url = URL(string: "") else { return }
+        let urlRequest = URLRequest(url: url)
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
+            guard let data = data else { return }
+            do {
+                let responseJSON = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+                let user = User(userDictionary: responseJSON)
+                if let unwrappedUser = user {
+                    completion(unwrappedUser)
+                }
+                
+            } catch {
+                
+            }
+            
+        }
+        
+    }
+    
     
     
     
@@ -217,7 +239,7 @@ final class FliptAPIClient {
 extension FliptAPIClient {
     
     //MARK:- Get User Books
-    
+
     
     class fileprivate func getBooks(by location: Location, completion: @escaping ([Book])->()) {
         let urlString = "\(Constants.Flipt.baseUrl)/near?lat=\(location.0)&long=\(location.1)"
@@ -236,7 +258,7 @@ extension FliptAPIClient {
             let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
                 guard let jsonData = data else { return }
                 let jsonArray = JSON(data: jsonData).array ?? []
-                print(jsonArray)
+                
                 var books = [Book]()
                 for json in jsonArray {
                     let book = Book(flipt: json)

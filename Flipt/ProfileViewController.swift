@@ -124,10 +124,12 @@ class ProfileViewController: UIViewController {
         }
         
         FliptAPIClient.downloadProfPicture { (data) in
-            OperationQueue.main.addOperation {
+            
                 let image = UIImage(data: data)
+            OperationQueue.main.addOperation {
                 self.profileHeaderView.imageView.image = image
                 self.profileHeaderView.imageView.layer.cornerRadius = 34
+                self.profileHeaderView.imageView.setNeedsDisplay()
             }
             
         }
@@ -259,6 +261,20 @@ extension ProfileViewController: BarcodeScannerCodeDelegate {
     }
 }
 
+extension ProfileViewController: BarcodeScannerErrorDelegate {
+    
+    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
+        print(error)
+    }
+}
+
+extension ProfileViewController: BarcodeScannerDismissalDelegate {
+    
+    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+
 
 extension ProfileViewController: ImagePickerDelegate {
     
@@ -304,19 +320,8 @@ extension ProfileViewController: ImagePickerDelegate {
     
 }
 
-extension ProfileViewController: BarcodeScannerErrorDelegate {
-    
-    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        print(error)
-    }
-}
 
-extension ProfileViewController: BarcodeScannerDismissalDelegate {
-    
-    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
+
 
 
 extension ProfileViewController{

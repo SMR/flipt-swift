@@ -59,21 +59,24 @@ class BookDataStore {
         
         FliptAPIClient.getUser {bookCount in
             if let currentUser = User.current {
-                if bookCount != self.savedBooks.count {
-                    if bookCount > self.savedBooks.count {
-                        print("Core Data > Server")
-                    }else {
-                        print("Server < Core Data")
-                    }
-                    FliptAPIClient.getAllBooks(completion: { (books) in
-                        self.save(books: books)
-                        self.getSavedBooks()
-                        
-                    })
-                } else {
-                    print("Server = Core Data")
-                    // do nothing
-                }
+                
+                FliptAPIClient.getAllBooks(completion: { (books) in
+                    
+                    self.save(books: books)
+                    self.getSavedBooks()
+                    
+                })
+
+//                if bookCount != self.savedBooks.count {
+//                    if bookCount > self.savedBooks.count {
+//                        print("Core Data > Server")
+//                    }else {
+//                        print("Server < Core Data")
+//                    }
+//                                    } else {
+//                    print("Server = Core Data")
+//                    // do nothing
+//                }
             }
         }
     }
@@ -95,7 +98,10 @@ class BookDataStore {
     }
     
     func save(books: [Book]) {
+        
+        
         let context = persistentContainer.viewContext
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
 
         for book in books {

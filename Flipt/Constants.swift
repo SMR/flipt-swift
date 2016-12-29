@@ -16,6 +16,7 @@ struct Constants{
     
     static let googleBooksApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
     static let googleApiKey = "&bookclub-1009"
+    static let sendbirdKey = "E164FE4B-6238-429B-B752-8F072D31CBA8"
     static let padding = 20.0
 
     

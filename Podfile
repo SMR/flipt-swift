@@ -21,6 +21,8 @@ target 'Flipt' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'SVProgressHUD'
+  pod 'SinchRTC'
+  pod 'SendBirdSDK'
 
   # Pods for Flipt
 

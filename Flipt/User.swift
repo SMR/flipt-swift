@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import SendBirdSDK
 
 
 
@@ -20,10 +21,16 @@ class User {
         static let apiSecret = "apiSecret"
         static let books = "books"
         static let profilePic = "profilePic"
+        static let email = "email"
+        static let firstname = "firstname"
+        static let lastname = "lastname"
     }
     
     var id: String!
     var username: String!
+    var firstname: String!
+    var lastname: String!
+    var email:String!
     var apiKey: String!
     var apiSecret: String!
     var profilePic: String!
@@ -39,6 +46,10 @@ class User {
         }
     }
     var booksCount: Int!
+    
+    //SendBird
+    
+    var sbdUser: SBDUser?
 
 
     init?(userDictionary dict: [String:Any]) {
@@ -46,10 +57,19 @@ class User {
         guard let username = dict[UserKeys.username] as? String else { print("username fail");return nil }
         guard let apiKey = dict["api_key_id"] as? String else { print("apiKey fail");return nil }
         guard let apiSecret = dict["api_key_secret"] as? String else { print("apiSecret fail");return nil }
+        
+        guard let email = dict["email"] as? String else { print("email fail"); return nil }
+        guard let firstname = dict["firstname"] as? String else { print("firstname fail"); return nil }
+        
+        guard let lastname = dict["lastname"] as? String else { print("lastname fail"); return nil }
+        
         self.id = String(id)
         self.username = username
         self.apiKey = apiKey
         self.apiSecret = apiSecret
+        self.email = email
+        self.firstname = firstname
+        self.lastname = lastname
 //        self.id = dict[UserKeys.id] as? String ?? ""
 //        self.username = dict[UserKeys.username] as? String ?? ""
 //        self.apiKey = dict["api_key_id"] as? String ?? ""
@@ -64,6 +84,9 @@ class User {
         self.apiSecret = user.string(forKey: UserKeys.apiSecret) ?? ""
         
         self.profilePic = user.string(forKey: UserKeys.profilePic)
+        self.email = user.string(forKey: UserKeys.email)
+        self.firstname = user.string(forKey: UserKeys.firstname)
+        self.lastname = user.string(forKey: UserKeys.lastname)
     }
     
     
@@ -83,6 +106,10 @@ class User {
                 UserDefaults.standard.set(user.apiSecret, forKey: UserKeys.apiSecret)
                 UserDefaults.standard.set(user.username, forKey: UserKeys.username)
                 UserDefaults.standard.set(user.profilePic, forKey: UserKeys.profilePic)
+                UserDefaults.standard.set(user.email, forKey: UserKeys.email)
+
+                UserDefaults.standard.set(user.firstname, forKey: UserKeys.email)
+                UserDefaults.standard.set(user.lastname, forKey: UserKeys.lastname)
                 
             } else {
                 if let user = newValue {
@@ -91,6 +118,10 @@ class User {
                     UserDefaults.standard.set(user.apiSecret, forKey: UserKeys.apiSecret)
                     UserDefaults.standard.set(user.username, forKey: UserKeys.username)
                     UserDefaults.standard.set(user.profilePic, forKey: UserKeys.profilePic)
+                    UserDefaults.standard.set(user.email, forKey: UserKeys.email)
+                    
+                    UserDefaults.standard.set(user.firstname, forKey: UserKeys.email)
+                    UserDefaults.standard.set(user.lastname, forKey: UserKeys.lastname)
                 } else {
                     print("no new value user")
                 }
@@ -143,6 +174,16 @@ class User {
         }
        
         
+    }
+    
+    
+    func toFirebase() -> [String:Any] {
+        let fullName = self.firstname != nil && self.lastname != nil ? self.firstname + " " + self.lastname : self.username
+        return [
+            self.username:[
+                "fullname": fullName
+            ]
+        ]
     }
     
     

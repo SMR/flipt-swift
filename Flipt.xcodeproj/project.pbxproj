@@ -18,6 +18,8 @@
 		8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EAC1DF88256006DA5EB /* UserStore.swift */; };
 		8F500EAF1DF8965F006DA5EB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EAE1DF8965F006DA5EB /* LoginViewController.swift */; };
 		8F500EB21DF89B27006DA5EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EB11DF89B27006DA5EB /* LoginView.swift */; };
+		8F68D9F71E144DC8006F842D /* SinchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D9F61E144DC8006F842D /* SinchClient.swift */; };
+		8F7B59B31E14EC4E00EB1F5D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B59B21E14EC4E00EB1F5D /* Message.swift */; };
 		8F7D97621DE40F120053182D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D97611DE40F120053182D /* ProfileViewController.swift */; };
 		8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D97661DE416240053182D /* BookCollectionViewCell.swift */; };
 		8F8673851E033DC300A0CF08 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8673841E033DC300A0CF08 /* RegisterView.swift */; };
@@ -33,7 +35,11 @@
 		8F8BBC2B1DC0060E006789E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BBC2A1DC0060E006789E9 /* Constants.swift */; };
 		8F8BBC2D1DC0062B006789E9 /* OpenLibraryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BBC2C1DC0062B006789E9 /* OpenLibraryApi.swift */; };
 		8F8BBC2F1DC00662006789E9 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BBC2E1DC00662006789E9 /* Book.swift */; };
+		8FB7803E1E130A59001372F9 /* MsgClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7803D1E130A59001372F9 /* MsgClient.swift */; };
+		8FB781EA1E138418001372F9 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB781E91E138418001372F9 /* Chat.swift */; };
 		8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */; };
+		8FF7A0131E105451006175D0 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7A0121E105451006175D0 /* ChatsViewController.swift */; };
+		8FF7A0151E107105006175D0 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7A0141E107105006175D0 /* MessagesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +56,8 @@
 		8F500EAC1DF88256006DA5EB /* UserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		8F500EAE1DF8965F006DA5EB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8F500EB11DF89B27006DA5EB /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8F68D9F61E144DC8006F842D /* SinchClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinchClient.swift; sourceTree = "<group>"; };
+		8F7B59B21E14EC4E00EB1F5D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8F7D97611DE40F120053182D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8F7D97661DE416240053182D /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F8673841E033DC300A0CF08 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -68,7 +76,11 @@
 		8F8BBC2C1DC0062B006789E9 /* OpenLibraryApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenLibraryApi.swift; sourceTree = "<group>"; };
 		8F8BBC2E1DC00662006789E9 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		8F8BBC341DC00850006789E9 /* Flipt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flipt.entitlements; sourceTree = "<group>"; };
+		8FB7803D1E130A59001372F9 /* MsgClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MsgClient.swift; sourceTree = "<group>"; };
+		8FB781E91E138418001372F9 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		8FD1B0B41DED3439006BC634 /* Flipt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flipt.xcdatamodel; sourceTree = "<group>"; };
+		8FF7A0121E105451006175D0 /* ChatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		8FF7A0141E107105006175D0 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +167,8 @@
 				8F7D97661DE416240053182D /* BookCollectionViewCell.swift */,
 				8F0C4DED1DFE5C3F0014E22C /* Scanner */,
 				8F0C4DEC1DFE5C370014E22C /* Login */,
+				8FF7A0121E105451006175D0 /* ChatsViewController.swift */,
+				8FF7A0141E107105006175D0 /* MessagesViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -164,6 +178,8 @@
 			children = (
 				8F8BBC2E1DC00662006789E9 /* Book.swift */,
 				8F8673881E087AA200A0CF08 /* User.swift */,
+				8FB781E91E138418001372F9 /* Chat.swift */,
+				8F7B59B21E14EC4E00EB1F5D /* Message.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -177,6 +193,8 @@
 				8F500EAA1DF872CB006DA5EB /* FliptAPIClient.swift */,
 				8F500EAC1DF88256006DA5EB /* UserStore.swift */,
 				8F0C8C081E011628005A8E3C /* FirebaseApi.swift */,
+				8F68D9F61E144DC8006F842D /* SinchClient.swift */,
+				8FB7803D1E130A59001372F9 /* MsgClient.swift */,
 			);
 			name = ApiClient;
 			sourceTree = "<group>";
@@ -359,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -375,14 +393,19 @@
 				8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */,
 				8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */,
 				8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */,
+				8FF7A0151E107105006175D0 /* MessagesViewController.swift in Sources */,
 				8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */,
 				8F41564C1DE8C82E00463E6D /* ExploreViewController.swift in Sources */,
 				8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */,
 				8F86FD781DEEA63000C1D3FE /* ScanViewController.swift in Sources */,
 				8F8673891E087AA200A0CF08 /* User.swift in Sources */,
 				8F86FD761DEE8B2A00C1D3FE /* GoogleBooksApi.swift in Sources */,
+				8F7B59B31E14EC4E00EB1F5D /* Message.swift in Sources */,
+				8FB781EA1E138418001372F9 /* Chat.swift in Sources */,
 				8F86FD741DEE869C00C1D3FE /* ProfileHeaderView.swift in Sources */,
+				8FB7803E1E130A59001372F9 /* MsgClient.swift in Sources */,
 				8F8BBC171DC00321006789E9 /* AppDelegate.swift in Sources */,
+				8F68D9F71E144DC8006F842D /* SinchClient.swift in Sources */,
 				8F8673871E085EF700A0CF08 /* FliptTabBarController.swift in Sources */,
 				8F500EB21DF89B27006DA5EB /* LoginView.swift in Sources */,
 				8F7D97621DE40F120053182D /* ProfileViewController.swift in Sources */,
@@ -391,6 +414,7 @@
 				8F8BBC2F1DC00662006789E9 /* Book.swift in Sources */,
 				8F8BBC2B1DC0060E006789E9 /* Constants.swift in Sources */,
 				8F41564E1DE8C92000463E6D /* BookDataStore.swift in Sources */,
+				8FF7A0131E105451006175D0 /* ChatsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

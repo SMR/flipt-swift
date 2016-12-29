@@ -66,6 +66,7 @@ class ProfileHeaderView: UIView{
         
         profileLabel.textAlignment = .center
         imageView.layer.cornerRadius = 37.0
+        imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         
     }
