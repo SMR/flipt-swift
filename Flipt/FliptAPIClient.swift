@@ -12,14 +12,28 @@ import SwiftyJSON
 
 typealias Location = (Double,Double)
 
+
+//user/books -> GET my books
+//book -> POST add book
+//books/search -> Get search
+//sendbook -> POST send as data bookid and recipient
+//book/:bookid  -> POST update book send data
+//user -> GET get user
+//books/near -> GET near books
+//user/:userid -> GET user
+//updatePic -> POST update profilePicture
+//user -> POST update user
+
 final class FliptAPIClient {
     
     static let loginData = "\(User.current?.apiKey):\(User.current?.apiSecret)".data(using: String.Encoding.utf8)!
     static let base64LoginString = loginData.base64EncodedString()
     
     
+    
+    
     class func login(userName: String, password:String, completion:@escaping (Bool)->()){
-        authenticate(by: .login, userName: userName, password: password) {success in
+        authenticate(by: .login, email: userName, password: password) {success in
             if success {
                 completion(true)
             } else {
@@ -27,6 +41,17 @@ final class FliptAPIClient {
             }
             
         }
+    }
+    
+    class func register(email:String, password:String, completion:@escaping (Bool)->()) {
+        authenticate(by: .register, email: email, password: password) { (success) in
+            if success {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+        
     }
     
     class func getAllBooks(completion: @escaping([Book])->()) {
@@ -38,15 +63,19 @@ final class FliptAPIClient {
     }
     
     
-    class func getNearBooks(at location: Location,completion: @escaping([Book]) ->()){
+    class func getNearBooks(at location: Location,completion: @escaping([Book]) -> ()){
         getBooks(by: location) { (books) in
             completion(books)
         }
     }
     
+    class func getBooksFor(user: User, completion: @escaping([Book]) -> ()) {
+        
+    }
+    
     
     class func getUserProfile(completion: @escaping([String:Any])->()) {
-        let urlString = "\(Constants.Flipt.baseUrl)/me"
+        let urlString = "\(Constants.Flipt.userUrl)"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
@@ -77,7 +106,7 @@ final class FliptAPIClient {
     }
     
     class func getUser(completion:@escaping (Int)->()) {
-        let urlString = "\(Constants.Flipt.baseUrl)/me"
+        let urlString = "\(Constants.Flipt.baseUrl)/user"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
@@ -110,6 +139,10 @@ final class FliptAPIClient {
             
         }
         
+        
+    }
+    
+    class func update(user: User, completion: @escaping (Bool)->()) {
         
     }
     
@@ -171,18 +204,7 @@ final class FliptAPIClient {
         
     }
     
-    class func register(userName:String, password:String, completion:@escaping ()->()){
-        //authenticate(by: .register, userName: userName, password: password)
         
-        authenticate(by: .register, userName: userName, password: password) { success in
-            
-            if success {
-                completion()
-            }
-            
-        }
-    }
-    
     class func save(_ book: Book, at location:Location) {
         saveBook(book, at: location)
     }
@@ -278,7 +300,7 @@ extension FliptAPIClient {
     
     
     class fileprivate func getBooks(completion: @escaping ([Book])->()) {
-        let urlString = "\(Constants.Flipt.baseUrl)/myBooks"
+        let urlString = "\(Constants.Flipt.baseUrl)/user/books"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         
@@ -358,7 +380,7 @@ extension FliptAPIClient {
     
     //MARK:- Authentication
     
-    class fileprivate func authenticate(by:Auth, userName:String, password:String, completion:@escaping (Bool)->()) {
+    class fileprivate func authenticate(by:Auth, email:String, password:String, completion:@escaping (Bool)->()) {
         let urlString = "\(Constants.Flipt.baseUrl)/\(by)"
         print(urlString)
         guard let url = URL(string: urlString) else { return }
@@ -366,7 +388,7 @@ extension FliptAPIClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let json = ["username":"\(userName)", "password":"\(password)"]
+        let json = ["username":"\(email)", "password":"\(password)"]
         do{
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
             urlRequest.httpBody = jsonData
@@ -418,15 +440,6 @@ enum Auth {
 }
 
 
-
-
-extension FliptAPIClient{
-    private func loginUser(user userName:String, password:String){
-        
-        
-        
-    }
-}
 
 extension Double {
     

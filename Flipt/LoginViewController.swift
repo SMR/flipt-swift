@@ -19,8 +19,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        self.navigationController?.isNavigationBarHidden = false
         loginView.loginBtn.addTarget(self, action: #selector(login), for: .touchUpInside)
-         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        loginView.signupBtn.addTarget(self, action: #selector(switchToSignUpView), for: .touchUpInside)
+         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     
         loginView.addGestureRecognizer(tap)
     }
@@ -37,6 +40,16 @@ class LoginViewController: UIViewController {
     
     
     
+    
+    override func loadView(){
+        self.view = loginView
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    
     func login(){
         SVProgressHUD.show()
         loginView.loginBtn.isEnabled = false
@@ -44,7 +57,7 @@ class LoginViewController: UIViewController {
         let username = loginView.usernameTextField.text!.lowercased()
         
         let password = loginView.passwordTextField.text!.lowercased()
-
+        
         
         FliptAPIClient.login(userName: username, password: password) {success in
             
@@ -53,9 +66,9 @@ class LoginViewController: UIViewController {
                 
                 OperationQueue.main.addOperation {
                     SVProgressHUD.dismiss()
-                   
+                    
                     let profileVC = ProfileViewController()
-            
+                    
                     let scanVC = ScanViewController()
                     let tabBarController = UITabBarController()
                     tabBarController.view.backgroundColor = UIColor.white
@@ -78,36 +91,34 @@ class LoginViewController: UIViewController {
             
             
             
-//            let lmTabBarController = LMTabBarController()
-//            let navBarController = VerticalOnlyNavigationController()
-//            navBarController.viewControllers = [lmTabBarController]
-//            navBarController.navigationBar.barTintColor = Constants.appColor
-//            lmTabBarController.layerClient = layerClient
-//            lmTabBarController.currentUser = self.currentUser
-//            print("Successfully connected via Layer in Login View Controller")
-//            self.presentViewController(navBarController, animated: true, completion: nil)
-
+            //            let lmTabBarController = LMTabBarController()
+            //            let navBarController = VerticalOnlyNavigationController()
+            //            navBarController.viewControllers = [lmTabBarController]
+            //            navBarController.navigationBar.barTintColor = Constants.appColor
+            //            lmTabBarController.layerClient = layerClient
+            //            lmTabBarController.currentUser = self.currentUser
+            //            print("Successfully connected via Layer in Login View Controller")
+            //            self.presentViewController(navBarController, animated: true, completion: nil)
             
             
-        
-
             
-                //self.navigationController?.pushViewController(navVC, animated: true)
-                //self.present(profileVC, animated: false, completion: nil)
-        
             
-        
+            
+            
+            //self.navigationController?.pushViewController(navVC, animated: true)
+            //self.present(profileVC, animated: false, completion: nil)
+            
+            
+            
             
         }
     }
     
-    override func loadView(){
-        self.view = loginView
+    
+    func switchToSignUpView(){
+        self.loginView.switchToSignUpView()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
 }
 

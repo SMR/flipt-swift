@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import Fabric
 import Crashlytics
-import SendBirdSDK
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,18 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self])
-        FIRApp.configure()
-        SBDMain.initWithApplicationId(Constants.sendbirdKey)
-
-        
+       // Fabric.with([Crashlytics.self])
+        //FIRApp.configure()
+                
         
  
     
     //TODO: - Add back user login
         
         // check for user login in
-        /*
+        
         if let user = User.current {
             let profileVC = ProfileViewController()
             let scanVC = ScanViewController()
@@ -55,8 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         } else {
             
-            let loginVC = LoginViewController()
-            let navVC = UINavigationController(rootViewController: loginVC)
+            let welcomeVC = WelcomeViewController()
+            
+            //let loginVC = LoginViewController()
+            let navVC = UINavigationController(rootViewController: welcomeVC)
             navVC.isNavigationBarHidden = true
             self.window = UIWindow(frame: UIScreen.main.bounds)
             self.window?.rootViewController = navVC
@@ -64,13 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
  
-        */
         
-        let vc = ChatsViewController()
-        let navVC = UINavigationController(rootViewController: vc)
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navVC
-        self.window?.makeKeyAndVisible()
+//        
+//        let vc = ChatsViewController()
+//        let navVC = UINavigationController(rootViewController: vc)
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        self.window?.rootViewController = navVC
+//        self.window?.makeKeyAndVisible()
 
 //TODO: - Remove Redundant check for sign in
 //        if UserStore.current.signedIn {

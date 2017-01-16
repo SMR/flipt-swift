@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SendBirdSDK
+
 class Chat {
     
     var recipient: String = ""

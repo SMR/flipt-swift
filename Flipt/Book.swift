@@ -51,6 +51,7 @@ struct Book{
         
     }
     
+    //* From Google Dictionary 
     init(google dict:JSON) {
         self.publisher = dict["publisher"].string ?? ""
         self.title = dict["title"].string ?? ""
@@ -111,7 +112,7 @@ struct Book{
     }
     
 
-    init(metaData: [String: NSObject]) {
+    init(metaData: [String: Any]) {
         self.title = metaData["title"] as? String ?? ""
         self.fullTitle = self.title
         self.coverImgUrl = metaData["coverImgUrl"] as? String ?? ""

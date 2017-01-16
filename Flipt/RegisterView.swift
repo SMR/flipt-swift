@@ -12,6 +12,8 @@ import Foundation
 class RegisterView: UIView{
     
     lazy var logoImageView = UIImageView()
+    lazy var emailLabel = UILabel()
+    
     
     lazy var userNameLabel = UILabel()
     lazy var passwordLabel = UILabel()

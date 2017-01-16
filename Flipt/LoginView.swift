@@ -45,12 +45,12 @@ class LoginView: UIView{
     func configureViews(){
         
 
-        userNameLabel.text = "Username"
+        userNameLabel.text = "EMAIL"
         userNameLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
         userNameLabel.textColor = UIColor.white
         
-        usernameTextField.placeholder = "Choose a username"
-        usernameTextField.font =  UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+        usernameTextField.placeholder = "Enter email address"
+        usernameTextField.font =  UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         usernameTextField.autocapitalizationType = UITextAutocapitalizationType.none
         usernameTextField.autocorrectionType = UITextAutocorrectionType.no
         usernameTextField.textColor = UIColor.white
@@ -58,24 +58,20 @@ class LoginView: UIView{
         usernameDivider.backgroundColor = UIColor.white
         
         
-        passwordLabel.text = "Password"
+        passwordLabel.text = "PASSWORD"
         passwordLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
         passwordLabel.textColor = UIColor.white
         
-        passwordTextField.placeholder = "Choose a password"
+        passwordTextField.placeholder = "Enter Password"
         passwordTextField.textColor = UIColor.white
-        passwordTextField.font =  UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+        passwordTextField.font =  UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         passwordTextField.autocapitalizationType = UITextAutocapitalizationType.none
         passwordTextField.autocorrectionType = UITextAutocorrectionType.no
         passwordTextField.isSecureTextEntry = true
         
         passwordDivider.backgroundColor = UIColor.white
 
-        
-        
-        
 
-        
         logoImageView.image = UIImage(named: "logo")
         
         backgroundImage.image = UIImage(named: "bg")
@@ -83,8 +79,8 @@ class LoginView: UIView{
         
         loginBtn.setTitle("Login", for: .normal)
         loginBtn.setTitleColor(UIColor.white, for: .normal)
-        
-        signupBtn.setTitle("Register", for: .normal)
+        loginBtn.backgroundColor = UIColor.black
+        signupBtn.setTitle("Create an account", for: .normal)
         signupBtn.setTitleColor(UIColor.white, for: .normal)
         
         
@@ -102,7 +98,9 @@ class LoginView: UIView{
     }
     
     
-    func createConstraints(){
+    
+    
+    func createConstraints() {
         self.backgroundImage.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
@@ -150,25 +148,55 @@ class LoginView: UIView{
         }
         
         self.loginBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(self).offset(20)
+//            make.left.equalTo(self).offset(20)
+            make.centerX.equalTo(self)
+            make.width.equalTo(self).offset(-40)
+            make.height.equalTo(40)
             make.top.equalTo(self.passwordDivider.snp.bottom).offset(30)
         }
         
         self.signupBtn.snp.makeConstraints { (make) in
-            make.right.equalTo(self).offset(-20)
-            make.top.equalTo(self.passwordDivider.snp.bottom).offset(30)
+            make.centerX.equalTo(self)
+            make.top.equalTo(self.loginBtn.snp.bottom).offset(10)
         }
-         /*
-
         
+
+        /*
         self.loginBtn.snp.makeConstraints { (make) in
             make.width.equalTo(100)
             make.height.equalTo(Constants.UI.textFieldHeight)
             make.top.equalTo(self.passwordTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self)
-        }
+        } 
         */
     }
     
+    
+    func switchToSignUpView() {
+        UIView.animate(withDuration: 0.8) {
+            self.loginBtn.isHidden = true
+            self.loginBtn.backgroundColor = nil
+            self.signupBtn.backgroundColor = UIColor.black
+            self.signupBtn.snp.remakeConstraints({ (make) in
+                make.centerX.equalTo(self)
+                make.width.equalTo(self).offset(-40)
+                make.height.equalTo(40)
+                make.top.equalTo(self.passwordDivider.snp.bottom).offset(30)
+            })
+            UIView.animate(withDuration: 0.3, animations: {
+                self.loginBtn.isHidden = false
+                
+                self.loginBtn.snp.remakeConstraints({ (make) in
+                    make.centerX.equalTo(self)
+                    make.top.equalTo(self.signupBtn.snp.bottom).offset(15)
+                
+                })
+            })
+//            self.signupBtn.snp_remakeConstraints({ (make) in
+//                make.width.equalTo(self)
+//            })
+        }
+        
+    }
     
 }
