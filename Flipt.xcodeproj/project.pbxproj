@@ -12,14 +12,20 @@
 		8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C8C081E011628005A8E3C /* FirebaseApi.swift */; };
 		8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C8C141E0243CC005A8E3C /* UIConstants.swift */; };
 		8F30E6081DE78448008F5ED0 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */; };
+		8F33DF841E387D5B00861BA9 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F33DF831E387D5B00861BA9 /* ChatTableViewCell.swift */; };
 		8F41564C1DE8C82E00463E6D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */; };
 		8F41564E1DE8C92000463E6D /* BookDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41564D1DE8C92000463E6D /* BookDataStore.swift */; };
+		8F4D87841E454A6600275E2C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D87821E454A6600275E2C /* HomeViewController.swift */; };
+		8F4D87851E454A6600275E2C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4D87831E454A6600275E2C /* HomeViewController.xib */; };
+		8F4D87891E454EEA00275E2C /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D87871E454EEA00275E2C /* EmailViewController.swift */; };
+		8F4D878A1E454EEA00275E2C /* EmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4D87881E454EEA00275E2C /* EmailViewController.xib */; };
 		8F500EAB1DF872CB006DA5EB /* FliptAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EAA1DF872CB006DA5EB /* FliptAPIClient.swift */; };
 		8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EAC1DF88256006DA5EB /* UserStore.swift */; };
 		8F500EAF1DF8965F006DA5EB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EAE1DF8965F006DA5EB /* LoginViewController.swift */; };
 		8F500EB21DF89B27006DA5EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F500EB11DF89B27006DA5EB /* LoginView.swift */; };
 		8F7724311E1C970000AFE201 /* FliptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7724301E1C970000AFE201 /* FliptTests.swift */; };
 		8F7B59B31E14EC4E00EB1F5D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B59B21E14EC4E00EB1F5D /* Message.swift */; };
+		8F7CC2171E2D387E0069E7C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CC2161E2D387E0069E7C8 /* ViewController.swift */; };
 		8F7D97621DE40F120053182D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D97611DE40F120053182D /* ProfileViewController.swift */; };
 		8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D97661DE416240053182D /* BookCollectionViewCell.swift */; };
 		8F8673851E033DC300A0CF08 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8673841E033DC300A0CF08 /* RegisterView.swift */; };
@@ -40,6 +46,12 @@
 		8FA7B6471E257A120030EDA3 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7B6461E257A120030EDA3 /* WelcomeViewController.swift */; };
 		8FA7B6491E257A6B0030EDA3 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7B6481E257A6B0030EDA3 /* WelcomeView.swift */; };
 		8FB781EA1E138418001372F9 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB781E91E138418001372F9 /* Chat.swift */; };
+		8FC3BAC51E5402FA00E72B7A /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3BAC31E5402FA00E72B7A /* NameViewController.swift */; };
+		8FC3BAC61E5402FA00E72B7A /* NameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC3BAC41E5402FA00E72B7A /* NameViewController.xib */; };
+		8FC3BAC91E54231200E72B7A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3BAC71E54231200E72B7A /* LoginVC.swift */; };
+		8FC3BACA1E54231200E72B7A /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC3BAC81E54231200E72B7A /* LoginVC.xib */; };
+		8FD190B61E4D6D1100249113 /* UsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD190B41E4D6D1100249113 /* UsernameViewController.swift */; };
+		8FD190B71E4D6D1100249113 /* UsernameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FD190B51E4D6D1100249113 /* UsernameViewController.xib */; };
 		8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */; };
 		8FF7A0131E105451006175D0 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7A0121E105451006175D0 /* ChatsViewController.swift */; };
 		8FF7A0151E107105006175D0 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7A0141E107105006175D0 /* MessagesViewController.swift */; };
@@ -65,8 +77,13 @@
 		8F0C8C081E011628005A8E3C /* FirebaseApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseApi.swift; sourceTree = "<group>"; };
 		8F0C8C141E0243CC005A8E3C /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		8F33DF831E387D5B00861BA9 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		8F41564D1DE8C92000463E6D /* BookDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDataStore.swift; sourceTree = "<group>"; };
+		8F4D87821E454A6600275E2C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8F4D87831E454A6600275E2C /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		8F4D87871E454EEA00275E2C /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		8F4D87881E454EEA00275E2C /* EmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailViewController.xib; sourceTree = "<group>"; };
 		8F500EAA1DF872CB006DA5EB /* FliptAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FliptAPIClient.swift; sourceTree = "<group>"; };
 		8F500EAC1DF88256006DA5EB /* UserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		8F500EAE1DF8965F006DA5EB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +92,7 @@
 		8F7724301E1C970000AFE201 /* FliptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FliptTests.swift; sourceTree = "<group>"; };
 		8F7724321E1C970000AFE201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F7B59B21E14EC4E00EB1F5D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		8F7CC2161E2D387E0069E7C8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8F7D97611DE40F120053182D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8F7D97661DE416240053182D /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F8673841E033DC300A0CF08 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -98,6 +116,12 @@
 		8FA7B6461E257A120030EDA3 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		8FA7B6481E257A6B0030EDA3 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		8FB781E91E138418001372F9 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		8FC3BAC31E5402FA00E72B7A /* NameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
+		8FC3BAC41E5402FA00E72B7A /* NameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameViewController.xib; sourceTree = "<group>"; };
+		8FC3BAC71E54231200E72B7A /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		8FC3BAC81E54231200E72B7A /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
+		8FD190B41E4D6D1100249113 /* UsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameViewController.swift; sourceTree = "<group>"; };
+		8FD190B51E4D6D1100249113 /* UsernameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UsernameViewController.xib; sourceTree = "<group>"; };
 		8FD1B0B41DED3439006BC634 /* Flipt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flipt.xcdatamodel; sourceTree = "<group>"; };
 		8FF7A0121E105451006175D0 /* ChatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		8FF7A0141E107105006175D0 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -181,10 +205,27 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		8F4D87861E454E9A00275E2C /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8F4D87821E454A6600275E2C /* HomeViewController.swift */,
+				8F4D87831E454A6600275E2C /* HomeViewController.xib */,
+				8F4D87871E454EEA00275E2C /* EmailViewController.swift */,
+				8F4D87881E454EEA00275E2C /* EmailViewController.xib */,
+				8FD190B41E4D6D1100249113 /* UsernameViewController.swift */,
+				8FD190B51E4D6D1100249113 /* UsernameViewController.xib */,
+				8FC3BAC31E5402FA00E72B7A /* NameViewController.swift */,
+				8FC3BAC41E5402FA00E72B7A /* NameViewController.xib */,
+				8FC3BAC71E54231200E72B7A /* LoginVC.swift */,
+				8FC3BAC81E54231200E72B7A /* LoginVC.xib */,
+			);
+			name = HomeViewController;
+			sourceTree = "<group>";
+		};
 		8F500EB01DF89B1B006DA5EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8F7D97661DE416240053182D /* BookCollectionViewCell.swift */,
+				8FCBB7CD1E39627A00E1C6EB /* Cells */,
 				8F86FD731DEE869C00C1D3FE /* ProfileHeaderView.swift */,
 				8F500EB11DF89B27006DA5EB /* LoginView.swift */,
 				8F8673841E033DC300A0CF08 /* RegisterView.swift */,
@@ -206,6 +247,7 @@
 		8F7D97631DE414D50053182D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8F4D87861E454E9A00275E2C /* HomeViewController */,
 				8F0C4DEE1DFE5C4B0014E22C /* Explore */,
 				8F0C4DEF1DFE5C620014E22C /* ProfileViewController */,
 				8FA7B6431E2570CB0030EDA3 /* BookDetailVC */,
@@ -234,6 +276,7 @@
 				8F86FD751DEE8B2A00C1D3FE /* GoogleBooksApi.swift */,
 				8F41564D1DE8C92000463E6D /* BookDataStore.swift */,
 				8F500EAA1DF872CB006DA5EB /* FliptAPIClient.swift */,
+				8F7CC2161E2D387E0069E7C8 /* ViewController.swift */,
 				8F500EAC1DF88256006DA5EB /* UserStore.swift */,
 				8F0C8C081E011628005A8E3C /* FirebaseApi.swift */,
 			);
@@ -292,6 +335,15 @@
 				8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */,
 			);
 			name = BookDetailVC;
+			sourceTree = "<group>";
+		};
+		8FCBB7CD1E39627A00E1C6EB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8F7D97661DE416240053182D /* BookCollectionViewCell.swift */,
+				8F33DF831E387D5B00861BA9 /* ChatTableViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		C37CFDFB20DE422FD0DA22D1 /* Pods */ = {
@@ -411,8 +463,13 @@
 			files = (
 				8F8BBC211DC00321006789E9 /* LaunchScreen.storyboard in Resources */,
 				8F0C4DEB1DFE574D0014E22C /* GoogleService-Info.plist in Resources */,
+				8F4D87851E454A6600275E2C /* HomeViewController.xib in Resources */,
+				8F4D878A1E454EEA00275E2C /* EmailViewController.xib in Resources */,
+				8FD190B71E4D6D1100249113 /* UsernameViewController.xib in Resources */,
 				8F8BBC1E1DC00321006789E9 /* Assets.xcassets in Resources */,
+				8FC3BACA1E54231200E72B7A /* LoginVC.xib in Resources */,
 				8F8BBC1C1DC00321006789E9 /* Main.storyboard in Resources */,
+				8FC3BAC61E5402FA00E72B7A /* NameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +595,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FD190B61E4D6D1100249113 /* UsernameViewController.swift in Sources */,
+				8F7CC2171E2D387E0069E7C8 /* ViewController.swift in Sources */,
 				8FA7B6451E2575250030EDA3 /* RegisterViewController.swift in Sources */,
 				8F8BBC2D1DC0062B006789E9 /* OpenLibraryApi.swift in Sources */,
 				8F8673851E033DC300A0CF08 /* RegisterView.swift in Sources */,
@@ -545,10 +604,12 @@
 				8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */,
 				8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */,
 				8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */,
+				8FC3BAC51E5402FA00E72B7A /* NameViewController.swift in Sources */,
 				8FF7A0151E107105006175D0 /* MessagesViewController.swift in Sources */,
 				8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */,
 				8F41564C1DE8C82E00463E6D /* ExploreViewController.swift in Sources */,
 				8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */,
+				8FC3BAC91E54231200E72B7A /* LoginVC.swift in Sources */,
 				8F86FD781DEEA63000C1D3FE /* ScanViewController.swift in Sources */,
 				8F8673891E087AA200A0CF08 /* User.swift in Sources */,
 				8FA7B6471E257A120030EDA3 /* WelcomeViewController.swift in Sources */,
@@ -563,9 +624,12 @@
 				8F7D97621DE40F120053182D /* ProfileViewController.swift in Sources */,
 				8F30E6081DE78448008F5ED0 /* BookDetailViewController.swift in Sources */,
 				8F500EAF1DF8965F006DA5EB /* LoginViewController.swift in Sources */,
+				8F33DF841E387D5B00861BA9 /* ChatTableViewCell.swift in Sources */,
+				8F4D87841E454A6600275E2C /* HomeViewController.swift in Sources */,
 				8F8BBC2F1DC00662006789E9 /* Book.swift in Sources */,
 				8F8BBC2B1DC0060E006789E9 /* Constants.swift in Sources */,
 				8F41564E1DE8C92000463E6D /* BookDataStore.swift in Sources */,
+				8F4D87891E454EEA00275E2C /* EmailViewController.swift in Sources */,
 				8FF7A0131E105451006175D0 /* ChatsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

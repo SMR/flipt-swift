@@ -111,7 +111,8 @@ class BookDetailView: UIView{
         self.bookOwnedByLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.bookDescriptionTextView.snp.bottom).offset(20)
             make.left.equalTo(self).offset(20)
-            make.width.equalTo(200)
+            make.right.equalTo(self).offset(-20)
+            //make.width.equalTo(200)
             make.height.equalTo(20)
         }
         
@@ -195,6 +196,12 @@ class SavedBookDetailViewController: BookDetailViewController{
             }
         }
         
+        
+        //if let userId = self.bookItem
+        
+        
+       // self.bookItem.
+        
 
     }
 }
@@ -203,7 +210,8 @@ class SavedBookDetailViewController: BookDetailViewController{
 class BookDetailViewController: UIViewController {
     
     var book: Book!
-    
+    var owner: User!
+    lazy var ownerBtn = UIButton()
     
     lazy var bookDetailView = BookDetailView()
     override func viewDidLoad() {
@@ -222,6 +230,18 @@ class BookDetailViewController: UIViewController {
     
     
     func loadBook(){
+        //ownerBtn.backgroundColor = UIColor.black
+        self.bookDetailView.addSubview(ownerBtn)
+        self.ownerBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.bottom.equalTo(self.view).offset(-30)
+            
+        }
+        self.ownerBtn.tintColor = UIColor.orange
+        self.ownerBtn.setTitleColor(UIColor.orange, for: .normal)
+        self.ownerBtn.setTitle("Contact", for: .normal)
+        self.ownerBtn.addTarget(self, action: #selector(contactOwner), for: .touchUpInside)
+        
         self.bookDetailView.bookTitleLabel.text = self.book.title
         self.bookDetailView.authorLabel.text = self.book.author
         self.bookDetailView.bookDescriptionTextView.text = self.book.description
@@ -237,6 +257,67 @@ class BookDetailViewController: UIViewController {
         }
         
         
+        
+        if let ownerId = self.book.ownerId {
+            
+            //configure button
+            
+            
+            FliptAPIClient.getUserFrom(ownerId, completion: { (user) in
+                self.owner = user
+                OperationQueue.main.addOperation {
+                    
+                    if let userid = user.userid {
+                        
+                        FirebaseApi.checkIfBlocked(userID: userid, completion: { (isBlocked) in
+                            if isBlocked {
+                                OperationQueue.main.addOperation {
+                                    self.bookDetailView.bookOwnedByLabel.text = "This user is blocked"
+                                    self.bookDetailView.messageOwnerBtn.isEnabled = false
+                                    self.bookDetailView.messageOwnerBtn.isUserInteractionEnabled = false
+                                }
+                            } else {
+                                if let firstname = user.firstname, let lastname = user.lastname {
+                                    
+                                    
+                                    self.bookDetailView.bookOwnedByLabel.text = "This book is owned by \(firstname) \(lastname.characters.first!)"
+                                    dump(user)
+                                    
+                                    // .substring(to: name.index(before: name.endIndex))
+                                }
+                            }
+                            
+
+                        })
+                        
+                    }
+                    
+                }
+                
+            })
+        
+        }
+        
+        
+     
+        
+    }
+    
+    
+    func contactOwner() {
+        print("Opening chat")
+        //open chat
+        let msgViewController = MessagesViewController()
+        msgViewController.book = self.book
+        
+        if let firstname = self.owner.firstname, let lastname = self.owner.lastname {
+            let lname = self.owner.lastname.characters.first!
+        
+            msgViewController.recipient = "\(firstname) \(lname)"
+        }
+        msgViewController.recipientId = self.owner.userid
+        
+        self.navigationController?.pushViewController(msgViewController, animated: true)
     }
     
     

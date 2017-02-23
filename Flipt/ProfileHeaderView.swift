@@ -17,6 +17,7 @@ class ProfileHeaderView: UIView{
     lazy var imageView: UIImageView = UIImageView()
     lazy var profileLabel: UILabel = UILabel()
     lazy var locationLabel: UILabel = UILabel()
+    lazy var imageBackground: UIView = UIView()
     
     init(){
         super.init(frame: CGRect.zero)
@@ -31,15 +32,17 @@ class ProfileHeaderView: UIView{
     }
     
     func setupViews(){
-        let views : [UIView] = [backgroundView,profileLabel, locationLabel,imageView]
+        let views : [UIView] = [backgroundView,profileLabel, locationLabel,imageBackground,imageView]
         views.forEach { (view) in
             self.addSubview(view)
             //view.backgroundColor = UIColor.random
         }
         
+        
+        
         self.imageView.backgroundColor = UIColor.lightGray
         
-        self.backgroundColor = UIColor.gray
+        self.backgroundColor = UIColor.white
         let gradient = [UIColor.red, UIColor.black].gradient()
         
         let secondGradient = [UIColor.black, UIColor.orange].gradient { gradient in
@@ -49,12 +52,15 @@ class ProfileHeaderView: UIView{
         gradient.bounds = self.backgroundView.bounds
         gradient.frame = self.backgroundView.frame
         
-        
+        imageBackground.backgroundColor = UIColor.white
+        self.backgroundView.backgroundColor = Constants.UI.appColor
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.backgroundView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.backgroundView.addSubview(blurEffectView)
+        
+        
 //        gradient.timeOffset = 0
 //        gradient.bounds = navigationController.view.bounds
 //        gradient.frame = navigationController.view.bounds
@@ -63,6 +69,7 @@ class ProfileHeaderView: UIView{
         
         
        
+        self.imageBackground.layer.cornerRadius = 85.0/2
         
         profileLabel.textAlignment = .center
         imageView.layer.cornerRadius = 37.0
@@ -87,10 +94,15 @@ class ProfileHeaderView: UIView{
             make.left.equalTo(self)
             make.top.equalTo(self)
         }
+        imageBackground.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.height.width.equalTo(85)
+            make.top.equalTo(self).offset(65)
+        }
         imageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self)
             make.height.width.equalTo(75)
-            make.top.equalTo(self).offset(75)
+            make.top.equalTo(self).offset(70)
         }
         profileLabel.snp.makeConstraints{(make) in
             make.top.equalTo(imageView.snp.bottom).offset(5)
@@ -99,6 +111,7 @@ class ProfileHeaderView: UIView{
             //make.height.equalTo(20)
             
         }
+        
         locationLabel.snp.makeConstraints{(make) in
             make.top.equalTo(profileLabel.snp.bottom)
             make.centerX.equalTo(self)

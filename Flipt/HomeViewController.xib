@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Flipt" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Flipt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TS-Gr-v39">
+                    <rect key="frame" x="50.5" y="166" width="274" height="39"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="274" id="McQ-qk-7iV"/>
+                        <constraint firstAttribute="height" constant="39" id="VlC-rB-Yls"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="33"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuz-fC-Jsc">
+                    <rect key="frame" x="16" y="535" width="343" height="45"/>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.2627450980392157" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="VMq-dc-IfQ"/>
+                        <constraint firstAttribute="width" constant="343" id="jBW-ax-oSW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <state key="normal" title="Sign Up">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="signUpBtnPressed:" destination="-1" eventType="touchUpInside" id="xcl-Cg-Ils"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGs-m2-K57">
+                    <rect key="frame" x="16" y="595" width="343" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="343" id="Cys-0S-80h"/>
+                        <constraint firstAttribute="height" constant="45" id="kvA-Ea-gxL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <state key="normal" title="Log In">
+                        <color key="titleColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="loginBtnPressed:" destination="-1" eventType="touchUpInside" id="3oI-4A-Do2"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="aGs-m2-K57" firstAttribute="top" secondItem="Vuz-fC-Jsc" secondAttribute="bottom" constant="15" id="3yN-i1-wd0"/>
+                <constraint firstItem="6TS-Gr-v39" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="166" id="AIE-MX-2tS"/>
+                <constraint firstItem="Vuz-fC-Jsc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ft3-hC-CVB"/>
+                <constraint firstItem="aGs-m2-K57" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cGR-1K-toX"/>
+                <constraint firstItem="6TS-Gr-v39" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fTN-CE-Gv1"/>
+                <constraint firstAttribute="bottom" secondItem="aGs-m2-K57" secondAttribute="bottom" constant="27" id="up2-Ca-a1B"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="148.5"/>
+        </view>
+    </objects>
+</document>

@@ -23,12 +23,12 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("running")
+        
         setupViews()
         
-
-        self.collectionView.reloadData()
         
+        //        self.collectionView.reloadData()
+        //
         store.getUserBooks {
             print("From view did load \(self.store.savedBooks.count)")
             self.collectionView.reloadData()
@@ -36,9 +36,9 @@ class ProfileViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
     }
-  
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("appearing")
@@ -59,7 +59,7 @@ class ProfileViewController: UIViewController {
             
         }
         
-       
+        
         
         
     }
@@ -78,9 +78,9 @@ class ProfileViewController: UIViewController {
     func setupViews(){
         let layout = UICollectionViewFlowLayout()
         
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 5, right: 5)
+        layout.sectionInset = UIEdgeInsets(top: -10, left: 5, bottom: 5, right: 5)
         layout.minimumLineSpacing = 0
-        layout.minimumLineSpacing = 1
+        layout.minimumLineSpacing = 0
         let cellsPerRow: CGFloat = 3
         let pLength = self.view.bounds.width
         let perimeterLength = floor(pLength / cellsPerRow)
@@ -93,7 +93,7 @@ class ProfileViewController: UIViewController {
         
         self.collectionView.register(BookCollectionViewCell.self, forCellWithReuseIdentifier: "basicCell")
         
-        self.profileHeaderView.backgroundColor = UIColor.red
+        //self.profileHeaderView.backgroundColor = UIColor.red
         self.collectionView.backgroundColor = UIColor.lightGray
         
         self.view.addSubview(self.collectionView)
@@ -112,20 +112,24 @@ class ProfileViewController: UIViewController {
         setupConstraints()
     }
     
-
+    
     
     func setupUser(){
         
         
         OperationQueue.main.addOperation {
             if let currentUser = User.current {
-                self.profileHeaderView.profileLabel.text = currentUser.username
+                
+                
+                let lastInitial = " " + String(currentUser.lastname.characters.first!)
+                
+                self.profileHeaderView.profileLabel.text = currentUser.firstname + lastInitial ?? currentUser.username
             }
         }
         
         FliptAPIClient.downloadProfPicture { (data) in
             
-                let image = UIImage(data: data)
+            let image = UIImage(data: data)
             OperationQueue.main.addOperation {
                 self.profileHeaderView.imageView.image = image
                 self.profileHeaderView.imageView.layer.cornerRadius = 34
@@ -186,7 +190,7 @@ class ProfileViewController: UIViewController {
         
         
     }
-
+    
     
     
     
@@ -200,7 +204,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         return self.store.savedBooks.count
     }
     
-   
+    
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -288,7 +292,7 @@ extension ProfileViewController: ImagePickerDelegate {
         let lightboxImages = images.map {
             return LightboxImage(image: $0)
         }
-   
+        
         let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
         imagePicker.present(lightbox, animated: true, completion: nil)
     }
@@ -314,7 +318,7 @@ extension ProfileViewController: ImagePickerDelegate {
         imagePicker.delegate = self
         
         present(imagePicker, animated: true, completion: nil)
-     
+        
     }
     
     

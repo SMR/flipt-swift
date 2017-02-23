@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         
-        self.navigationController?.isNavigationBarHidden = false
+        //self.navigationController?.isNavigationBarHidden = false
         loginView.loginBtn.addTarget(self, action: #selector(login), for: .touchUpInside)
         loginView.signupBtn.addTarget(self, action: #selector(switchToSignUpView), for: .touchUpInside)
          let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
         let password = loginView.passwordTextField.text!.lowercased()
         
         
-        FliptAPIClient.login(userName: username, password: password) {success in
+        FliptAPIClient.login(email: username, password: password) {success in
             
             
             if success {

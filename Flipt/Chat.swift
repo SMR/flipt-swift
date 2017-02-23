@@ -11,7 +11,7 @@ import Foundation
 class Chat {
     
     var recipient: String = ""
-    var book: String
+    var book: Book!
     var lastMessageAt: Double
     var lastMessage: String
     var fromUser: String
@@ -21,7 +21,7 @@ class Chat {
     
     init(id:String, book:String, lastMessageAt:Double, lastMessage:String, fromUser: String) {
         self.id = id
-        self.book = book
+        //self.book = book
         self.lastMessageAt = lastMessageAt
         self.lastMessage = lastMessage
         self.fromUser = fromUser
@@ -29,7 +29,7 @@ class Chat {
     
     init(id:String,dict:[String:Any]) {
         self.id = id
-        self.book = dict["book"] as? String ?? ""
+        //self.book = dict["book"] as? String ?? ""
         self.lastMessage = dict["lastMessage"] as? String ?? ""
         self.lastMessageAt = dict["timestamp"] as? Double ?? 0.0
         self.fromUser = dict["fromUser"] as? String ?? ""

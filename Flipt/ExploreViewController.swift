@@ -26,15 +26,21 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        print("running")
+     
         SVProgressHUD.show()
         
         let tabBarController = self.tabBarController as! FliptTabBarController
         self.locationManager = tabBarController.locationManager
-        
-        if let latitude = self.locationManager.location?.coordinate.latitude, let longitude = self.locationManager.location?.coordinate.longitude {
+    
+        if let manager = self.locationManager, let location = manager.location {
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
             print((latitude,longitude))
-            store.getNearByBooks(at: (latitude,longitude)) {
+            //TODO: - Change back
+            
+            var testlat = 40.71949469405151234
+            var testlong = -73.98507555040615102
+            store.getNearByBooks(at: (testlat,testlong)) {
                 print(self.store.nearByBooks.count)
                 OperationQueue.main.addOperation {
                     self.collectionView.reloadData()
@@ -44,30 +50,43 @@ class ExploreViewController: UIViewController {
             }
         } else {
             //Location not found
+            //print(self.locationManager)
             print("exploreVC - location not found")
         }
         
         
-//        store.getNearByBooks {
-//            self.collectionView.reloadData()
-//            SVProgressHUD.dismiss()
-//        }
+
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.navigationItem.title = "Explore"
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]
+
     }
     
        
     func setupViews(){
         
-        self.navigationController?.isNavigationBarHidden = false
+       // self.navigationController?.isNavigationBarHidden = false
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 110, height: 180)
+        //self.title = "Explore"
+        //self.navigationItem.title = "Johann"
+        //self.navigationController?.navigationItem.title = "Jim"
+        //self.navigationController?.navigationBar.tintColor = Constants.UI.appColor
+        //
         
+
+
         self.collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(BookCollectionViewCell.self, forCellWithReuseIdentifier: "basicCell")
-        self.collectionView.backgroundColor = UIColor.gray
+        self.collectionView.backgroundColor = UIColor.lightGray
         
         
         self.searchBar = UISearchBar()

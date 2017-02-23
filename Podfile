@@ -25,6 +25,7 @@ def common_pods
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'SVProgressHUD'
+    pod 'Digits'
 
 
 end

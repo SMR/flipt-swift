@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,16 +24,17 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="eWx-eA-ND4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-DU-WwB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-DU-WwB">
                                 <rect key="frame" x="140" y="75" width="95" height="91"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eWx-eA-ND4" secondAttribute="trailing" id="DpZ-fm-hpg"/>
                             <constraint firstItem="eWx-eA-ND4" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Kao-cn-Sry"/>
+                            <constraint firstItem="eWx-eA-ND4" firstAttribute="top" secondItem="3dR-DU-WwB" secondAttribute="bottom" constant="-166" id="ewk-Iy-ILX"/>
                             <constraint firstItem="eWx-eA-ND4" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="gXQ-F6-Oni"/>
+                            <constraint firstItem="3dR-DU-WwB" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xaF-0P-SbD"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="eWx-eA-ND4" secondAttribute="bottom" id="yQD-wr-u1A"/>
                         </constraints>
                     </view>

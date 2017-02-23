@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import SwiftyJSON
 
 
 
@@ -17,8 +18,8 @@ class User {
         static let id = "id"
         static let user_id = "userid"
         static let username = "username"
-        static let apiKey = "apiKey"
-        static let apiSecret = "apiSecret"
+        static let apiKey = "api_key_id"
+        static let apiSecret = "api_key_secret"
         static let books = "books"
         static let profilePic = "profilePic"
         static let email = "email"
@@ -29,14 +30,15 @@ class User {
     
     var id: String!
     var userid: String!
-    var username: String!
+    var username: String! = ""
     var firstname: String!
     var lastname: String!
-    var phonenumber: String!
+    var fullname: String!
+    var phonenumber: String! = ""
     var email:String!
     var apiKey: String!
     var apiSecret: String!
-    var profilePic: String!
+    var profilePic: String! = ""
     var latitude:Double?
     var longitude:Double?
     var location: (Double, Double) {
@@ -46,6 +48,21 @@ class User {
             }
             return (0,0)
             
+        }
+    }
+    
+    var name: String {
+        get {
+            if let firstname = self.firstname, let lastname = self.lastname {
+                if let lname = lastname.characters.first {
+                    return "\(firstname) \(lname)"
+                } else {
+                    return "\(firstname)"
+                }
+                
+            } else {
+                return ""
+            }
         }
     }
     var booksCount: Int!
@@ -58,10 +75,8 @@ class User {
         guard let apiSecret = dict[UserKeys.apiSecret] as? String else { print("apiSecret fail");return nil }
         
         guard let email = dict[UserKeys.email] as? String else { print("email fail"); return nil }
-        guard let firstname = dict[UserKeys.firstname] as? String else { print("firstname fail"); return nil }
-        
-        guard let lastname = dict[UserKeys.lastname] as? String else { print("lastname fail"); return nil }
-        
+        let firstname = dict[UserKeys.firstname] as? String ?? ""
+        let lastname = dict[UserKeys.lastname] as? String ?? ""
         guard let userid = dict[UserKeys.user_id] as? String else { print("userid fail"); return nil }
         
         self.id = "\(id)"
@@ -75,6 +90,7 @@ class User {
     
 
     }
+    //TODO: - ADD Full name
     
     init(user: UserDefaults) {
         self.id = user.string(forKey: UserKeys.id) ?? ""
@@ -88,6 +104,16 @@ class User {
         self.lastname = user.string(forKey: UserKeys.lastname)
         self.phonenumber = user.string(forKey: UserKeys.phonenumber)
         self.userid = user.string(forKey: UserKeys.user_id)
+    }
+    
+    
+    init(_ dict: JSON) {
+        self.email = dict["email"].string ?? ""
+        self.firstname = dict["firstname"].string ?? ""
+        self.lastname = dict["lastname"].string ?? ""
+        self.profilePic = dict["profilepic"].string ?? ""
+        self.userid = dict["userid"].string ?? ""
+        self.id = dict["id"].string ?? ""
     }
     
    
@@ -111,8 +137,7 @@ class User {
                     UserDefaults.standard.set(user.username, forKey: UserKeys.username)
                     UserDefaults.standard.set(user.profilePic, forKey: UserKeys.profilePic)
                     UserDefaults.standard.set(user.email, forKey: UserKeys.email)
-                    
-                    UserDefaults.standard.set(user.firstname, forKey: UserKeys.email)
+                    UserDefaults.standard.set(user.firstname, forKey: UserKeys.firstname)
                     UserDefaults.standard.set(user.lastname, forKey: UserKeys.lastname)
                     UserDefaults.standard.set(user.userid, forKey: UserKeys.user_id)
                     UserDefaults.standard.set(user.phonenumber, forKey: UserKeys.phonenumber)
@@ -126,8 +151,7 @@ class User {
                     UserDefaults.standard.set(user.username, forKey: UserKeys.username)
                     UserDefaults.standard.set(user.profilePic, forKey: UserKeys.profilePic)
                     UserDefaults.standard.set(user.email, forKey: UserKeys.email)
-                    
-                    UserDefaults.standard.set(user.firstname, forKey: UserKeys.email)
+                    UserDefaults.standard.set(user.firstname, forKey: UserKeys.firstname)
                     UserDefaults.standard.set(user.lastname, forKey: UserKeys.lastname)
                     UserDefaults.standard.set(user.phonenumber, forKey: UserKeys.phonenumber)
                     UserDefaults.standard.set(user.userid, forKey: UserKeys.user_id)
@@ -186,10 +210,76 @@ class User {
     }
     
     
-    func toFirebase() -> [String:Any] {
-        let fullName = self.firstname != nil && self.lastname != nil ? self.firstname + " " + self.lastname : self.username
+    func save() {
+        let userDict = User.current?.serialize()
+        updateUser(dict: userDict!) { 
+            print("saving")
+        }
+        
+    }
+    
+    func updateUser(dict:[String: Any], completion: @escaping () -> ()) {
+        let urlString = "\(Constants.Flipt.baseUrl)/user"
+        guard let url = URL(string: urlString) else { return }
+        
+ 
+        
+        let session = URLSession.shared
+        if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
+            
+            let loginData = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
+            let base64LoginString = loginData.base64EncodedString()
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = "POST"
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+            
+            do{
+                let jsonData = try JSONSerialization.data(withJSONObject: dict, options: [])
+                urlRequest.httpBody = jsonData
+            }catch {
+                print("no data")
+            }
+            
+            let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
+                guard let jsonData = data else { return }
+                do{
+                    let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String:Any]
+                    
+                    completion()
+                    
+                }catch{
+                    
+                }
+            }
+            
+            dataTask.resume()
+        }
+        
+        
+    }
+    
+
+  
+    
+    func serialize() -> [String: Any] {
         return [
-            self.username:[
+            "email":self.email,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "phonenumber": self.phonenumber,
+            "profilepic" : self.profilePic,
+            "userid": self.userid,
+            "username" : username
+        ]
+    }
+    
+    
+    func toFirebase() -> [String:Any] {
+        let fullName = self.firstname != nil && self.lastname != nil ? self.firstname + " " + self.lastname : self.userid
+        return [
+            self.userid:[
                 "fullname": fullName
             ]
         ]

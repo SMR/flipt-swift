@@ -22,12 +22,12 @@ class BookTitleView: UIView{
     }
     override init(frame: CGRect){
         super.init(frame: frame)
-        self.addSubview(bookTitleLabel)
-        bookTitleLabel.font = UIFont.boldSystemFont(ofSize: 5)
-        
-        bookTitleLabel.snp.makeConstraints { (make) in
-            make.center.equalTo(self)
-        }
+        //self.addSubview(bookTitleLabel)
+//        bookTitleLabel.font = UIFont.boldSystemFont(ofSize: 5)
+//        
+//        bookTitleLabel.snp.makeConstraints { (make) in
+//            make.center.equalTo(self)
+//        }
         
     }
     
@@ -37,6 +37,7 @@ class BookTitleView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 
 class BookCollectionViewCell: UICollectionViewCell {
     
@@ -50,6 +51,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         self.addSubview(bookCoverImageView)
         self.addSubview(bookTitleView)
         self.bookTitleView.bookTitleLabel.text = book.title
+        self.bookTitleView.isHidden = true
         createConstraints()
     }
     
@@ -76,7 +78,7 @@ class BookCollectionViewCell: UICollectionViewCell {
             let image = UIImage(data: data)
             DispatchQueue.main.async {
                 self.bookCoverImageView.image = image
-                
+                self.bookTitleView.isHidden = true
             }
         }
         self.bookTitleView.bookTitleLabel.text = book.title

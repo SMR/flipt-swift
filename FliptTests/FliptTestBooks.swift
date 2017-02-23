@@ -35,15 +35,39 @@ class FliptTestBooks: XCTestCase {
 //        self.isbn = dict["isbn"].string ?? ""
 //        
 //    }
+    
+    
+    static let user_id = "userid"
+    static let username = "username"
+    static let apiKey = "apiKey"
+    static let apiSecret = "apiSecret"
+    static let books = "books"
+    static let profilePic = "profilePic"
+    static let email = "email"
+    static let firstname = "firstname"
+    static let lastname = "lastname"
+    static let phonenumber = "phonenumber"
+
     func testBooks() {
-        let fliptDict = [
-            "publisher": "poop",
-            "title":"title",
-            "fullTitle":"fullTitle",
-            "author": "author",
-            "description": "description",
-            "isbn": "isbn"
-        ]
+        var userDict = [String: Any]()
+        userDict[User.UserKeys.id] = 4
+        userDict[User.UserKeys.username] = "johann"
+        userDict[User.UserKeys.apiKey] = "SEJlNoIrzCCgPB237Eo3KA"
+        userDict[User.UserKeys.apiSecret] = "3jaXfS6kCBab3kvlBMVmJw"
+        userDict[User.UserKeys.profilePic] = "Johann"
+        userDict[User.UserKeys.email] = "Johann"
+        userDict[User.UserKeys.firstname] = "Johann"
+        userDict[User.UserKeys.lastname] = "Johann"
+        userDict[User.UserKeys.phonenumber] = "Johann"
+        userDict[User.UserKeys.user_id] = "johann"
+        guard let user = User(userDictionary: userDict) else { print("User failed");return }
+        User.current = user
+        print("starting test")
+        FliptAPIClient.getAllBooks { (books) in
+            print(books.count)
+          
+            XCTAssertTrue(books.count > 0)
+        }
         
 
      
@@ -53,11 +77,6 @@ class FliptTestBooks: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+  
     
 }

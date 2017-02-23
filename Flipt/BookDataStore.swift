@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Firebase
 
 class BookDataStore {
     static let sharedInstance = BookDataStore()
@@ -17,11 +18,7 @@ class BookDataStore {
     var books = [Book]()
     
     var nearByBooks = [Book]()
-    
-    
-
    
-    
     func getBook(isbn:String, completion:@escaping (Book)->()){
         GoogleBooksApi.getBook(isbn: isbn) { (book,success) in
             if success {
@@ -45,19 +42,18 @@ class BookDataStore {
         
     }
     
-    
     func getNearByBooks(at location:Location, completion: @escaping ()->()) {
         FliptAPIClient.getNearBooks(at: location) { (books) in
             self.nearByBooks = books
             completion()
         }
-       
+        
     }
     
     func getUserBooks(completion: @escaping ()->()) {
         getSavedBooks()
         
-        FliptAPIClient.getUser {bookCount in
+        FliptAPIClient.getUser { bookCount in
             if let currentUser = User.current {
                 
                 FliptAPIClient.getAllBooks(completion: { (books) in
@@ -66,31 +62,58 @@ class BookDataStore {
                     self.getSavedBooks()
                     
                 })
-
-//                if bookCount != self.savedBooks.count {
-//                    if bookCount > self.savedBooks.count {
-//                        print("Core Data > Server")
-//                    }else {
-//                        print("Server < Core Data")
-//                    }
-//                                    } else {
-//                    print("Server = Core Data")
-//                    // do nothing
-//                }
+                
+                //                if bookCount != self.savedBooks.count {
+                //                    if bookCount > self.savedBooks.count {
+                //                        print("Core Data > Server")
+                //                    }else {
+                //                        print("Server < Core Data")
+                //                    }
+                //                                    } else {
+                //                    print("Server = Core Data")
+                //                    // do nothing
+                //                }
             }
         }
     }
     
+    func uploadUserImagefor(bookId:String, data:Data) {
+        
+        let storage = FIRStorage.storage()
+        let storageRef = storage.reference()
+        
+        let userImageRef = storageRef.child("userimg").child("\(bookId)")
+        
+        let uploadTask = userImageRef.put(data, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            
+            let downloadURL = metadata.downloadURL()?.absoluteString
+            
+            print(downloadURL)
+            guard let url = downloadURL else { return }
+            
+            FliptAPIClient.addUserImgToBook(id: bookId, img: url, completion: {
+                
+            })
+            
+        }
+        
+        
+    }
     
     func getSavedBooks(){
         
-        // check for differences in count 
+        // check for differences in count
         
         
         let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<BookItem> = BookItem.fetchRequest()
         do {
             self.savedBooks = try context.fetch(fetchRequest)
+            print("SavedBooks - \(self.savedBooks.count)")
         }catch{
             
         }
@@ -103,7 +126,7 @@ class BookDataStore {
         let context = persistentContainer.viewContext
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
-
+        
         for book in books {
             let bookItem = BookItem(context: context)
             bookItem.title = book.title
@@ -117,9 +140,7 @@ class BookDataStore {
         saveContext()
     }
     
-    func fetchBooks() {
-        
-    }
+   
     
     func save(book: Book) {
         

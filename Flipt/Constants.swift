@@ -12,7 +12,7 @@ import BarcodeScanner
 struct Constants{
     static let booksApiURL = "https://openlibrary.org/api/books?bibkeys=ISBN:"
     static let bookApiParams = "&jscmd=details&format=json"
-    static let appColor = UIColor.blue
+    //static let appColor = UIColor.blue
     
     static let googleBooksApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
     static let googleApiKey = "&bookclub-1009"
@@ -32,19 +32,22 @@ struct Constants{
     //user -> POST update user
     struct Flipt{
         //static let baseUrl = "https://fliptbooks.herokuapp.com/api"
-        static let baseUrl = "https://localhost:8080"
-        static let sendBookUrl = Flipt.baseApiUrl + "/sendbook"
-        static let nearBooksUrl = Flipt.baseApiUrl + "/books/near"
-        static let updateProfilePicUrl = Flipt.baseApiUrl + "/updatePic"
-        static let userUrl = Flipt.baseApiUrl + "/user"
-        static let searchUrl = Flipt.baseApiUrl + "/books/search"
+        static let baseUrl = "http://localhost:8080/api"
+        static let sendBookUrl = Flipt.baseUrl + "/sendbook"
+        static let nearBooksUrl = Flipt.baseUrl + "/books/near"
+        static let updateProfilePicUrl = Flipt.baseUrl + "/updatePic"
+        static let userUrl = Flipt.baseUrl + "/user"
+        static let searchUrl = Flipt.baseUrl + "/books/search"
         static let baseApiUrl = Flipt.baseUrl + "/api"
+        static let bookUrl = Flipt.baseUrl + "/book"
         
     }
     
     struct UI{
         static let padding = 20
         static let textFieldHeight = 50
+        
+        static let appColor = UIColor(red: 244/255, green: 67/255, blue: 54/255, alpha: 1.0)
     }
        
         

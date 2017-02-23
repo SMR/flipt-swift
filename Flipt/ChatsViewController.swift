@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import JSQMessagesViewController
-
+import SVProgressHUD
 class ChatsViewController: UITableViewController {
 
     var ref: FIRDatabaseReference?
@@ -21,9 +21,19 @@ class ChatsViewController: UITableViewController {
 
         
     
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "messagesCell")
+        self.tableView.register(ChatTableViewCell.self ,forCellReuseIdentifier: "messagesCell")
         
         FirebaseApi.connectToFirebase()
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+       
+        self.tabBarController?.navigationItem.title = "Chats"
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]
+   
+ 
+//        self.navigationController?.navigationItem.title = "Chats"
+//        self.navigationController?.title = "Chats"
+//    
        
       
        // getMessages()
@@ -34,9 +44,16 @@ class ChatsViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.chats.removeAll()
-        FirebaseApi.getAllChats {chat in
+        
+        FirebaseApi.getAllChats { chat in
+        
             self.chats.append(chat)
-            self.tableView.reloadData()
+            SVProgressHUD.show()
+            OperationQueue.main.addOperation {
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
+            }
+            
         }
     }
     
@@ -63,22 +80,23 @@ class ChatsViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return self.chats.count
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "messagesCell", for: indexPath) as! UITableViewCell
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "messagesCell")
-        }
-        
-        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "messagesCell", for: indexPath) as! ChatTableViewCell
+
         if self.chats.count > 0 {
             let chat = self.chats[indexPath.row]
-            cell.textLabel?.text = chat.recipient
-            cell.detailTextLabel?.text = chat.lastMessage
+            cell.configureCell(chat: chat)
+
         }
         
         
+
 
         return cell
     }
@@ -90,8 +108,9 @@ class ChatsViewController: UITableViewController {
         let msgVC = MessagesViewController()
         msgVC.chatId = selectedChat.id
         msgVC.recipient = selectedChat.recipient
-
-        self.navigationController?.pushViewController(msgVC, animated: true)
+        let navVC = UINavigationController(rootViewController: msgVC)
+        self.navigationController?.present(navVC, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(msgVC, animated: true)
         
         
     }

@@ -19,31 +19,89 @@ class MessagesViewController: JSQMessagesViewController {
     
     var chatId: String = ""
     var recipient: String = ""
+    var recipientId: String = ""
+    var book: Book!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let user = User.current {
+            self.senderId = user.userid
             let fullName = user.firstname != nil && user.lastname != nil ? user.firstname + " " + user.lastname : user.username
-            self.senderId = user.username
+            //self.senderId = user.username
             self.senderDisplayName = fullName
         }
         
         self.title = recipient
-      
         
-        FirebaseApi.getAllMessagesfor(chatId: chatId) { (message) in
-            dump(message)
-            self.addMessage(withId: message.sender, name: message.sender, text: message.text)
-            self.finishSendingMessage()
+        
+        if chatId != "" {
+            FirebaseApi.getAllMessagesfor(chatId: chatId) { (message) in
+                dump(message)
+                self.addMessage(withId: message.sender, name: message.sender, text: message.text)
+                self.finishSendingMessage()
+            }
+            
         }
         
-        // this might fail
+        
+        
+        let moreButton = UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(moreBtnTapped))
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneBtnTapped))
+        self.navigationController?.navigationBar.tintColor = Constants.UI.appColor
+        self.navigationItem.leftBarButtonItem = doneButton
+        self.navigationItem.rightBarButtonItem = moreButton
+        self.navigationController!.navigationItem.rightBarButtonItem = moreButton
+        
+        
+
         
         
         // Do any additional setup after loading the view.
     }
+    func doneBtnTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
+    func moreBtnTapped() {
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let blockButton = UIAlertAction(title: "Block User", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            
+            
+            FirebaseApi.getRecipientId(chatId: self.chatId, completion: { (recipientId) in
+                FirebaseApi.toggleBlock(userID: recipientId, completion: {
+                    self.navigationController?.popViewController(animated: true)
+                })
+            })
+            
+        })
+        
+        //        let  deleteButton = UIAlertAction(title: "Delete forever", style: .default, handler: { (action) -> Void in
+        //            print("Delete button tapped")
+        //        })
+        //
+        //        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+        //
+        //        })
+        
+        
+        alertController.addAction(blockButton)
+        // alertController.addAction(deleteButton)
+        //alertController.addAction(cancelButton)
+        
+        self.navigationController?.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    func sendFirstTimeMessage() {
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -53,25 +111,51 @@ class MessagesViewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
-        print("\n\nChatViewController\ndidPressSend\nbutton: \(button)\ntext: \(text)\nsenderId: \(senderId)\nsenderDisplayName: \(senderDisplayName)\ndate: \(date)\nself.messages.count: \(self.messages.count)\n\n")
         
         
-       //send to firebase
-        
-        FirebaseApi.sendMessage(chatId: self.chatId, text: text, date:date) {
-            //self.addMessage(withId: self.senderId, name: self.senderDisplayName, text: text)
-            // message sent sound
-            JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
-            
-            // animates sending of message
-            finishSendingMessage() // 5
-            
-            
-            // Reset the typing indicator when the Send button is pressed.
-            //       isTyping = false
-
-        }
-        
+       // FirebaseApi.getRecipientId(chatId: self.chatId, completion: { (recipientId) in
+            FirebaseApi.checkIfBlocked(userID: self.recipientId, completion: { (isBlocked) in
+                if !isBlocked {
+                    
+                    if self.messages.count == 0 {
+                    
+                        print(self.recipientId)
+                        
+                        FirebaseApi.createChat(recipient: self.recipientId, book: self.book, completion: { (chatId) in
+                            self.chatId = chatId
+                            FirebaseApi.sendMessage(chatId: chatId, text: text, date: date, completion: {
+                                JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
+                                // animates sending of message
+                                //self.finishSendingMessage()
+                                
+                                FirebaseApi.getAllMessagesfor(chatId: chatId, completion: { (message) in
+                                    self.addMessage(withId: message.sender, name: message.sender, text: message.text)
+                                    self.finishSendingMessage()
+                                })
+                                
+                            })
+                        })
+                        print("First message")
+                    } else {
+                        FirebaseApi.sendMessage(chatId: self.chatId, text: text, date:date) {
+                            //self.addMessage(withId: self.senderId, name: self.senderDisplayName, text: text)
+                            // message sent sound
+                            JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
+                            
+                            // animates sending of message
+                            self.finishSendingMessage() // 5
+                            
+                            
+                            // Reset the typing indicator when the Send button is pressed.
+                            //       isTyping = false
+                            
+                        }
+                    }
+                    
+                    
+                }
+            })
+       // })
         
     }
     
@@ -116,21 +200,27 @@ class MessagesViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         let message = messages[indexPath.item]
-    
+        
         
         if message.senderId == senderId {
             cell.textView?.textColor = UIColor.white
         } else {
             cell.textView?.textColor = UIColor.black
         }
-    
+        
         return cell
+    }
+    
+    override func didPressAccessoryButton(_ sender: UIButton!) {
+        
+        print("do nothing")
     }
     
     // MARK: UI and User Interaction
     private func setupOutgoingBubble() -> JSQMessagesBubbleImage {
         let bubbleImageFactory = JSQMessagesBubbleImageFactory()
-        return bubbleImageFactory!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
+        //UIColor.jsq_messageBubbleBlue()
+        return bubbleImageFactory!.outgoingMessagesBubbleImage(with: Constants.UI.appColor)
     }
     
     private func setupIncomingBubble() -> JSQMessagesBubbleImage {
@@ -139,30 +229,6 @@ class MessagesViewController: JSQMessagesViewController {
     }
     
     
-    // Observe Messages
-    private func observeMessages(for tag: String) {
-        //get message 
-        
-        
-              //self.addMessage(withId: "", name: "", text: "")
-        //ads messages to collecton view
-        
-        
-        
-    }
+
     
-    
-    func blockUser(){
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        // Fabric.with([Crashlytics.self])
-        //FIRApp.configure()
+        FIRApp.configure()
                 
         
  
@@ -28,40 +28,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // check for user login in
         
-        if let user = User.current {
-            let profileVC = ProfileViewController()
-            let scanVC = ScanViewController()
-            let exploreVC = ExploreViewController()
+    
+        
+       // UINavigationBar.appearance().tintColor = Constants.UI.appColor
+        
+        //UINavigationBar.appearance().tintColor = UIColor.white
+        if User.current != nil {
+            
+ 
             let navVC = UINavigationController()
-            
-            
-            let tabBarController = UITabBarController()
-            
-            tabBarController.viewControllers = [profileVC,scanVC,exploreVC]
-            tabBarController.tabBar.items?[0].image = UIImage(named: "profile")
-            tabBarController.tabBar.items?[0].title = "Profile"
-            tabBarController.tabBar.items?[1].image = UIImage(named: "scan")
-            tabBarController.tabBar.items?[1].title = "Scan"
-            tabBarController.tabBar.items?[2].image = UIImage(named: "profile")
-            tabBarController.tabBar.items?[2].title = "Explore"
+
+            let welcomeVC = HomeViewController()
             
             let ftabBarController = FliptTabBarController()
             navVC.viewControllers = [ftabBarController]
+            //navVC.viewControllers = [vc]
             self.window = UIWindow(frame: UIScreen.main.bounds)
             self.window?.rootViewController = navVC
             self.window?.makeKeyAndVisible()
 
         } else {
             
-            let welcomeVC = WelcomeViewController()
+            let navVC = UINavigationController()
             
-            //let loginVC = LoginViewController()
-            let navVC = UINavigationController(rootViewController: welcomeVC)
-            navVC.isNavigationBarHidden = true
+
+            
+            let welcomeVC = HomeViewController()
+     
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = navVC
+            self.window?.rootViewController = welcomeVC
             self.window?.makeKeyAndVisible()
             
+                      
         }
  
         

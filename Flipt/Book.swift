@@ -16,7 +16,7 @@ struct Book{
     
     var publisher: String
     //var wikiLink: String
-    var bookId: String!
+    var bookId: String! = ""
     var title:String
     var fullTitle:String
     var coverImgUrl: String
@@ -26,6 +26,8 @@ struct Book{
     var description: String
     var publishYear: String
     var isbn: String
+    var userImg = ""
+    var ownerId:Int!
     
     
     init(){
@@ -48,6 +50,9 @@ struct Book{
         self.description = dict["description"].string ?? ""
         self.publishYear = dict["publishYear"].string ?? ""
         self.isbn = dict["isbn"].string ?? ""
+        self.userImg = dict["userimg"].string ?? ""
+        self.bookId = dict["bookId"].string ?? ""
+        self.ownerId = dict["mainuser_id"].int ?? 0
         
     }
     
@@ -132,12 +137,14 @@ struct Book{
             "description":self.description,
             "publisher":self.publisher,
             "publishYear":self.publishYear,
-            "isbn":self.isbn
+            "isbn":self.isbn,
+            "userimg":self.userImg
         ]
     }
 
     func toFirebase() -> [String:Any] {
         return [
+            "bookid":self.bookId,
             "title":self.title,
             "coverImgUrl":self.coverImgUrl
         ]
@@ -153,10 +160,14 @@ struct Book{
             "publisher":self.publisher,
             "author":self.author,
             "description":self.author,
-            "publishYear":self.publishYear
+            "publishYear":self.publishYear,
+            "bookId":self.bookId
         ]
         
     }
+    
+
+
 }
 
 
