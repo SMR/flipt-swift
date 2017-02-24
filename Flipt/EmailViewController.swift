@@ -65,12 +65,17 @@ class EmailViewController: UIViewController {
     }
     
     @IBAction func continueBtnPressed(_ sender: Any) {
-        if let email = emailTextField.text {
-            self.userDict["email"] = email
-            let userNameVC = UsernameViewController()
-            userNameVC.userDict = self.userDict
-            self.navigationController?.pushViewController(userNameVC, animated: true)
+        if emailTextField.text == "" {
+            
+        } else {
+            if let email = emailTextField.text {
+                self.userDict["email"] = email
+                let userNameVC = UsernameViewController()
+                userNameVC.userDict = self.userDict
+                self.navigationController?.pushViewController(userNameVC, animated: true)
+            }
         }
+        
         
         
     }

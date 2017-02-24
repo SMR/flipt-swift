@@ -117,6 +117,9 @@ class User {
     }
     
    
+    class func logOut(completion:() -> ()) {
+        User.current = nil
+    }
     
     
     static var current: User? {

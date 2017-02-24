@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JDropDownAlert
 
 class NameViewController: UIViewController {
     
@@ -69,17 +70,32 @@ class NameViewController: UIViewController {
             let fullName = "\(firstName) \(lastName)"
             guard let email = self.userDict["email"] else { return }
             guard let password = self.userDict["password"] else { return }
+            guard let username = self.userDict["username"] else { return }
             
-            FliptAPIClient.register(email: email, password: password, fullname: fullName, completion: { (success) in
-                if success {
-                    
-                    let navVC = UINavigationController()
-                    
-                    let ftabBarController = FliptTabBarController()
-                    navVC.viewControllers = [ftabBarController]
-                    self.present(navVC, animated: true, completion: nil)
-                    
+            FliptAPIClient.register(email: email, password: password, fullname: fullName, username: username, completion: { (success, status) in
+                
+                OperationQueue.main.addOperation {
+                    if success {
+                        
+                        let navVC = UINavigationController()
+                        
+                        let ftabBarController = FliptTabBarController()
+                        navVC.viewControllers = [ftabBarController]
+                        self.present(navVC, animated: true, completion: nil)
+                        
+                    } else {
+                        let alert = JDropDownAlert()
+                        alert.alertWith(status)
+                        
+                        alert.didTapBlock = {
+                            print("Top View Did Tapped")
+                        }
+                        
+                        
+                        
+                    }
                 }
+                
             })
         }
     }

@@ -26,7 +26,8 @@ def common_pods
     pod 'Crashlytics'
     pod 'SVProgressHUD'
     pod 'Digits'
-
+    pod 'JDropDownAlert'
+    pod 'StatusProvider'
 
 end
 

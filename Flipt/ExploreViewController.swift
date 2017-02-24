@@ -25,7 +25,9 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.navigationController?.navigationBar.barTintColor = Constants.UI.appColor
         setupViews()
+        
         
         
         // SVProgressHUD.show()
@@ -153,7 +155,7 @@ extension ExploreViewController: CLLocationManagerDelegate{
     func setupLocationManager(){
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
+        //self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
             

@@ -67,12 +67,14 @@ class LoginVC: UIViewController {
         
         if let email = emailTextField.text, let password = passwordTextField.text {
             FliptAPIClient.login(email: email, password: password, completion: { (success) in
+                OperationQueue.main.addOperation {
+                    let navVC = UINavigationController()
+                    
+                    let ftabBarController = FliptTabBarController()
+                    navVC.viewControllers = [ftabBarController]
+                    self.present(navVC, animated: true, completion: nil)
+                }
                 
-                let navVC = UINavigationController()
-                
-                let ftabBarController = FliptTabBarController()
-                navVC.viewControllers = [ftabBarController]
-                self.present(navVC, animated: true, completion: nil)
                 
             })
         }

@@ -68,7 +68,11 @@ final class FliptAPIClient {
     }
     
     //MARK: - Register
-    class func register(email:String, password:String, fullname:String, completion:@escaping (Bool)->()) {
+    class func register(email:String, password:String, fullname:String, username: String, completion:@escaping (Bool, String)->()) {
+        
+        print(email)
+        print(password)
+        print(fullname)
         let urlString = "\(Constants.Flipt.baseUrl)/register"
         print(urlString)
         guard let url = URL(string: urlString) else { return }
@@ -77,26 +81,40 @@ final class FliptAPIClient {
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let uuid = UIDevice.current.identifierForVendor?.uuidString
-        let json = ["email":"\(email.lowercased())", "password":"\(password)", "userid":uuid, "fullname": fullname]
+        let json = ["email":"\(email.lowercased())", "password":"\(password)", "userid":uuid, "fullname": fullname, "username": username]
         do{
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
             urlRequest.httpBody = jsonData
+            print(jsonData)
         }catch {
             print("no data")
         }
         let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
+            print(data)
             guard let jsonData = data else { return }
             do{
                 let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
-                let userJSON = responseJSON["user"] as! [String: Any]
-                let user = User(userDictionary: userJSON)
-                if let currentuser = user {
-                    User.current = currentuser
-                    print("User - \(User.current)")
-                    completion(true)
-                } else {
-                    completion(false)
+               print(responseJSON)
+                if let status = responseJSON["status"] as? String {
+                    if let userJSON = responseJSON["user"] as? [String: Any] {
+                        
+                        let user = User(userDictionary: userJSON)
+                        if let currentuser = user {
+                            User.current = currentuser
+                            print("User - \(User.current)")
+                            completion(true, "")
+                        } else {
+                            
+                            completion(false,status )
+                            
+                            
+                        }
+                        
+                    }else {
+                        completion(false, status)
+                    }
                 }
+               
                 
                 
                 

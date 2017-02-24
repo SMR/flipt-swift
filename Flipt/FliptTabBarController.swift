@@ -38,7 +38,7 @@ class FliptTabBarController: UITabBarController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
        
         
-        setupLocationManager()
+       // setupLocationManager()
         
         let exploreNav = UINavigationController(rootViewController: exploreVC)
 //        exploreNav.navigationItem.title = "Explore"

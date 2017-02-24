@@ -13,8 +13,9 @@ import PopupDialog
 import Alamofire
 import ImagePicker
 import Lightbox
+import StatusProvider
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, StatusController {
     
     
     var collectionView: UICollectionView!
@@ -37,6 +38,8 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +57,16 @@ class ProfileViewController: UIViewController {
         store.getUserBooks {
             print("From view will appear \(self.store.savedBooks.count)")
             OperationQueue.main.addOperation {
-                self.collectionView.reloadData()
+                if self.store.savedBooks.isEmpty {
+                    let status = Status(title: "no Data", description: "No data available.💣", actionTitle: "Create ⭐️", image: UIImage(named: "placeholder_instagram")) {
+                        self.hideStatus()
+                    }
+                    
+                    self.show(status: status)
+                } else {
+                    self.collectionView.reloadData()
+                }
+                
             }
             
         }
