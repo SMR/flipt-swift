@@ -15,62 +15,65 @@ import CoreLocation
 class ExploreViewController: UIViewController {
     
     let store = BookDataStore.sharedInstance
-    var locationManager: CLLocationManager!
+    lazy var locationManager: CLLocationManager = CLLocationManager()
     var collectionView: UICollectionView!
     
     
     var searchBar: UISearchBar!
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-     
-        SVProgressHUD.show()
-        
-        let tabBarController = self.tabBarController as! FliptTabBarController
-        self.locationManager = tabBarController.locationManager
-    
-        if let manager = self.locationManager, let location = manager.location {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            print((latitude,longitude))
-            //TODO: - Change back
-            
-            var testlat = 40.71949469405151234
-            var testlong = -73.98507555040615102
-            store.getNearByBooks(at: (testlat,testlong)) {
-                print(self.store.nearByBooks.count)
-                OperationQueue.main.addOperation {
-                    self.collectionView.reloadData()
-                }
-                
-                SVProgressHUD.dismiss()
-            }
-        } else {
-            //Location not found
-            //print(self.locationManager)
-            print("exploreVC - location not found")
-        }
         
         
-
+        // SVProgressHUD.show()
+        
+        
+        setupLocationManager()
+        
+        //        if let manager = self.locationManager, let location = manager.location {
+        //            let latitude = location.coordinate.latitude
+        //            let longitude = location.coordinate.longitude
+        //            print((latitude,longitude))
+        //            //TODO: - Change back
+        //
+        //            var testlat = 40.71949469405151234
+        //            var testlong = -73.98507555040615102
+        //            store.getNearByBooks(at: (testlat,testlong)) {
+        //                print(self.store.nearByBooks.count)
+        //                OperationQueue.main.addOperation {
+        //                    self.collectionView.reloadData()
+        //                }
+        //
+        //               // SVProgressHUD.dismiss()
+        //            }
+        //        } else {
+        //            //Location not found
+        //            //print(self.locationManager)
+        //            print("exploreVC - location not found")
+        //        }
+        
+        
+        
         
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.tabBarController?.navigationItem.title = "Explore"
         self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]
-
+        
     }
     
-       
+    
     func setupViews(){
         
-       // self.navigationController?.isNavigationBarHidden = false
+        // self.navigationController?.isNavigationBarHidden = false
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 110, height: 180)
@@ -80,8 +83,8 @@ class ExploreViewController: UIViewController {
         //self.navigationController?.navigationBar.tintColor = Constants.UI.appColor
         //
         
-
-
+        
+        
         self.collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -98,11 +101,11 @@ class ExploreViewController: UIViewController {
     }
     
     func setupConstraints(){
-//        self.searchBar.snp.makeConstraints { (make) in
-//            make.top.equalTo(self.view)
-//            make.left.equalTo(self.view)
-//            make.width.equalTo(self.view)
-//        }
+        //        self.searchBar.snp.makeConstraints { (make) in
+        //            make.top.equalTo(self.view)
+        //            make.left.equalTo(self.view)
+        //            make.width.equalTo(self.view)
+        //        }
         self.collectionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view)
             make.left.equalTo(self.view)
@@ -110,8 +113,8 @@ class ExploreViewController: UIViewController {
             make.height.equalTo(self.view)
         }
     }
-
-   
+    
+    
 }
 
 
@@ -126,7 +129,7 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let book = self.store.nearByBooks[indexPath.row]
         
-    
+        
         cell.configureCell(book: book)
         cell.backgroundColor = UIColor.random
         
@@ -142,24 +145,29 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
         //self.present(bookDetailVC, animated: true, completion: nil)
         
     }
-
+    
     
 }
 
 extension ExploreViewController: CLLocationManagerDelegate{
     func setupLocationManager(){
-        DispatchQueue.main.async {
-            self.locationManager = CLLocationManager()
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.requestWhenInUseAuthorization()
-            
-            
-            
-            self.locationManager.requestLocation()
-            
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
             
         }
+        //self.locationManager = CLLocationManager()
+        
+        
+        
+        
+        
+        //self.locationManager.requestLocation()
+        
+        
+        //}
         
         
         //User.current?.latitude =
@@ -173,6 +181,37 @@ extension ExploreViewController: CLLocationManagerDelegate{
         
         
     }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            manager.startUpdatingLocation()
+            
+            
+            if let location = manager.location {
+                let latitude = location.coordinate.latitude
+                let longitude = location.coordinate.longitude
+                //var testlat = 40.71949469405151234
+               // var testlong = -73.98507555040615102
+                store.getNearByBooks(at: (latitude,longitude)) {
+                    print(self.store.nearByBooks.count)
+                    OperationQueue.main.addOperation {
+                        self.collectionView.reloadData()
+                    }
+                    
+                    // SVProgressHUD.dismiss()
+                }
+                
+                
+            }
+            
+            
+            
+            // ...
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         

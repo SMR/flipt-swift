@@ -77,7 +77,7 @@ final class FliptAPIClient {
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let uuid = UIDevice.current.identifierForVendor?.uuidString
-        let json = ["email":"\(email)", "password":"\(password)", "userid":uuid, "fullname": fullname]
+        let json = ["email":"\(email.lowercased())", "password":"\(password)", "userid":uuid, "fullname": fullname]
         do{
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
             urlRequest.httpBody = jsonData
@@ -87,8 +87,9 @@ final class FliptAPIClient {
         let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
             guard let jsonData = data else { return }
             do{
-                let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String:Any]
-                let user = User(userDictionary: responseJSON)
+                let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
+                let userJSON = responseJSON["user"] as! [String: Any]
+                let user = User(userDictionary: userJSON)
                 if let currentuser = user {
                     User.current = currentuser
                     print("User - \(User.current)")

@@ -31,8 +31,8 @@ struct Constants{
     //updatePic -> POST update profilePicture
     //user -> POST update user
     struct Flipt{
-        //static let baseUrl = "https://fliptbooks.herokuapp.com/api"
-        static let baseUrl = "http://localhost:8080/api"
+        static let baseUrl = "https://fliptbooks.herokuapp.com/api"
+        //static let baseUrl = "http://127.0.0.0:8080/api"
         static let sendBookUrl = Flipt.baseUrl + "/sendbook"
         static let nearBooksUrl = Flipt.baseUrl + "/books/near"
         static let updateProfilePicUrl = Flipt.baseUrl + "/updatePic"

@@ -69,7 +69,7 @@ class User {
     
   
     init?(userDictionary dict: [String:Any]) {
-        guard let id = dict[UserKeys.id] as? Int else { print("id fail");return nil }
+        guard let id = dict[UserKeys.id] as? Int else { print("id fail");print(dict);return nil }
         guard let username = dict[UserKeys.username] as? String else { print("username fail");return nil }
         guard let apiKey = dict[UserKeys.apiKey] as? String else { print("apiKey fail");return nil }
         guard let apiSecret = dict[UserKeys.apiSecret] as? String else { print("apiSecret fail");return nil }

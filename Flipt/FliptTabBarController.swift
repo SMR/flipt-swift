@@ -95,7 +95,7 @@ extension FliptTabBarController: CLLocationManagerDelegate{
     func setupLocationManager(){
         
         print("Hey")
-        DispatchQueue.main.async {
+     
             self.locationManager = CLLocationManager()
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -105,10 +105,10 @@ extension FliptTabBarController: CLLocationManagerDelegate{
             
             self.locationManager.requestLocation()
             
-            print(self.locationManager)
+            print(self.locationManager.location)
             
             
-        }
+    
         
         
         //User.current?.latitude =
