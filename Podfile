@@ -28,6 +28,8 @@ def common_pods
     pod 'Digits'
     pod 'JDropDownAlert'
     pod 'StatusProvider'
+    pod 'PMAlertController'
+    pod 'Segmentio', '~> 2.1'
 
 end
 

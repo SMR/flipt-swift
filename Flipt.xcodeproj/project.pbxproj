@@ -11,6 +11,14 @@
 		8F0C4DEB1DFE574D0014E22C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */; };
 		8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C8C081E011628005A8E3C /* FirebaseApi.swift */; };
 		8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C8C141E0243CC005A8E3C /* UIConstants.swift */; };
+		8F1B7E3E1E621C7E0015E986 /* BookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B7E3C1E621C7E0015E986 /* BookDetailVC.swift */; };
+		8F1B7E3F1E621C7E0015E986 /* BookDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1B7E3D1E621C7E0015E986 /* BookDetailVC.xib */; };
+		8F1B7E421E6245A60015E986 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B7E401E6245A60015E986 /* MapViewController.swift */; };
+		8F1B7E431E6245A60015E986 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1B7E411E6245A60015E986 /* MapViewController.xib */; };
+		8F1B7E461E6264B40015E986 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B7E451E6264B40015E986 /* CalloutView.swift */; };
+		8F1B7E481E629A4E0015E986 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B7E471E629A4E0015E986 /* ExploreVC.swift */; };
+		8F1B7E4B1E6310070015E986 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1B7E491E6310070015E986 /* ChatCell.swift */; };
+		8F1B7E4C1E6310070015E986 /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1B7E4A1E6310070015E986 /* ChatCell.xib */; };
 		8F30E6081DE78448008F5ED0 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */; };
 		8F33DF841E387D5B00861BA9 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F33DF831E387D5B00861BA9 /* ChatTableViewCell.swift */; };
 		8F41564C1DE8C82E00463E6D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */; };
@@ -76,6 +84,14 @@
 		8F0C4DEA1DFE574D0014E22C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F0C8C081E011628005A8E3C /* FirebaseApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseApi.swift; sourceTree = "<group>"; };
 		8F0C8C141E0243CC005A8E3C /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		8F1B7E3C1E621C7E0015E986 /* BookDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailVC.swift; sourceTree = "<group>"; };
+		8F1B7E3D1E621C7E0015E986 /* BookDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookDetailVC.xib; sourceTree = "<group>"; };
+		8F1B7E401E6245A60015E986 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8F1B7E411E6245A60015E986 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		8F1B7E451E6264B40015E986 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
+		8F1B7E471E629A4E0015E986 /* ExploreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
+		8F1B7E491E6310070015E986 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		8F1B7E4A1E6310070015E986 /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		8F33DF831E387D5B00861BA9 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -179,7 +195,8 @@
 		8F0C4DEE1DFE5C4B0014E22C /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */,
+				8F1B7E471E629A4E0015E986 /* ExploreVC.swift */,
+				8F1B7E4D1E63BA230015E986 /* Legacy */,
 			);
 			name = Explore;
 			sourceTree = "<group>";
@@ -203,6 +220,24 @@
 				8F8BBC221DC00321006789E9 /* Info.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		8F1B7E441E6245AF0015E986 /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8F1B7E411E6245A60015E986 /* MapViewController.xib */,
+				8F1B7E401E6245A60015E986 /* MapViewController.swift */,
+				8F1B7E451E6264B40015E986 /* CalloutView.swift */,
+			);
+			name = MapViewController;
+			sourceTree = "<group>";
+		};
+		8F1B7E4D1E63BA230015E986 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				8F41564B1DE8C82E00463E6D /* ExploreViewController.swift */,
+			);
+			name = Legacy;
 			sourceTree = "<group>";
 		};
 		8F4D87861E454E9A00275E2C /* HomeViewController */ = {
@@ -247,6 +282,7 @@
 		8F7D97631DE414D50053182D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8F1B7E441E6245AF0015E986 /* MapViewController */,
 				8F4D87861E454E9A00275E2C /* HomeViewController */,
 				8F0C4DEE1DFE5C4B0014E22C /* Explore */,
 				8F0C4DEF1DFE5C620014E22C /* ProfileViewController */,
@@ -333,6 +369,8 @@
 			isa = PBXGroup;
 			children = (
 				8F30E6071DE78448008F5ED0 /* BookDetailViewController.swift */,
+				8F1B7E3C1E621C7E0015E986 /* BookDetailVC.swift */,
+				8F1B7E3D1E621C7E0015E986 /* BookDetailVC.xib */,
 			);
 			name = BookDetailVC;
 			sourceTree = "<group>";
@@ -342,6 +380,8 @@
 			children = (
 				8F7D97661DE416240053182D /* BookCollectionViewCell.swift */,
 				8F33DF831E387D5B00861BA9 /* ChatTableViewCell.swift */,
+				8F1B7E491E6310070015E986 /* ChatCell.swift */,
+				8F1B7E4A1E6310070015E986 /* ChatCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -462,13 +502,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8BBC211DC00321006789E9 /* LaunchScreen.storyboard in Resources */,
+				8F1B7E4C1E6310070015E986 /* ChatCell.xib in Resources */,
 				8F0C4DEB1DFE574D0014E22C /* GoogleService-Info.plist in Resources */,
+				8F1B7E3F1E621C7E0015E986 /* BookDetailVC.xib in Resources */,
 				8F4D87851E454A6600275E2C /* HomeViewController.xib in Resources */,
 				8F4D878A1E454EEA00275E2C /* EmailViewController.xib in Resources */,
 				8FD190B71E4D6D1100249113 /* UsernameViewController.xib in Resources */,
 				8F8BBC1E1DC00321006789E9 /* Assets.xcassets in Resources */,
 				8FC3BACA1E54231200E72B7A /* LoginVC.xib in Resources */,
 				8F8BBC1C1DC00321006789E9 /* Main.storyboard in Resources */,
+				8F1B7E431E6245A60015E986 /* MapViewController.xib in Resources */,
 				8FC3BAC61E5402FA00E72B7A /* NameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,13 +640,16 @@
 			files = (
 				8FD190B61E4D6D1100249113 /* UsernameViewController.swift in Sources */,
 				8F7CC2171E2D387E0069E7C8 /* ViewController.swift in Sources */,
+				8F1B7E481E629A4E0015E986 /* ExploreVC.swift in Sources */,
 				8FA7B6451E2575250030EDA3 /* RegisterViewController.swift in Sources */,
 				8F8BBC2D1DC0062B006789E9 /* OpenLibraryApi.swift in Sources */,
 				8F8673851E033DC300A0CF08 /* RegisterView.swift in Sources */,
 				8F500EAB1DF872CB006DA5EB /* FliptAPIClient.swift in Sources */,
 				8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */,
+				8F1B7E421E6245A60015E986 /* MapViewController.swift in Sources */,
 				8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */,
 				8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */,
+				8F1B7E4B1E6310070015E986 /* ChatCell.swift in Sources */,
 				8FC3BAC51E5402FA00E72B7A /* NameViewController.swift in Sources */,
 				8FF7A0151E107105006175D0 /* MessagesViewController.swift in Sources */,
 				8F7D97671DE416240053182D /* BookCollectionViewCell.swift in Sources */,
@@ -611,8 +657,10 @@
 				8F0C8C151E0243CC005A8E3C /* UIConstants.swift in Sources */,
 				8FC3BAC91E54231200E72B7A /* LoginVC.swift in Sources */,
 				8F86FD781DEEA63000C1D3FE /* ScanViewController.swift in Sources */,
+				8F1B7E461E6264B40015E986 /* CalloutView.swift in Sources */,
 				8F8673891E087AA200A0CF08 /* User.swift in Sources */,
 				8FA7B6471E257A120030EDA3 /* WelcomeViewController.swift in Sources */,
+				8F1B7E3E1E621C7E0015E986 /* BookDetailVC.swift in Sources */,
 				8FA7B6491E257A6B0030EDA3 /* WelcomeView.swift in Sources */,
 				8F86FD761DEE8B2A00C1D3FE /* GoogleBooksApi.swift in Sources */,
 				8F7B59B31E14EC4E00EB1F5D /* Message.swift in Sources */,

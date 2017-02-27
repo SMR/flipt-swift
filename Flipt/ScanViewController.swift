@@ -36,6 +36,7 @@ class ScanViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         let controller = BarcodeScannerController()
         controller.codeDelegate = self
         controller.errorDelegate = self
@@ -68,7 +69,7 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
         store.getBook(isbn: code) { (book) in
             
             //            controller.dismiss(animated: true, completion: nil)
-            controller.dismiss(animated: true, completion: nil)
+            //controller.dismiss(animated: true, completion: nil)
             DispatchQueue.main.async {
                 
                 self.show(book: book)

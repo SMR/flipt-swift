@@ -11,6 +11,9 @@ import SnapKit
 import BarcodeScanner
 import SVProgressHUD
 import CoreLocation
+import Alamofire
+import PopupDialog
+import PMAlertController
 
 class ExploreViewController: UIViewController {
     
@@ -25,6 +28,8 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         //self.navigationController?.navigationBar.barTintColor = Constants.UI.appColor
         setupViews()
         
@@ -66,6 +71,7 @@ class ExploreViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         self.tabBarController?.navigationItem.title = "Explore"
         self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]
@@ -77,7 +83,7 @@ class ExploreViewController: UIViewController {
         
         // self.navigationController?.isNavigationBarHidden = false
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 110, height: 180)
         //self.title = "Explore"
         //self.navigationItem.title = "Johann"
@@ -128,9 +134,9 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicCell", for: indexPath) as! BookCollectionViewCell
-        
+       
         let book = self.store.nearByBooks[indexPath.row]
-        
+         dump(book)
         
         cell.configureCell(book: book)
         cell.backgroundColor = UIColor.random
@@ -140,11 +146,91 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let bookDetailVC = BookDetailViewController()
+        
+        
         let book = self.store.nearByBooks[indexPath.row]
-        bookDetailVC.book = book
-        self.navigationController?.pushViewController(bookDetailVC, animated: true)
-        //self.present(bookDetailVC, animated: true, completion: nil)
+        let title = book.title
+        let message = book.description
+        print(book.coverImgUrl)
+        
+        Alamofire.request("\(book.coverImgUrl)&zoom=5").responseData { (response) in
+            if let imageData = response.data {
+                if let image = UIImage(data: imageData) {
+                    
+                    
+                    let alertVC = PMAlertController(title: title, description: message, image:image, style: .alert)
+                    
+                    
+                    
+                    alertVC.addAction(PMAlertAction(title: "Contact Owner", style: .default, action: { () in
+                        
+                        self.contactOwner(book: book)
+                        dump(book)
+                    }))
+                    
+                    alertVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
+                       
+                    }))
+                    
+                 
+                    
+                    self.present(alertVC, animated: true, completion: nil)
+                    
+
+                }
+            }
+        }
+ 
+        
+    }
+    
+    func contactOwner(book: Book) {
+        
+        if let ownerId = book.ownerId {
+            
+            FliptAPIClient.getUserFrom(ownerId, completion: { (user) in
+                print("running")
+               
+                if let userid = user.userid {
+                    print(userid)
+                    FirebaseApi.checkIfBlocked(userID: userid, completion: { (isBlocked) in
+                        if isBlocked {
+                          
+                        } else {
+                            if let firstname = user.firstname, let lastname = user.lastname {
+                                
+                                
+                               
+                            }
+                            
+                            
+                            let msgViewController = MessagesViewController()
+                            let navVC = UINavigationController(rootViewController: msgViewController)
+                            msgViewController.book = book
+                            //print(self.owner)
+                            if let firstname = user.firstname, let lastname = user.lastname {
+                                let lname = user.lastname.characters.first!
+                                
+                                msgViewController.recipient = "\(firstname) \(lname)"
+                            }
+                            if let userid = user.userid {
+                                msgViewController.recipientId = userid
+                                self.present(navVC, animated: true, completion: nil)
+                            }
+                            
+                            
+                        }
+                        
+                        
+                    })
+                    
+                }
+
+                
+            })
+            
+        }
+        
         
     }
     
@@ -160,26 +246,8 @@ extension ExploreViewController: CLLocationManagerDelegate{
             locationManager.requestWhenInUseAuthorization()
             
         }
-        //self.locationManager = CLLocationManager()
-        
-        
-        
-        
-        
-        //self.locationManager.requestLocation()
-        
-        
-        //}
-        
-        
-        //User.current?.latitude =
-        //  User.current?.longitude =
-        
-        
-        
-        
-        
-        
+
+
         
         
     }

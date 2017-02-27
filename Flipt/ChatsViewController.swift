@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import JSQMessagesViewController
 import SVProgressHUD
+
 class ChatsViewController: UITableViewController {
 
     var ref: FIRDatabaseReference?
@@ -27,16 +28,11 @@ class ChatsViewController: UITableViewController {
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
        
-        self.tabBarController?.navigationItem.title = "Chats"
+     
+        
         self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]
    
  
-//        self.navigationController?.navigationItem.title = "Chats"
-//        self.navigationController?.title = "Chats"
-//    
-       
-      
-       // getMessages()
         
         
     }
@@ -44,7 +40,7 @@ class ChatsViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.chats.removeAll()
-        
+        self.title = "Chats"
         FirebaseApi.getAllChats { chat in
         
             self.chats.append(chat)
@@ -57,12 +53,10 @@ class ChatsViewController: UITableViewController {
         }
     }
     
-    //    deinit {
-//    
-//        if let refHandle = chatRef{
-//            channelRef.removeObserver(withHandle: refHandle)
-//        }
-//    }
+    deinit {
+    
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -87,10 +81,13 @@ class ChatsViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "messagesCell", for: indexPath) as! ChatTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "messagesCell", for: indexPath) as! ChatTableViewCell
 
+        
         if self.chats.count > 0 {
             let chat = self.chats[indexPath.row]
+            //cell.bookTitleLabel.text = "Johann"
+
             cell.configureCell(chat: chat)
 
         }

@@ -37,15 +37,15 @@ class ProfileHeaderView: UIView{
             self.addSubview(view)
             //view.backgroundColor = UIColor.random
         }
+        self.imageView.backgroundColor = Constants.UI.appColor
         
         
-        
-        self.imageView.backgroundColor = UIColor.lightGray
+        //self.imageView.backgroundColor = UIColor.lightGray
         
         self.backgroundColor = UIColor.white
         let gradient = [UIColor.red, UIColor.black].gradient()
         
-        let secondGradient = [UIColor.black, UIColor.orange].gradient { gradient in
+        _ = [UIColor.black, UIColor.orange].gradient { gradient in
             gradient.locations = [0.25, 1.0]
             return gradient
         }

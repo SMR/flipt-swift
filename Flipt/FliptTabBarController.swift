@@ -16,22 +16,14 @@ class FliptTabBarController: UITabBarController {
     lazy var scanVC:ScanViewController = ScanViewController()
     lazy var exploreVC: ExploreViewController = ExploreViewController()
     lazy var chatVC: ChatsViewController = ChatsViewController()
-    var locationManager: CLLocationManager!
+    lazy var mapVC: MapViewController = MapViewController()
+    lazy var eVC: ExploreVC = ExploreVC()
+    
+
     let store = BookDataStore.sharedInstance
     
-    /*
-    let profileVC = ProfileViewController()
-    let scanVC = ScanViewController()
-    let tabBarController = UITabBarController()
-    tabBarController.viewControllers = [profileVC,scanVC]
-    tabBarController.tabBar.items?[0].image = UIImage(named: "profile")
-    tabBarController.tabBar.items?[0].title = "Profile"
-    tabBarController.tabBar.items?[1].image = UIImage(named: "scan")
-    tabBarController.tabBar.items?[1].title = "Scan"
-    self.window = UIWindow(frame: UIScreen.main.bounds)
-    self.window?.rootViewController = tabBarController
-    self.window?.makeKeyAndVisible()
- */
+
+
     
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -40,13 +32,15 @@ class FliptTabBarController: UITabBarController {
         
        // setupLocationManager()
         
-        let exploreNav = UINavigationController(rootViewController: exploreVC)
-//        exploreNav.navigationItem.title = "Explore"
-//        exploreNav.title = "Explore"
+        let exploreNav = UINavigationController(rootViewController: eVC)
+       exploreNav.navigationItem.title = "Explore"
+        exploreNav.title = "Explore"
         //exploreNav.navigationBar.tintColor = Constants.UI.appColor
         let chatNav = UINavigationController(rootViewController: chatVC)
         //exploreNav.navigationBar.tintColor = Constants.UI.appColor
-        viewControllers = [exploreNav, profileVC, scanVC, chatNav]
+        //viewControllers = [profileVC, scanVC, chatNav, eVC]
+        print("before")
+        viewControllers = [eVC, scanVC, chatNav,profileVC]
         profileVC.navigationController?.isNavigationBarHidden = true
         
         
@@ -55,14 +49,19 @@ class FliptTabBarController: UITabBarController {
         viewControllers?[0].tabBarItem.image = UIImage(named: "explore")
         viewControllers?[0].tabBarItem.title = "Explore"
         
-        viewControllers?[1].tabBarItem.title = "Profile"
-        viewControllers?[1].tabBarItem.image = UIImage(named: "profile")
         
-        viewControllers?[2].tabBarItem.title = "Scan"
-        viewControllers?[2].tabBarItem.image = UIImage(named:"scan")
         
-        viewControllers?[3].tabBarItem.image = UIImage(named: "messages")
-        viewControllers?[3].tabBarItem.title = "Chat"
+        viewControllers?[1].tabBarItem.title = "Scan"
+        viewControllers?[1].tabBarItem.image = UIImage(named:"scan")
+        
+        viewControllers?[2].tabBarItem.image = UIImage(named: "messages")
+        viewControllers?[2].tabBarItem.title = "Chat"
+        
+        viewControllers?[3].tabBarItem.title = "Profile"
+        viewControllers?[3].tabBarItem.image = UIImage(named: "profile")
+        
+//        viewControllers?[4].tabBarItem.title = "Map"
+//        viewControllers?[4].tabBarItem.image = UIImage(named: "explore")
         
         
         self.tabBar.tintColor = Constants.UI.appColor
@@ -89,12 +88,12 @@ class FliptTabBarController: UITabBarController {
     
 }
 
-
+/*
 
 extension FliptTabBarController: CLLocationManagerDelegate{
     func setupLocationManager(){
         
-        print("Hey")
+
      
             self.locationManager = CLLocationManager()
             self.locationManager.delegate = self
@@ -105,22 +104,7 @@ extension FliptTabBarController: CLLocationManagerDelegate{
             
             self.locationManager.requestLocation()
             
-            print(self.locationManager.location)
             
-            
-    
-        
-        
-        //User.current?.latitude =
-        //  User.current?.longitude =
-        
-        
-        
-        
-        
-        
-        
-        
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -133,6 +117,6 @@ extension FliptTabBarController: CLLocationManagerDelegate{
 }
 
 
-
+*/
 
 

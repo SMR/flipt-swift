@@ -56,7 +56,9 @@ PODS:
     - Hue
     - Sugar
   - Mapbox-iOS-SDK (3.3.7)
+  - PMAlertController (2.1.0)
   - PopupDialog (0.5.0)
+  - Segmentio (2.1.2)
   - SnapKit (3.0.2)
   - StatusProvider (1.2.3)
   - Sugar (3.0.0)
@@ -81,7 +83,9 @@ DEPENDENCIES:
   - Kingfisher (from `https://github.com/onevcat/Kingfisher.git`)
   - Lightbox (from `https://github.com/hyperoslo/Lightbox.git`, branch `swift-3`)
   - Mapbox-iOS-SDK (~> 3.3.7)
+  - PMAlertController
   - PopupDialog
+  - Segmentio (~> 2.1)
   - SnapKit (~> 3.0)
   - StatusProvider
   - SVProgressHUD
@@ -132,7 +136,9 @@ SPEC CHECKSUMS:
   Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
   Lightbox: e4523e8cf3261cbc833d0e76ae4dae774731d115
   Mapbox-iOS-SDK: 142301fa63a6719cbd2eacc0f9e8bf36c65930d9
+  PMAlertController: 2d2c19af12edb50753d636395f9456c8cde1e858
   PopupDialog: 9890441b81105b9076757af2afe2b037be682f3e
+  Segmentio: f85114993e305bd9c522952eef8c2c4db732fd17
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   StatusProvider: d1258b7282a508c6636a24652b11e01ecc19d8e6
   Sugar: 079e1375b76c8f0693474417836ef098f507ac50
@@ -140,6 +146,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
 
-PODFILE CHECKSUM: 25fdb00cd2cb01c54951df8c3f05342159c90347
+PODFILE CHECKSUM: 35f60c0eff264e0749d299f32fb956917405af07
 
 COCOAPODS: 1.2.0

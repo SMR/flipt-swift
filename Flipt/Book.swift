@@ -28,6 +28,8 @@ struct Book{
     var isbn: String
     var userImg = ""
     var ownerId:Int!
+    var lat: Double = 0.0
+    var long: Double = 0.0
     
     
     init(){
@@ -53,6 +55,8 @@ struct Book{
         self.userImg = dict["userimg"].string ?? ""
         self.bookId = dict["bookId"].string ?? ""
         self.ownerId = dict["mainuser_id"].int ?? 0
+        self.lat = dict["lat"].double ?? 0.0
+        self.long = dict["long"].double ?? 0.0
         
     }
     

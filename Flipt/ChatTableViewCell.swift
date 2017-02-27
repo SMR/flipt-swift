@@ -24,6 +24,9 @@ class ChatTableViewCell: UITableViewCell {
         self.contentView.addSubview(lastMessageLabel)
         self.contentView.addSubview(recipientLabel)
         self.contentView.addSubview(bookLabel)
+        bookImageView.layer.cornerRadius = 15
+        bookLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightThin)
+        recipientLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         createConstraints()
         
     }
@@ -67,18 +70,23 @@ class ChatTableViewCell: UITableViewCell {
 //            make.top.equalTo(self).offset(20)
 //        }
         self.recipientLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.bookImageView.snp.right).offset(20)
-            make.top.equalTo(self).offset(20)
+            make.left.equalTo(self.bookImageView.snp.right).offset(10)
+            make.top.equalTo(self.bookLabel.snp.bottom)
+            
         }
+        
         self.bookLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.bookImageView.snp.right).offset(20)
-            make.top.equalTo(self.recipientLabel.snp.bottom).offset(5)
+            make.top.equalTo(self).offset(20)
+            make.left.equalTo(self.bookImageView.snp.right).offset(10)
+            make.right.equalTo(self).offset(5)
+            
         }
         self.bookImageView.snp.makeConstraints { (make) in
-            make.left.equalTo(self)
-            make.top.equalTo(self)
-            make.height.equalTo(self)
-            make.width.equalTo(60)
+            make.left.equalTo(self).offset(19)
+            make.centerY.equalTo(self)
+            //make.top.equalTo(self)
+            make.height.equalTo(65)
+            make.width.equalTo(50)
         }
     }
     

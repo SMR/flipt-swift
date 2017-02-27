@@ -21,7 +21,7 @@ class User {
         static let apiKey = "api_key_id"
         static let apiSecret = "api_key_secret"
         static let books = "books"
-        static let profilePic = "profilePic"
+        static let profilePic = "profilepic"
         static let email = "email"
         static let firstname = "firstname"
         static let lastname = "lastname"
@@ -33,7 +33,11 @@ class User {
     var username: String! = ""
     var firstname: String!
     var lastname: String!
-    var fullname: String!
+    var fullname: String! {
+        get {
+            return "\(firstname) \(lastname)"
+        }
+    }
     var phonenumber: String! = ""
     var email:String!
     var apiKey: String!
@@ -79,6 +83,10 @@ class User {
         let lastname = dict[UserKeys.lastname] as? String ?? ""
         guard let userid = dict[UserKeys.user_id] as? String else { print("userid fail"); return nil }
         
+        guard let profilepic = dict["profilepic"] as? String else {
+            print("profile fail"); return nil
+        }
+        
         self.id = "\(id)"
         self.username = username
         self.apiKey = apiKey
@@ -87,6 +95,7 @@ class User {
         self.firstname = firstname
         self.lastname = lastname
         self.userid = userid
+        self.profilePic = profilepic
     
 
     }
@@ -131,9 +140,25 @@ class User {
             }
         }
         set {
+            
+            if let user = newValue {
+                UserDefaults.standard.set(user.id, forKey: UserKeys.id)
+                UserDefaults.standard.set(user.apiKey, forKey: UserKeys.apiKey)
+                UserDefaults.standard.set(user.apiSecret, forKey: UserKeys.apiSecret)
+                UserDefaults.standard.set(user.username, forKey: UserKeys.username)
+                UserDefaults.standard.set(user.profilePic, forKey: UserKeys.profilePic)
+                UserDefaults.standard.set(user.email, forKey: UserKeys.email)
+                UserDefaults.standard.set(user.firstname, forKey: UserKeys.firstname)
+                UserDefaults.standard.set(user.lastname, forKey: UserKeys.lastname)
+                UserDefaults.standard.set(user.userid, forKey: UserKeys.user_id)
+                UserDefaults.standard.set(user.phonenumber, forKey: UserKeys.phonenumber)
+            }
+            
+            /*
             if newValue?.username == current?.username {
                 if let user = current {
                     print("setting current User")
+                  
                     UserDefaults.standard.set(user.id, forKey: UserKeys.id)
                     UserDefaults.standard.set(user.apiKey, forKey: UserKeys.apiKey)
                     UserDefaults.standard.set(user.apiSecret, forKey: UserKeys.apiSecret)
@@ -164,6 +189,7 @@ class User {
 
                 
             }
+ */
             
         }
         
@@ -191,7 +217,6 @@ class User {
                 print(downloadURL)
                 guard let url = downloadURL else { return }
                 User.current?.profilePic = downloadURL
-                print(User.current?.profilePic)
                 if let myUser = User.current {
                     print(myUser)
                     FliptAPIClient.update(profilePic: url, completion: { (success) in

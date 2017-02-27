@@ -37,6 +37,7 @@ final class FliptAPIClient {
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let json = ["email":"\(email)", "password":"\(password)"]
+       // print(json)
         do{
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
             urlRequest.httpBody = jsonData
@@ -47,15 +48,19 @@ final class FliptAPIClient {
             guard let jsonData = data else { return }
             do{
                 let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
-                let userJSON = responseJSON["user"] as! [String: Any]
-                let user = User(userDictionary: userJSON)
-                if let currentuser = user {
-                    User.current = currentuser
+                //print(responseJSON)
+                if let userJSON = responseJSON["user"] as? [String: Any] {
+                    let user = User(userDictionary: userJSON)
+                    if let currentuser = user {
+                        User.current = currentuser
+                        
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
                     
-                    completion(true)
-                } else {
-                    completion(false)
                 }
+                
                 
             }catch{
                 
@@ -85,7 +90,7 @@ final class FliptAPIClient {
         do{
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
             urlRequest.httpBody = jsonData
-            print(jsonData)
+          //  print(jsonData)
         }catch {
             print("no data")
         }
@@ -94,7 +99,7 @@ final class FliptAPIClient {
             guard let jsonData = data else { return }
             do{
                 let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
-               print(responseJSON)
+             //         print (responseJSON)
                 if let status = responseJSON["status"] as? String {
                     if let userJSON = responseJSON["user"] as? [String: Any] {
                         
@@ -216,6 +221,7 @@ final class FliptAPIClient {
     //MARK: - GET user bookCount
     class func getUser(completion:@escaping (Int)->()) {
         let urlString = "\(Constants.Flipt.baseUrl)/user"
+        print(urlString)
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
@@ -232,11 +238,24 @@ final class FliptAPIClient {
                 guard let jsonData = data else { return }
                 do {
                     let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String:Any]
-                    let bookCount = responseJSON["books"] as? Int ?? 0
-                    let userDict = responseJSON["user"] as! [String:Any]
                     print(responseJSON)
-                    let user = User(userDictionary: userDict)
-                    print(bookCount)
+                    let bookCount = responseJSON["books"] as? Int ?? 0
+                    if let userDict = responseJSON["user"] as? [String:Any] {
+                        
+                        
+                        if let user = User(userDictionary: userDict) {
+                            User.current = user
+                            print("Profile picture \(user.profilePic)")
+                            print("Profile picture \(User.current?.profilePic)")
+                        }
+                        
+                    } else {
+                        print("no user")
+                    }
+                   // print(responseJSON)
+                   
+                    
+                    //print(bookCount)
                     completion(bookCount)
                 } catch {
                     
@@ -269,7 +288,7 @@ final class FliptAPIClient {
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
             let profileDict = ["profilePic":"\(profilePic)"]
-            print(profileDict)
+            //print(profileDict)
             urlRequest.httpMethod = "POST"
             do {
                 let jsonData = try JSONSerialization.data(withJSONObject: profileDict, options: [])
@@ -279,7 +298,7 @@ final class FliptAPIClient {
                 print("failed")
             }
             
-            print(urlRequest)
+            //print(urlRequest)
             
             
             let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
@@ -317,6 +336,7 @@ final class FliptAPIClient {
     }
     
     //MARK: - Download Profile Picture
+
     class func downloadProfPicture(completion:@escaping (Data)->()) {
         
         getUserProfile { (dictionary) in
@@ -328,7 +348,7 @@ final class FliptAPIClient {
             let dataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
                 
                 guard let unwrappedData = data else { return }
-                print(unwrappedData)
+               // print(unwrappedData)
                 completion(unwrappedData)
                 
             })
@@ -443,11 +463,13 @@ extension FliptAPIClient {
 //    http://localhost:8080/api/user/2?type=id
 //    http://localhost:8080/api/user/2?type=userid
     class func getUserFrom(_ num: Int, completion:@escaping (User) -> ()) {
-        let urlString = "http://localhost:8080/api/user/\(num)?type=id"
+        let urlString = "\(Constants.Flipt.baseUrl)/user/\(num)?type=id"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
-        
+        print(urlString)
         if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
+            print(apiSecret)
+            print(apiKey)
             
             let loginData = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
             let base64LoginString = loginData.base64EncodedString()
@@ -457,9 +479,12 @@ extension FliptAPIClient {
             urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
             let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
                 guard let jsonData = data else { return }
+                print(jsonData)
                 let resultJSON = JSON(data: jsonData)
+                print(resultJSON)
                 let userJSON = resultJSON["user"]
                 let user = User(userJSON)
+                print(user)
                 completion(user)
                 
                 
@@ -473,7 +498,7 @@ extension FliptAPIClient {
     
     class func getUserFrom(_ id: String, completion:@escaping (User, [Book])->()) {
         print("id - \(id)")
-        let urlString = "http://localhost:8080/api/user/\(id)?type=userid"
+        let urlString = "\(Constants.Flipt.baseUrl)/user/\(id)?type=userid"
         guard let url = URL(string: urlString) else { return }
         print(urlString)
         let session = URLSession.shared
@@ -567,7 +592,7 @@ extension FliptAPIClient {
             urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
             let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
                 guard let jsonData = data else { return }
-                print(JSON(data:jsonData))
+                //print(JSON(data:jsonData))
                 let jsonArray = JSON(data: jsonData).array ?? []
                 var books = [Book]()
                 for json in jsonArray {
@@ -589,12 +614,14 @@ extension FliptAPIClient {
     
     //MARK:- Save Book to DB
     class fileprivate func saveBook(_ book:Book, at location:Location){
+        print("saving Book")
         let urlString = "\(Constants.Flipt.baseUrl)/book"
         guard let url = URL(string: urlString) else { return }
         let session = URLSession.shared
         
         if let apiKey = User.current?.apiKey, let apiSecret = User.current?.apiSecret {
-            
+            print(apiKey)
+            print(apiSecret)
             let loginData = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
             let base64LoginString = loginData.base64EncodedString()
             var urlRequest = URLRequest(url: url)
@@ -603,6 +630,8 @@ extension FliptAPIClient {
             var bookData = book.serialize()
             bookData["latitude"] = location.0.ToRadians
             bookData["longitude"] = location.1.ToRadians
+            
+           // print(bookData)
             
             
             urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
@@ -620,7 +649,7 @@ extension FliptAPIClient {
                     let responseJSON = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String:Any]
                     
                     
-                    print(responseJSON)
+                  //  print(responseJSON)
                 }catch{
                     
                 }
@@ -642,5 +671,6 @@ extension FliptAPIClient {
 extension Double {
     
     var ToRadians: Double { return Double(self) * .pi / 180 }
+    var toDegrees: Double { return Double(self) * 180 / .pi }
     
 }

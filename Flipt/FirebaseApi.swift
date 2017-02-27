@@ -68,7 +68,7 @@ final class FirebaseApi {
         FirebaseApi.chatRef.child(chatId).observe(.value, with: { (snapshot) in
             let dict = snapshot.value as? [String:Any] ?? [:]
             print("last message \(dict)")
-            var chat = Chat(id: chatId, dict: dict)
+            let chat = Chat(id: chatId, dict: dict)
             print("Chat message -\(chat.lastMessage)")
             FirebaseApi.getRecipient(chatId: chatId, completion: { (receiver, book) in
                 print("Receiver \(receiver)")
@@ -87,7 +87,7 @@ final class FirebaseApi {
     class func checkIfBlocked(userID: String, completion: @escaping (Bool) -> ()) {
         if let user = User.current, let userid = user.userid {
             FirebaseApi.userRef.child(userid).child("blocked").observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot.value)
+                
                 if let blockedDict = snapshot.value as? [String: Any] {
                     
                     if let blocked = blockedDict[userID] as? Bool {
@@ -270,6 +270,42 @@ final class FirebaseApi {
         }
         
         
+    }
+    
+    class func checkForChat(recipient: String, completion:@escaping (Bool, String) -> ()) {
+        if let currentUser = User.current {
+            _ = FirebaseApi.userRef.child(currentUser.userid).child("chats").observe(.childAdded, with: { (snapshot) in
+                let chatId = snapshot.key
+                
+                
+                FirebaseApi.membersRef.child(chatId).observe(.value, with: { (snapshot) in
+                    
+                    if let user = User.current {
+                        
+                        let dict = snapshot.value as! [String: Any]
+                        for key in dict.keys {
+                            if key == user.userid || key == "book" {
+                            } else {
+                                if recipient == key {
+                                    completion(true, chatId)
+                                }
+                                
+                                
+                            }
+                        }
+                        
+                        
+                    }
+                })
+
+               
+                
+            })
+            
+            
+            
+            
+        }
     }
     
     // chat id in member is for the chat

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookDetailVC" customModule="Flipt" customModuleProvider="target">
+            <connections>
+                <outlet property="bookAuthorLabel" destination="hgR-wZ-hle" id="Q7b-iT-GUj"/>
+                <outlet property="bookImageView" destination="TY2-89-hpA" id="qmY-71-RH8"/>
+                <outlet property="bookTitleLabel" destination="e3Y-wA-dky" id="Jvi-JD-jUZ"/>
+                <outlet property="contactBtn" destination="jYe-rY-cfX" id="muf-sd-SPw"/>
+                <outlet property="descriptionTextView" destination="mJB-Vp-rXu" id="l2w-R5-wRB"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TY2-89-hpA">
+                    <rect key="frame" x="16" y="67" width="111" height="142"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="142" id="dIE-CN-uKz"/>
+                        <constraint firstAttribute="width" constant="111" id="dVv-ok-i4K"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count of Monte Cristo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3Y-wA-dky">
+                    <rect key="frame" x="135" y="67" width="212" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="212" id="fab-mQ-qUg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mJB-Vp-rXu">
+                    <rect key="frame" x="16" y="237" width="343" height="154"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYe-rY-cfX">
+                    <rect key="frame" x="136" y="450" width="104" height="30"/>
+                    <state key="normal" title="Contact Owner">
+                        <color key="titleColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="contactBtnPressed:" destination="-1" eventType="touchUpInside" id="DFS-Mc-Zhf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpx-1r-X3Y">
+                    <rect key="frame" x="10" y="6" width="58" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="58" id="q00-2W-Q9Q"/>
+                        <constraint firstAttribute="height" constant="30" id="vti-sb-Qze"/>
+                    </constraints>
+                    <state key="normal" title="Close">
+                        <color key="titleColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="closeBtnPressed:" destination="-1" eventType="touchUpInside" id="oe9-aZ-bNO"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alexander Dumas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgR-wZ-hle">
+                    <rect key="frame" x="135" y="88" width="212" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Luc-HU-lWz"/>
+                        <constraint firstAttribute="width" constant="212" id="d5b-Pm-JzE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="e3Y-wA-dky" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="67" id="OTy-vK-d71"/>
+                <constraint firstItem="hgR-wZ-hle" firstAttribute="top" secondItem="e3Y-wA-dky" secondAttribute="bottom" id="OYd-uo-RDH"/>
+                <constraint firstItem="jYe-rY-cfX" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PWH-h1-Zx6"/>
+                <constraint firstItem="TY2-89-hpA" firstAttribute="top" secondItem="kpx-1r-X3Y" secondAttribute="bottom" constant="31" id="Qdw-Bi-wLA"/>
+                <constraint firstItem="hgR-wZ-hle" firstAttribute="leading" secondItem="TY2-89-hpA" secondAttribute="trailing" constant="8" id="Ttl-mf-i8R"/>
+                <constraint firstAttribute="bottom" secondItem="jYe-rY-cfX" secondAttribute="bottom" constant="187" id="VI6-tk-bdY"/>
+                <constraint firstItem="kpx-1r-X3Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="XdJ-5T-ccF"/>
+                <constraint firstItem="kpx-1r-X3Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="6" id="dF4-Ts-mzX"/>
+                <constraint firstItem="TY2-89-hpA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="fol-yH-N9G"/>
+                <constraint firstItem="e3Y-wA-dky" firstAttribute="leading" secondItem="TY2-89-hpA" secondAttribute="trailing" constant="8" id="nsX-EB-3IT"/>
+            </constraints>
+            <point key="canvasLocation" x="29.5" y="139.5"/>
+        </view>
+    </objects>
+</document>

@@ -54,7 +54,7 @@ class MessagesViewController: JSQMessagesViewController {
         self.navigationController!.navigationItem.rightBarButtonItem = moreButton
         
         
-
+        
         
         
         // Do any additional setup after loading the view.
@@ -80,18 +80,20 @@ class MessagesViewController: JSQMessagesViewController {
             
         })
         
+        
+        
         //        let  deleteButton = UIAlertAction(title: "Delete forever", style: .default, handler: { (action) -> Void in
         //            print("Delete button tapped")
         //        })
         //
-        //        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-        //
-        //        })
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            
+        })
         
         
         alertController.addAction(blockButton)
         // alertController.addAction(deleteButton)
-        //alertController.addAction(cancelButton)
+        alertController.addAction(cancelButton)
         
         self.navigationController?.present(alertController, animated: true, completion: nil)
         
@@ -113,49 +115,38 @@ class MessagesViewController: JSQMessagesViewController {
         
         
         
-       // FirebaseApi.getRecipientId(chatId: self.chatId, completion: { (recipientId) in
-            FirebaseApi.checkIfBlocked(userID: self.recipientId, completion: { (isBlocked) in
-                if !isBlocked {
-                    
-                    if self.messages.count == 0 {
-                    
-                        print(self.recipientId)
-                        
-                        FirebaseApi.createChat(recipient: self.recipientId, book: self.book, completion: { (chatId) in
-                            self.chatId = chatId
-                            FirebaseApi.sendMessage(chatId: chatId, text: text, date: date, completion: {
-                                JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
-                                // animates sending of message
-                                //self.finishSendingMessage()
-                                
-                                FirebaseApi.getAllMessagesfor(chatId: chatId, completion: { (message) in
-                                    self.addMessage(withId: message.sender, name: message.sender, text: message.text)
-                                    self.finishSendingMessage()
-                                })
-                                
-                            })
-                        })
-                        print("First message")
-                    } else {
-                        FirebaseApi.sendMessage(chatId: self.chatId, text: text, date:date) {
-                            //self.addMessage(withId: self.senderId, name: self.senderDisplayName, text: text)
-                            // message sent sound
+        // FirebaseApi.getRecipientId(chatId: self.chatId, completion: { (recipientId) in
+        FirebaseApi.checkIfBlocked(userID: self.recipientId, completion: { (isBlocked) in
+            if !isBlocked {
+                
+                FirebaseApi.checkForChat(recipient: self.recipientId, completion: { (chatExists, chatId) in
+                    if chatExists {
+                        FirebaseApi.sendMessage(chatId: chatId, text: text, date: date, completion: {
                             JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
-                            
                             // animates sending of message
-                            self.finishSendingMessage() // 5
+                            //self.finishSendingMessage()
                             
+                            FirebaseApi.getAllMessagesfor(chatId: chatId, completion: { (message) in
+                                self.addMessage(withId: message.sender, name: message.sender, text: message.text)
+                                self.finishSendingMessage()
+                            })
                             
-                            // Reset the typing indicator when the Send button is pressed.
-                            //       isTyping = false
-                            
-                        }
+                        })
+                        
+                    } else {
+                        
                     }
-                    
-                    
-                }
-            })
-       // })
+                })
+                
+                
+                
+            } else {
+                self.addMessage(withId: self.recipient, name: self.recipient, text: text)
+                self.finishSendingMessage()
+                //print("Blocked")
+            }
+        })
+        // })
         
     }
     
@@ -229,6 +220,6 @@ class MessagesViewController: JSQMessagesViewController {
     }
     
     
-
+    
     
 }

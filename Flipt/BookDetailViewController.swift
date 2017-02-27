@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Alamofire
+import Kingfisher
 
 
 class BookDetailView: UIView{
@@ -146,7 +147,7 @@ class BookDetailView: UIView{
         }
 
         self.messageOwnerBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self.bottomDivider.snp.bottom).offset(40)
+            make.top.equalTo(self.bookOwnedByLabel.snp.bottom).offset(20)
             make.width.equalTo(150)
             make.height.equalTo(50)
             make.centerX.equalTo(self)
@@ -245,30 +246,25 @@ class BookDetailViewController: UIViewController {
         self.bookDetailView.bookTitleLabel.text = self.book.title
         self.bookDetailView.authorLabel.text = self.book.author
         self.bookDetailView.bookDescriptionTextView.text = self.book.description
-        Alamofire.request(self.book.coverImgUrl).responseData { (response) in
-            if let data = response.data{
-                let image = UIImage(data: data)
-                
-                OperationQueue.main.addOperation {
-                    self.bookDetailView.coverImageView.image = image
-                }
-            }
-            
+        if let url = URL(string: self.book.coverImgUrl) {
+            self.bookDetailView.coverImageView.kf.setImage(with: url)
         }
         
+
         
         
         if let ownerId = self.book.ownerId {
             
             //configure button
-            
-            
+            print("running")
+            print(ownerId)
             FliptAPIClient.getUserFrom(ownerId, completion: { (user) in
+                print("running")
                 self.owner = user
-                OperationQueue.main.addOperation {
+               // OperationQueue.main.addOperation {
                     
                     if let userid = user.userid {
-                        
+                        print(userid)
                         FirebaseApi.checkIfBlocked(userID: userid, completion: { (isBlocked) in
                             if isBlocked {
                                 OperationQueue.main.addOperation {
@@ -292,7 +288,8 @@ class BookDetailViewController: UIViewController {
                         
                     }
                     
-                }
+               // }
+                //
                 
             })
         
@@ -309,15 +306,15 @@ class BookDetailViewController: UIViewController {
         //open chat
         let msgViewController = MessagesViewController()
         msgViewController.book = self.book
-        
+        //print(self.owner)
         if let firstname = self.owner.firstname, let lastname = self.owner.lastname {
             let lname = self.owner.lastname.characters.first!
         
             msgViewController.recipient = "\(firstname) \(lname)"
         }
         msgViewController.recipientId = self.owner.userid
-        
-        self.navigationController?.pushViewController(msgViewController, animated: true)
+        self.present(msgViewController, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(msgViewController, animated: true)
     }
     
     

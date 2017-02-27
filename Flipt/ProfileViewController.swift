@@ -14,6 +14,8 @@ import Alamofire
 import ImagePicker
 import Lightbox
 import StatusProvider
+import Kingfisher
+import PMAlertController
 
 class ProfileViewController: UIViewController, StatusController {
     
@@ -38,14 +40,14 @@ class ProfileViewController: UIViewController, StatusController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-       
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("appearing")
-        self.setupUser()
+        
         
         self.collectionView.reloadData()
         
@@ -54,16 +56,23 @@ class ProfileViewController: UIViewController, StatusController {
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationItem.rightBarButtonItem = rightBar
         self.navigationItem.rightBarButtonItem = rightBar
+        
+        let status = Status(title: "Book Shelf Empty", description: "You haven't added any books yet", actionTitle: "Add Book", image: UIImage(named: "placeholder_instagram")) {
+            self.tabBarController?.selectedIndex = 2
+            self.hideStatus()
+        }
+        
         store.getUserBooks {
+            self.setupUser()
             print("From view will appear \(self.store.savedBooks.count)")
             OperationQueue.main.addOperation {
                 if self.store.savedBooks.isEmpty {
-                    let status = Status(title: "no Data", description: "No data available.💣", actionTitle: "Create ⭐️", image: UIImage(named: "placeholder_instagram")) {
-                        self.hideStatus()
-                    }
+                    
                     
                     self.show(status: status)
                 } else {
+                    self.hideStatus()
+                    
                     self.collectionView.reloadData()
                 }
                 
@@ -106,7 +115,7 @@ class ProfileViewController: UIViewController, StatusController {
         self.collectionView.register(BookCollectionViewCell.self, forCellWithReuseIdentifier: "basicCell")
         
         //self.profileHeaderView.backgroundColor = UIColor.red
-        self.collectionView.backgroundColor = UIColor.lightGray
+        self.collectionView.backgroundColor = UIColor.lightText
         
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.profileHeaderView)
@@ -129,26 +138,24 @@ class ProfileViewController: UIViewController, StatusController {
     func setupUser(){
         
         
-        OperationQueue.main.addOperation {
-            if let currentUser = User.current {
-                
-                
-                let lastInitial = " " + String(currentUser.lastname.characters.first!)
-                
-                self.profileHeaderView.profileLabel.text = currentUser.firstname + lastInitial ?? currentUser.username
-            }
-        }
         
-        FliptAPIClient.downloadProfPicture { (data) in
-            
-            let image = UIImage(data: data)
-            OperationQueue.main.addOperation {
-                self.profileHeaderView.imageView.image = image
+        if let currentUser = User.current {
+
+        
+            let lastInitial = " " + String(currentUser.lastname.characters.first!)
+             self.profileHeaderView.profileLabel.text = currentUser.firstname + lastInitial 
+            if let profileImage = currentUser.profilePic, let profileUrl = URL(string: profileImage) {
+                self.profileHeaderView.imageView.kf.setImage(with: profileUrl)
                 self.profileHeaderView.imageView.layer.cornerRadius = 34
                 self.profileHeaderView.imageView.setNeedsDisplay()
+            } else {
+                dump(currentUser)
+                print("profileImage missing Error - profileViewController")
             }
             
+            
         }
+    
     }
     
     func setupConstraints(){

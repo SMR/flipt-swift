@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Kingfisher
 
 class BookTitleView: UIView{
     lazy var bookTitleLabel = UILabel()
@@ -73,14 +74,11 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     func configureCell(book: Book){
         
-        Alamofire.request(book.coverImgUrl).responseData { (response) in
-            guard let data = response.data else { return }
-            let image = UIImage(data: data)
-            DispatchQueue.main.async {
-                self.bookCoverImageView.image = image
-                self.bookTitleView.isHidden = true
-            }
+        if let url = URL(string: book.coverImgUrl) {
+            self.bookCoverImageView.kf.setImage(with: url)
+            self.bookTitleView.isHidden = true
         }
+       
         self.bookTitleView.bookTitleLabel.text = book.title
         
         

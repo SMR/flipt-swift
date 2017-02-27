@@ -4,71 +4,57 @@
 <dict>
 	<key></key>
 	<string></string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses the camera for testing purposes</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>2f9f339131b9905b1efd68260056a6fe6e8e88b8</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitName</key>
+				<string>Digits</string>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>teyZI1Qjj3TofM8XSTN8ZWKqO</string>
+					<key>consumerSecret</key>
+					<string>HhBrFvYmddFApITbQ7e9hdFgOY5lFlAyamXtmFf91xb9l1UrlF</string>
+				</dict>
+			</dict>
+			<dict>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+				<key>KitInfo</key>
+				<dict/>
+			</dict>
+		</array>
+	</dict>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
-    <key>Fabric</key>
-    <dict>
-        <key>APIKey</key>
-        <string>2f9f339131b9905b1efd68260056a6fe6e8e88b8</string>
-        <key>Kits</key>
-        <array>
-            <dict>
-                <key>KitInfo</key>
-                <dict>
-                    <key>consumerKey</key>
-                    <string>teyZI1Qjj3TofM8XSTN8ZWKqO</string>
-                    <key>consumerSecret</key>
-                    <string>HhBrFvYmddFApITbQ7e9hdFgOY5lFlAyamXtmFf91xb9l1UrlF</string>
-                </dict>
-                <key>KitName</key>
-                <string>Digits</string>
-            </dict>
-            <dict>
-                <key>KitInfo</key>
-                <dict/>
-                <key>KitName</key>
-                <string>Crashlytics</string>
-            </dict>
-        </array>
-    </dict>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>This app uses the camera for testing purposes</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Hey There</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Woo hoo</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app uses the library for testing purposes</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -77,5 +63,21 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Hey There</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app uses the library for testing purposes</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Woo hoo</string>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1Ijoiam9oYW5ua2VyciIsImEiOiJjaXpsdXNtaGYwMjh1MndscmZ3aWN1ZDR1In0.pcQy6j2J7Icg463PNhrKzw</string>
 </dict>
 </plist>
