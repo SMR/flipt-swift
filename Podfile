@@ -10,8 +10,10 @@ inhibit_all_warnings!
 def common_pods
     pod 'SnapKit', '~> 3.0'
     pod 'Alamofire', '~> 4.0'
-    pod 'SwiftyJSON', git: 'https://github.com/SwiftyJSON/SwiftyJSON.git'
-    pod 'Kingfisher', git: 'https://github.com/onevcat/Kingfisher.git'
+    #pod 'SwiftyJSON', git: 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+    pod 'SwiftyJSON'
+    #pod 'Kingfisher', git: 'https://github.com/onevcat/Kingfisher.git'
+    pod 'Kingfisher'
     pod 'Firebase'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
