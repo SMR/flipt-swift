@@ -11,6 +11,7 @@ import BarcodeScanner
 import PopupDialog
 import Alamofire
 import CoreLocation
+import PMAlertController
 
 class ScanViewController: UIViewController {
 
@@ -87,44 +88,52 @@ extension ScanViewController: BarcodeScannerCodeDelegate {
     }
     
     func show(book:Book){
+        
+        
+       
         let title = book.title
-        let message = book.description
-        let popup = PopupDialog(title: title, message: message)
+        let message = book.description.trunc(150)
         
         
-        
-        
-        // Create buttons
-        let cancel = CancelButton(title: "Cancel") {
-            popup.dismiss(animated: true, completion: nil)
-            //self.openBarCode()
-        }
-        
-        let add = DefaultButton(title: "Add to BookShelf") {
-            self.store.save(book: book)
-            //FliptAPIClient.save(book, at: UserStore.current.location)
-            
-            if let latitude = self.locationManager.location?.coordinate.latitude, let longitude = self.locationManager.location?.coordinate.longitude {
-               
-                
-                let location = (latitude,longitude)
-                FliptAPIClient.save(book, at: location)
-                
+        Alamofire.request("\(book.coverImgUrl)&zoom=5").responseData { (response) in
+            if let imageData = response.data {
+                if let image = UIImage(data: imageData) {
+                    
+                    
+                    let alertVC = PMAlertController(title: title, description: message, image:image, style: .alert)
+                    
+                    
+                    
+                    alertVC.addAction(PMAlertAction(title: "Add to Shelf", style: .default, action: { () in
+                        
+                        self.store.save(book: book)
+                        //FliptAPIClient.save(book, at: UserStore.current.location)
+                        
+                        if let latitude = self.locationManager.location?.coordinate.latitude, let longitude = self.locationManager.location?.coordinate.longitude {
+                            
+                            
+                            let location = (latitude,longitude)
+                            FliptAPIClient.save(book, at: location)
+                            
+                        }
+                        
+                 
+
+                    }))
+                    
+                    alertVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
+                        
+                    }))
+                    
+                    
+                    
+                    self.present(alertVC, animated: true, completion: nil)
+                    
+                    
+                }
             }
-        
-            
-            
-           
-            //FliptAPIClient.save(book, at: (User.current?.location)!)
-            popup.dismiss(animated: true, completion: nil)
-            //self.openBarCode()
-            
         }
         
-        popup.addButtons([add, cancel])
-        
-        
-        self.present(popup, animated: true, completion: nil)
         
         
         
@@ -220,6 +229,21 @@ extension ScanViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
         
+    }
+}
+
+extension String {
+    func trunc(_ length: Int, trailing: String = "...") -> String {
+        if self.characters.count > length {
+            
+            let index = self.index(self.startIndex, offsetBy: length)
+            var subString = self.substring(to: index)
+            subString += trailing
+            return subString
+           
+        } else {
+            return self
+        }
     }
 }
 

@@ -109,17 +109,22 @@ class ExploreVC: UIViewController {
         
         segmentioView.snp.makeConstraints { (make) in
             make.left.equalTo(self.view)
-            make.top.equalTo(self.view)
+            make.top.equalTo(self.view) //25
             make.height.equalTo(125)
             make.width.equalTo(self.view)
         }
+        
+        self.view.backgroundColor = UIColor.red
+        
+        segmentioView.backgroundColor = UIColor.lightGray
     
         
         let indicatorOptions = SegmentioIndicatorOptions(type: .bottom, ratio: 1, height: 5, color: Constants.UI.appColor)
         
+        
         let horizontalOptions = SegmentioHorizontalSeparatorOptions(
             type: SegmentioHorizontalSeparatorType.bottom, // Top, Bottom, TopAndBottom
-            height: 1,
+            height: 0,
             color: .lightGray
         )
         
@@ -145,7 +150,7 @@ class ExploreVC: UIViewController {
             )
         )
         
-        let segmentOptions = SegmentioOptions(backgroundColor: .white, maxVisibleItems: 2, scrollEnabled: false, indicatorOptions: indicatorOptions, horizontalSeparatorOptions: horizontalOptions, verticalSeparatorOptions: verticalOptions, imageContentMode: .center, labelTextAlignment: .center, labelTextNumberOfLines: 2, segmentStates: segmentStates, animationDuration: 0.1)
+        let segmentOptions = SegmentioOptions(backgroundColor: .white, maxVisibleItems: 2, scrollEnabled: false, indicatorOptions: indicatorOptions, horizontalSeparatorOptions: horizontalOptions, verticalSeparatorOptions: verticalOptions, imageContentMode: .bottom, labelTextAlignment: .center, labelTextNumberOfLines: 1, segmentStates: segmentStates, animationDuration: 0.1)
         
         segmentioView.setup(content: segmentItems, style: .onlyImage, options: segmentOptions)
         segmentioView.selectedSegmentioIndex = 0

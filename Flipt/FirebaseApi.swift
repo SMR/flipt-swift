@@ -84,6 +84,23 @@ final class FirebaseApi {
             
         })
     }
+    
+    class func getBlockedUsers(completion: @escaping(User) -> ()) {
+        if let user = User.current, let userid = user.userid {
+            FirebaseApi.userRef.child(userid).child("Blocked").observeSingleEvent(of: .value, with: { (snapshot) in
+                if let blockedDict = snapshot.value as? [String: Any] {
+                    let blockedIds = Array(blockedDict.keys)
+                    for blockedId in blockedIds {
+                        FliptAPIClient.getUserFrom(blockedId, completion: { (user, books) in
+                            
+                            completion(user)
+                        })
+                        
+                    }
+                }  
+            })
+        }
+    }
     class func checkIfBlocked(userID: String, completion: @escaping (Bool) -> ()) {
         if let user = User.current, let userid = user.userid {
             FirebaseApi.userRef.child(userid).child("blocked").observeSingleEvent(of: .value, with: { (snapshot) in

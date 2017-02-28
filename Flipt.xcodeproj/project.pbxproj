@@ -53,6 +53,7 @@
 		8FA7B6451E2575250030EDA3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7B6441E2575250030EDA3 /* RegisterViewController.swift */; };
 		8FA7B6471E257A120030EDA3 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7B6461E257A120030EDA3 /* WelcomeViewController.swift */; };
 		8FA7B6491E257A6B0030EDA3 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA7B6481E257A6B0030EDA3 /* WelcomeView.swift */; };
+		8FB77CD31E648943000FD6F1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB77CD11E648943000FD6F1 /* SettingsViewController.swift */; };
 		8FB781EA1E138418001372F9 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB781E91E138418001372F9 /* Chat.swift */; };
 		8FC3BAC51E5402FA00E72B7A /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3BAC31E5402FA00E72B7A /* NameViewController.swift */; };
 		8FC3BAC61E5402FA00E72B7A /* NameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC3BAC41E5402FA00E72B7A /* NameViewController.xib */; };
@@ -63,6 +64,8 @@
 		8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */; };
 		8FF7A0131E105451006175D0 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7A0121E105451006175D0 /* ChatsViewController.swift */; };
 		8FF7A0151E107105006175D0 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7A0141E107105006175D0 /* MessagesViewController.swift */; };
+		8FFB4F8D1E64C9AB00D5144F /* BlockedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB4F8C1E64C9AB00D5144F /* BlockedListViewController.swift */; };
+		8FFB4F8F1E64E3EE00D5144F /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB4F8E1E64E3EE00D5144F /* Settings.storyboard */; };
 		C51CED49949537B99CDF52E1 /* Pods_FliptTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C3EB4A2D7C4214EEDF1C05 /* Pods_FliptTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +134,7 @@
 		8FA7B6441E2575250030EDA3 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8FA7B6461E257A120030EDA3 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		8FA7B6481E257A6B0030EDA3 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		8FB77CD11E648943000FD6F1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8FB781E91E138418001372F9 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		8FC3BAC31E5402FA00E72B7A /* NameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		8FC3BAC41E5402FA00E72B7A /* NameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NameViewController.xib; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		8FD1B0B41DED3439006BC634 /* Flipt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flipt.xcdatamodel; sourceTree = "<group>"; };
 		8FF7A0121E105451006175D0 /* ChatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		8FF7A0141E107105006175D0 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		8FFB4F8C1E64C9AB00D5144F /* BlockedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedListViewController.swift; sourceTree = "<group>"; };
+		8FFB4F8E1E64E3EE00D5144F /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		E39E1EE865F50BB8910CF322 /* Pods-FliptTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FliptTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FliptTests/Pods-FliptTests.release.xcconfig"; sourceTree = "<group>"; };
 		E9C3EB4A2D7C4214EEDF1C05 /* Pods_FliptTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FliptTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -216,6 +222,7 @@
 				8FD1B0B31DED3439006BC634 /* Flipt.xcdatamodeld */,
 				8F8BBC341DC00850006789E9 /* Flipt.entitlements */,
 				8F8BBC1A1DC00321006789E9 /* Main.storyboard */,
+				8FFB4F8E1E64E3EE00D5144F /* Settings.storyboard */,
 				8F8BBC1F1DC00321006789E9 /* LaunchScreen.storyboard */,
 				8F8BBC221DC00321006789E9 /* Info.plist */,
 			);
@@ -290,6 +297,8 @@
 				8F0C4DED1DFE5C3F0014E22C /* Scanner */,
 				8F0C4DEC1DFE5C370014E22C /* Login */,
 				8FA7B6421E2570C20030EDA3 /* Chats */,
+				8FB77CD11E648943000FD6F1 /* SettingsViewController.swift */,
+				8FFB4F8C1E64C9AB00D5144F /* BlockedListViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -512,6 +521,7 @@
 				8FC3BACA1E54231200E72B7A /* LoginVC.xib in Resources */,
 				8F8BBC1C1DC00321006789E9 /* Main.storyboard in Resources */,
 				8F1B7E431E6245A60015E986 /* MapViewController.xib in Resources */,
+				8FFB4F8F1E64E3EE00D5144F /* Settings.storyboard in Resources */,
 				8FC3BAC61E5402FA00E72B7A /* NameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,6 +657,7 @@
 				8F500EAB1DF872CB006DA5EB /* FliptAPIClient.swift in Sources */,
 				8FD1B0B51DED3439006BC634 /* Flipt.xcdatamodeld in Sources */,
 				8F1B7E421E6245A60015E986 /* MapViewController.swift in Sources */,
+				8FFB4F8D1E64C9AB00D5144F /* BlockedListViewController.swift in Sources */,
 				8F0C8C091E011628005A8E3C /* FirebaseApi.swift in Sources */,
 				8F500EAD1DF88257006DA5EB /* UserStore.swift in Sources */,
 				8F1B7E4B1E6310070015E986 /* ChatCell.swift in Sources */,
@@ -661,6 +672,7 @@
 				8F8673891E087AA200A0CF08 /* User.swift in Sources */,
 				8FA7B6471E257A120030EDA3 /* WelcomeViewController.swift in Sources */,
 				8F1B7E3E1E621C7E0015E986 /* BookDetailVC.swift in Sources */,
+				8FB77CD31E648943000FD6F1 /* SettingsViewController.swift in Sources */,
 				8FA7B6491E257A6B0030EDA3 /* WelcomeView.swift in Sources */,
 				8F86FD761DEE8B2A00C1D3FE /* GoogleBooksApi.swift in Sources */,
 				8F7B59B31E14EC4E00EB1F5D /* Message.swift in Sources */,

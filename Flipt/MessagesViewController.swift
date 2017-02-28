@@ -113,6 +113,7 @@ class MessagesViewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
+        print("pressing send")
         
         
         // FirebaseApi.getRecipientId(chatId: self.chatId, completion: { (recipientId) in
@@ -134,6 +135,8 @@ class MessagesViewController: JSQMessagesViewController {
                         })
                         
                     } else {
+                        
+                        print("Chat doesn't exist")
                         
                     }
                 })

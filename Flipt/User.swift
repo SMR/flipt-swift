@@ -198,7 +198,7 @@ class User {
     }
     
     
-    func uploadPicture(data: Data){
+    func uploadPicture(data: Data, completion: @escaping() -> ()){
         let storage = FIRStorage.storage()
         let storageRef = storage.reference()
         print(data)
@@ -221,6 +221,7 @@ class User {
                     print(myUser)
                     FliptAPIClient.update(profilePic: url, completion: { (success) in
                         if success {
+                            completion()
                             print("file upload worked")
                         } else {
                             print("File upload failed")

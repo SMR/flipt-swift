@@ -37,10 +37,13 @@ class FliptTabBarController: UITabBarController {
         exploreNav.title = "Explore"
         //exploreNav.navigationBar.tintColor = Constants.UI.appColor
         let chatNav = UINavigationController(rootViewController: chatVC)
+        
+        var storyboard: UIStoryboard = UIStoryboard(name: "Settings", bundle: nil)
+        var navVC: UINavigationController = storyboard.instantiateViewController(withIdentifier: "Settings") as! UINavigationController
         //exploreNav.navigationBar.tintColor = Constants.UI.appColor
         //viewControllers = [profileVC, scanVC, chatNav, eVC]
-        print("before")
-        viewControllers = [eVC, scanVC, chatNav,profileVC]
+      
+        viewControllers = [exploreNav, scanVC, chatNav,profileVC, navVC]
         profileVC.navigationController?.isNavigationBarHidden = true
         
         
@@ -60,8 +63,8 @@ class FliptTabBarController: UITabBarController {
         viewControllers?[3].tabBarItem.title = "Profile"
         viewControllers?[3].tabBarItem.image = UIImage(named: "profile")
         
-//        viewControllers?[4].tabBarItem.title = "Map"
-//        viewControllers?[4].tabBarItem.image = UIImage(named: "explore")
+        viewControllers?[4].tabBarItem.title = "More"
+        viewControllers?[4].tabBarItem.image = UIImage(named: "more")
         
         
         self.tabBar.tintColor = Constants.UI.appColor

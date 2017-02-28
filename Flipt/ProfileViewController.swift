@@ -100,8 +100,8 @@ class ProfileViewController: UIViewController, StatusController {
         let layout = UICollectionViewFlowLayout()
         
         layout.sectionInset = UIEdgeInsets(top: -10, left: 5, bottom: 5, right: 5)
-        layout.minimumLineSpacing = 0
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 10
+       //  layout.minimumLineSpacing = 0
         let cellsPerRow: CGFloat = 3
         let pLength = self.view.bounds.width
         let perimeterLength = floor(pLength / cellsPerRow)
@@ -324,7 +324,11 @@ extension ProfileViewController: ImagePickerDelegate {
         
         guard let currentUser = User.current else { return }
         if let data = data {
-            currentUser.uploadPicture(data: data)
+            currentUser.uploadPicture(data: data, completion: {
+                OperationQueue.main.addOperation {
+                    self.profileHeaderView.imageView.image = UIImage(data: data)!
+                }
+            })
         }
         
         imagePicker.dismiss(animated: true, completion: nil)
