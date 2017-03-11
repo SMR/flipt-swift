@@ -12,6 +12,7 @@ import FirebaseAuth
 
 final class FirebaseApi {
     
+    static let rootRef = FIRDatabase.database().reference()
     static let recipientsKey = "recipients"
     static let userRef = FIRDatabase.database().reference().child("users")
     static let chatRef = FIRDatabase.database().reference().child("chats")
@@ -97,7 +98,7 @@ final class FirebaseApi {
                         })
                         
                     }
-                }  
+                }
             })
         }
     }
@@ -126,9 +127,9 @@ final class FirebaseApi {
                 } else {
                     completion(false)
                 }
- 
+                
             })
- 
+            
         }
     }
     
@@ -154,7 +155,7 @@ final class FirebaseApi {
     
     class func blockUser(userId: String, completion: @escaping () -> ()) {
         if let user = User.current, let userid = user.userid {
-          
+            
             FirebaseApi.userRef.child(userid).child("blocked").updateChildValues([userId: true])
         }
     }
@@ -171,7 +172,7 @@ final class FirebaseApi {
             
             if let user = User.current {
                 
-                let dict = snapshot.value as! [String: Any]
+                let dict = snapshot.value as? [String: Any] ?? [:]
                 for key in dict.keys {
                     if key == user.userid || key == "book" {
                         print("Skipping key \(key)")
@@ -189,11 +190,11 @@ final class FirebaseApi {
     }
     //TODO:- FIX!!
     class func getRecipient(chatId:String, completion:@escaping (String?, Book?)->()) {
-        FirebaseApi.membersRef.child(chatId).observe(.value, with: { (snapshot) in
+        FirebaseApi.membersRef.child(chatId).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if let user = User.current {
                 
-                let dict = snapshot.value as! [String: Any]
+                let dict = snapshot.value as? [String: Any] ?? [:]
                 for key in dict.keys {
                     if key == user.userid || key == "book" {
                     } else {
@@ -220,7 +221,7 @@ final class FirebaseApi {
                         
                     }
                 }
-               
+                
                 
             }
         })
@@ -236,7 +237,7 @@ final class FirebaseApi {
                 FirebaseApi.getRecipientId(chatId: snapshot.key, completion: { (recipientId) in
                     FirebaseApi.checkIfBlocked(userID: recipientId, completion: { (isBlocked) in
                         if isBlocked {
-                            // should not show 
+                            // should not show
                             print("Blocked Person - Chat")
                         } else {
                             getLastMessagefor(chatId: snapshot.key, completion: { chat in
@@ -291,35 +292,144 @@ final class FirebaseApi {
     
     class func checkForChat(recipient: String, completion:@escaping (Bool, String) -> ()) {
         if let currentUser = User.current {
-            _ = FirebaseApi.userRef.child(currentUser.userid).child("chats").observe(.childAdded, with: { (snapshot) in
-                let chatId = snapshot.key
+            
+            _ = FirebaseApi.userRef.child(currentUser.userid).child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
                 
-                
-                FirebaseApi.membersRef.child(chatId).observe(.value, with: { (snapshot) in
+                let value = snapshot.value as? [String: Any] ?? [:]
+                print(value)
+                if value.isEmpty {
+                    // no chats
+                    completion(false, "Empty")
+                } else {
                     
-                    if let user = User.current {
+                    var total = value.keys.count
+                    var counter = 0
+                    var chatFound = false
+                    
+                    for key in value.keys {
                         
-                        let dict = snapshot.value as! [String: Any]
-                        for key in dict.keys {
-                            if key == user.userid || key == "book" {
-                            } else {
-                                if recipient == key {
-                                    completion(true, chatId)
+//                        let query = FirebaseApi.membersRef.queryOrdered(byChild: key).queryEqual(toValue: "recipient")
+//                        query.observeSingleEvent(of: .value, with: { (snapshot) in
+//                            print(snapshot)
+//                        })
+                        
+                        FirebaseApi.membersRef.child(key).observe(.value, with: { (snapshot) in
+                            if let user = User.current {
+                                
+                                // get whole member dict
+                                let dict = snapshot.value as? [String: Any] ?? [:]
+                                
+                                
+                                //grab chat at the value for that key
+                                let value = dict[key] as? [String: Any] ?? [:]
+                                
+                                // check for recipient in value
+                                
+                                if value[recipient] as? Bool == true {
+                                    
+                                   
+                                    chatFound = true
+                                    completion(true, key)
+                                }
+                                counter += 1
+                                if counter == total {
+                                    if !chatFound {
+                                        completion(false, "")
+                                    }
                                 }
                                 
                                 
+                                
+                                
                             }
-                        }
+                            
+                            
+                        })
+                        
+                        //FirebaseApi.membersRef.child(key)
                         
                         
                     }
-                })
-
-               
+                    
+                }
                 
             })
-            
-            
+//            _ = FirebaseApi.userRef.child(currentUser.userid).child("chats").observe(.value, with: { (snapshot) in
+//                
+//                let value = snapshot.value as? [String: Any] ?? [:]
+//                print(value)
+//                if value.isEmpty {
+//                    // no chats
+//                    completion(false, "")
+//                } else {
+//                    for key in value.keys {
+//                        
+//                        FirebaseApi.membersRef.child(key).observe(.value, with: { (snapshot) in
+//                            if let user = User.current {
+//                                
+//                                // get whole member dict
+//                                let dict = snapshot.value as? [String: Any] ?? [:]
+//                                
+//                                
+//                                //grab chat at the value for that key
+//                                let value = dict[key] as? [String: Any] ?? [:]
+//                            
+//                                // check for recipient in value
+//                                
+//                                if value[recipient] as? Bool == true {
+//                                    completion(true, key)
+//                                }
+//                                
+//                    
+//                                
+//                                
+//                            }
+//
+//                            
+//                        })
+//                        
+//                        //FirebaseApi.membersRef.child(key)
+//                        
+//
+//                    }
+//                    completion(false, "")
+//                }
+//                
+//            })
+            //            _ = FirebaseApi.userRef.child(currentUser.userid).child("chats").observe(.childAdded, with: { (snapshot) in
+            //                let chatId = snapshot.key
+            //                print("ChatId - \(chatId)")
+            //
+            //                FirebaseApi.membersRef.child(chatId).observe(.value, with: { (snapshot) in
+            //                    print("snapshot \(snapshot)")
+            //                    if let user = User.current {
+            //
+            //                        let dict = snapshot.value as? [String: Any] ?? [:]
+            //                        print("dict Keys - \(dict.keys)")
+            //                        print("recipient - \(recipient)")
+            //                        for key in dict.keys {
+            //                            if key == user.userid || key == "book" {
+            //                            } else {
+            //
+            //                                if recipient == key {
+            //
+            //                                    completion(true, chatId)
+            //                                }
+            //
+            //
+            //                            }
+            //                        }
+            //                        //completion(false, "")
+            //
+            //
+            //                    }
+            //                })
+            //
+            //
+            //
+            //            })
+            //
+            //
             
             
         }
@@ -339,12 +449,14 @@ final class FirebaseApi {
             
             
             membersRef.setValue(dict)
-            
+//            
             userRef.child(currentUser.userid).child("chats").updateChildValues([memberKey:true])
             userRef.child(recipient).child("chats").updateChildValues([memberKey:true])
             //            userRef.child(currentUser.userid).child("chats").setValue([memberKey:true])
             //            userRef.child(recipient).child("chats").setValue([memberKey:true])
             completion(memberKey)
+            
+            //completion("hey")
             // membersRef.updateChildValues(dict)
             
         }

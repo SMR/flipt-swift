@@ -22,13 +22,14 @@ class ExploreVC: UIViewController {
     
     lazy var locationManager: CLLocationManager = CLLocationManager()
     let store = BookDataStore.sharedInstance
- 
-
+    
+    var alertVC: PMAlertController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         print("running")
-      
+        
         //self.tabBarController?.title = "Explore"
         
         
@@ -73,7 +74,7 @@ class ExploreVC: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 110, height: 180)
-   
+        
         self.collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -93,7 +94,7 @@ class ExploreVC: UIViewController {
         }
         
     }
-
+    
     
     func setupSegment() {
         
@@ -117,7 +118,7 @@ class ExploreVC: UIViewController {
         self.view.backgroundColor = UIColor.red
         
         segmentioView.backgroundColor = UIColor.lightGray
-    
+        
         
         let indicatorOptions = SegmentioIndicatorOptions(type: .bottom, ratio: 1, height: 5, color: Constants.UI.appColor)
         
@@ -131,7 +132,7 @@ class ExploreVC: UIViewController {
         
         let verticalOptions = SegmentioVerticalSeparatorOptions(ratio: 1.0, color: .lightGray)
         
-    
+        
         let segmentStates = SegmentioStates(
             defaultState: SegmentioState(
                 backgroundColor: .clear,
@@ -169,16 +170,16 @@ class ExploreVC: UIViewController {
             }
         }
         
-
+        
         
     }
     
     func setupMapView() {
         self.mapView = MGLMapView(frame: CGRect.zero)
         
-
         
-
+        
+        
         if let location = locationManager.location {
             let lat = location.coordinate.latitude
             let long = location.coordinate.longitude
@@ -187,8 +188,8 @@ class ExploreVC: UIViewController {
                 self.mapView.setCenter(location.coordinate, zoomLevel: 12, animated: true)
                 
             }
-           
-
+            
+            
             
         }
         
@@ -202,7 +203,7 @@ class ExploreVC: UIViewController {
             make.width.equalTo(self.view)
             make.height.equalTo(self.view)
         }
-       // self.mapView.centerCoordinate = (locationManager.location?.coordinate)!
+        // self.mapView.centerCoordinate = (locationManager.location?.coordinate)!
     }
     
     func createPin(for book: Book) {
@@ -223,36 +224,37 @@ class ExploreVC: UIViewController {
                 
                 if let userid = user.userid {
                     print(userid)
-                    FirebaseApi.checkIfBlocked(userID: userid, completion: { (isBlocked) in
-                        if isBlocked {
+                    
+                    
+                   // FirebaseApi.checkForChat(recipient: userid, completion: { (chatExists, chatId) in
+                        
+                        let msgViewController = MessagesViewController()
+                        let navVC = UINavigationController(rootViewController: msgViewController)
+                        msgViewController.book = book
+                        if let firstname = user.firstname, let lastname = user.lastname {
+                            let lname = user.lastname.characters.first!
                             
-                        } else {
-                            if let firstname = user.firstname, let lastname = user.lastname {
-                                
-                                
-                                
-                            }
-                            
-                            
-                            let msgViewController = MessagesViewController()
-                            let navVC = UINavigationController(rootViewController: msgViewController)
-                            msgViewController.book = book
-                            //print(self.owner)
-                            if let firstname = user.firstname, let lastname = user.lastname {
-                                let lname = user.lastname.characters.first!
-                                
-                                msgViewController.recipient = "\(firstname) \(lname)"
-                            }
-                            if let userid = user.userid {
-                                msgViewController.recipientId = userid
-                                self.present(navVC, animated: true, completion: nil)
-                            }
-                            
+                            msgViewController.recipient = "\(firstname) \(lname)"
+                        }
+                        
+                        msgViewController.recipientId = userid
+                        //msgViewController.chatId = chatId
+                        OperationQueue.main.addOperation {
+                            self.present(navVC, animated: true, completion: nil)
                             
                         }
                         
                         
-                    })
+                        
+                        
+                        
+                        
+                   // })
+                    
+                    
+                    
+                    
+                    
                     
                 }
                 
@@ -263,13 +265,13 @@ class ExploreVC: UIViewController {
         
         
     }
-
     
     
-
-
     
-
+    
+    
+    
+    
 }
 
 extension ExploreVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -303,23 +305,27 @@ extension ExploreVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 if let image = UIImage(data: imageData) {
                     
                     
-                    let alertVC = PMAlertController(title: title, description: message, image:image, style: .alert)
+                    self.alertVC = PMAlertController(title: title, description: message, image:image, style: .alert)
                     
                     
                     
-                    alertVC.addAction(PMAlertAction(title: "Contact Owner", style: .default, action: { () in
+                    self.alertVC.addAction(PMAlertAction(title: "Contact Owner", style: .default, action: { () in
                         
-                        self.contactOwner(book: book)
-                        dump(book)
+                        self.alertVC.dismiss(animated: true, completion: {
+                            self.contactOwner(book: book)
+                            
+                        })
+                        
+                        //dump(book)
                     }))
                     
-                    alertVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
+                    self.alertVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in
                         
                     }))
                     
                     
                     
-                    self.present(alertVC, animated: true, completion: nil)
+                    self.present(self.alertVC, animated: true, completion: nil)
                     
                     
                 }
@@ -422,7 +428,7 @@ extension ExploreVC: MGLMapViewDelegate {
                     alertVC.addAction(PMAlertAction(title: "Contact Owner", style: .default, action: { () in
                         
                         self.contactOwner(book: book)
-                        dump(book)
+                        // dump(book)
                     }))
                     
                     alertVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: { () -> Void in

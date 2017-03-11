@@ -28,6 +28,11 @@ class ChatsViewController: UITableViewController {
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
        
+        self.title = "Chats"
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //self.tabBarController?.navigationItem.title = "Explore"
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]
+        self.tabBarController?.navigationItem.title = "Chats"
      
         
         self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Constants.UI.appColor]

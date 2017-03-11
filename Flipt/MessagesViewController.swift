@@ -19,7 +19,7 @@ class MessagesViewController: JSQMessagesViewController {
     
     var chatId: String = ""
     var recipient: String = ""
-    var recipientId: String = ""
+    var recipientId: String!
     var book: Book!
     
     override func viewDidLoad() {
@@ -32,16 +32,19 @@ class MessagesViewController: JSQMessagesViewController {
         }
         
         self.title = recipient
-        
+        print("msgview running")
         
         if chatId != "" {
             FirebaseApi.getAllMessagesfor(chatId: chatId) { (message) in
-                dump(message)
                 self.addMessage(withId: message.sender, name: message.sender, text: message.text)
                 self.finishSendingMessage()
             }
             
+            
         }
+        
+        
+        
         
         
         
@@ -99,15 +102,16 @@ class MessagesViewController: JSQMessagesViewController {
         
     }
     
-    
-    
-    func sendFirstTimeMessage() {
-        
-    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        FirebaseApi.rootRef.removeAllObservers()
     }
     
     
@@ -117,40 +121,63 @@ class MessagesViewController: JSQMessagesViewController {
         
         
         // FirebaseApi.getRecipientId(chatId: self.chatId, completion: { (recipientId) in
-        FirebaseApi.checkIfBlocked(userID: self.recipientId, completion: { (isBlocked) in
-            if !isBlocked {
+        
+        
+        if let user = User.current {
+            FirebaseApi.checkIfBlocked(userID: self.recipientId, completion: { (isBlocked) in
+                print("isBlocked - \(isBlocked)")
                 
-                FirebaseApi.checkForChat(recipient: self.recipientId, completion: { (chatExists, chatId) in
-                    if chatExists {
-                        FirebaseApi.sendMessage(chatId: chatId, text: text, date: date, completion: {
-                            JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
-                            // animates sending of message
-                            //self.finishSendingMessage()
+                FirebaseApi.checkForChat(recipient: self.recipientId, completion: { (exists, chatId) in
+                    print("Exists - \(exists)")
+                    print("Chat \(chatId)")
+                    if exists {
+                        self.chatId = chatId
+                        FirebaseApi.sendMessage(chatId: chatId, text: text, date: Date(), completion: {
                             
-                            FirebaseApi.getAllMessagesfor(chatId: chatId, completion: { (message) in
-                                self.addMessage(withId: message.sender, name: message.sender, text: message.text)
-                                self.finishSendingMessage()
-                            })
+                            
+                            //self.addMessage(withId: user.userid, name:user.username , text: text)
+                            self.finishSendingMessage()
+                            
                             
                         })
                         
-                    } else {
+                        print("send message")
                         
-                        print("Chat doesn't exist")
+                        
+                    } else {
+                        print("create chat")
+                        FirebaseApi.createChat(recipient: self.recipientId, book: self.book, completion: { (chatId) in
+                            print(chatId)
+                            self.chatId = chatId
+                            FirebaseApi.sendMessage(chatId: chatId, text: text, date: Date(), completion: {
+                                
+                                
+                                //self.addMessage(withId: user.userid, name:user.username , text: text)
+                                self.finishSendingMessage()
+                                
+                                
+                            })
+                        })
                         
                     }
                 })
-                
-                
-                
-            } else {
-                self.addMessage(withId: self.recipient, name: self.recipient, text: text)
-                self.finishSendingMessage()
-                //print("Blocked")
-            }
-        })
-        // })
+            })
+        }
         
+        if chatId != "" {
+            FirebaseApi.getAllMessagesfor(chatId: chatId) { (message) in
+                self.addMessage(withId: message.sender, name: message.sender, text: message.text)
+                self.finishSendingMessage()
+            }
+            
+            
+        }
+        
+        
+        
+        
+        
+
     }
     
     // MARK: Create Messages/ Create JSQMessage objects and append to array
